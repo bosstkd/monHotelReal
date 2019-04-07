@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Mon Hotel</title>
+        <link href="style/style.css" rel="stylesheet"/>
+        <f:facet name="monhotel">
+            <meta name="description" content="L'époque des Plateformes dédiées, seules à être bardées de conseillers et autres consultants est révolue. 
+		Nous avons créé monhotel-dz.com afin que les hôtels, les agences et les clients soient aussi bien accompagnés de services trés pratiques qui répondent à leurs attentes.Mahmoudi Mohammed ElAmine, dirigeant de monhotel-dz.com
+		" />
+		<meta name="keywords" content="hotel, hôtel, agence, voyage, réservation, reservation, chambre, algérie, algerie, gestion, plateforme, monhotel, monhotel-dz,publication, promotion, vacance, touriste, convention" />
+		<meta name="author" content="Mahmoudi Med ElAmine" />
+		<meta name="categories" content="touristique" />
+		<meta name="generator" content="http://www.monhotel-dz.com" />
+        </f:facet>
+      
+                
+    </h:head>
+    
+   
+    <h:body>
+                  
+                  <h:form id="form">
+                        <p:tabView activeIndex="#{indexController.activeIndex}" >
+                                            <p:tab title="" id="htlTab"  >
+                                              <br/>
+                                              <ui:include src="/menuIndex/hotelCarossel.xhtml" />
+                                              <ui:include src="/menuIndex/partPubCarossel/partCarossel.xhtml" />
+
+                                             </p:tab>
+                                           
+                                            <p:tab title="" id="agcTab">
+                                              <ui:include src="/menuIndex/agenceCarossel.xhtml" /> 
+                                            </p:tab>
+                        </p:tabView>
+                    </h:form>
+                        
+                                           
+                         <iframe id="imagepgframe" name="imagepgframe" frameborder="0"  height="530" width="100%" scrolling="auto" src="http://monhotel-dz.com/frameP/do_not_go_to_Algeria.html" />
+                         <iframe id="pieds" name="imagepgframe" frameborder="0"  height="1125" width="100%" scrolling="auto" src="http://monhotel-dz.com/pied/services.html" />
+                        
+        
+                   <h:form style="">  
+                        <p:growl id="messages"/>  
+                       
+                       
+                        
+                        <p:menubar style="font-family: fantasy; font-size: 17px; box-shadow: 5px 0px 5px deepskyblue ; text-shadow:  black 1px 0 1px; position: fixed; top: 0px; left: 0px; width: 100%">
+                           
+                         <p:menuitem icon="fa fa-arrow-right" oncomplete="PF('sidebar1').show()" />                            
+                         
+                         <p:menuitem >
+                            <h:link  outcome="/index.xhtml" >
+                               <h:graphicImage  value="/img/lgn2.jpg" height="30"/>
+                            </h:link>
+                         </p:menuitem>       
+                            
+
+           
+                            <p:menuitem value="Contacts" icon="ui-icon-mail-closed" url="contacts.xhtml" target="_blank" />
+                            <p:menuitem value="Tutoriels" url="http://www.monhotel-dz.com/tuto/tuto.html"  target="_blank" icon="ui-icon-video" />
+                            
+                            
+                            <f:facet name="options">
+                                <h:panelGrid columns="6" cellspacing="0">
+                                    
+                                    <p:selectOneButton id="Combobox1" value="#{indexController.rechIndex}">
+                                         <f:selectItem itemLabel="Hôtels et RnB" itemValue="htlRech" />
+                                         <f:selectItem itemLabel="Agences" itemValue="agcRech" />
+                                         
+                                         <p:ajax event="change" update=":form" listener="#{indexController.procedRech}" />
+                                    </p:selectOneButton>
+                                    
+                                    <h:form>
+                                        
+                                        <p:inputText value = "#{indexController.raisonSociale}" style="margin:1px 10px 1px 1px; height: 22px;"  placeholder="Recherche" />
+                                           
+                                        <p:commandButton icon="fa fa-search" update=":form" />
+                                        
+                                        
+                                    </h:form>
+                                   
+                              
+                               <p:commandButton id="imageBtn" type="button" icon="ui-icon-triangle-1-s" style="color: cornflowerblue;margin:1px 10px 1px 1px; font-size: 17px; width: 30px"/>
+                               <p:overlayPanel  id="imagePanel" for="imageBtn" hideEffect="fade">
+                                    <h:form>
+                                            <p:panel  style="font-size: 13px; text-align: center">
+
+                                             <p:outputLabel for="wil" value="Wilaya" />
+                                             <p:selectOneMenu id="wil" value="#{indexController.wilaya}" style="width: 75%">
+                                                <f:selectItem itemLabel="Aucun choix" itemValue="" />
+                                                <f:selectItem itemLabel="Wilaya d'Adrar" itemValue="Adrar" />
+                                                <f:selectItem itemLabel="Wilaya de Chlef" itemValue="Chlef" />
+                                                <f:selectItem itemLabel="Wilaya de Laghouat" itemValue="Laghouat" />
+                                                <f:selectItem itemLabel="Wilaya d'Oum El Bouaghi" itemValue="Oum El Bouaghi" />
+                                                <f:selectItem itemLabel="Wilaya de Batna" itemValue="Batna" />
+                                                <f:selectItem itemLabel="Wilaya de Béjaia" itemValue="Béjaia" />
+                                                <f:selectItem itemLabel="Wilaya de Biskra" itemValue="Biskra" />
+                                                <f:selectItem itemLabel="Wilaya de Bechar" itemValue="Bechar" />
+                                                <f:selectItem itemLabel="Wilaya de Blida" itemValue="Blida" />
+                                                <f:selectItem itemLabel="Wilaya de Bouira" itemValue="Bouira" />
+                                                <f:selectItem itemLabel="Wilaya de Tamanrasset" itemValue="Tamanrasset" />
+                                                <f:selectItem itemLabel="Wilaya de Tebessa" itemValue="Tebessa" />
+                                                <f:selectItem itemLabel="Wilaya de Tlemcen" itemValue="Tlemcen" />
+                                                <f:selectItem itemLabel="Wilaya de Tiaret" itemValue="Tiaret" />
+                                                <f:selectItem itemLabel="Wilaya de Tizi Ouzou" itemValue="Tizi Ouzou" />
+                                                <f:selectItem itemLabel="Wilaya d'Alger" itemValue="Alger" />
+                                                <f:selectItem itemLabel="Wilaya de Djelfa" itemValue="Djelfa" />
+                                                <f:selectItem itemLabel="Wilaya de Jijel" itemValue="Jijel" />
+                                                <f:selectItem itemLabel="Wilaya de Sétif" itemValue="Sétif" />
+                                                <f:selectItem itemLabel="Wilaya de Saida" itemValue="Saida" />
+                                                <f:selectItem itemLabel="Wilaya de Skikda" itemValue="Skikda" />
+                                                <f:selectItem itemLabel="Wilaya de Sidi Bel Abbès" itemValue="Sidi Bel Abbès" />
+                                                <f:selectItem itemLabel="Wilaya d'Annaba" itemValue="Annaba" />
+                                                <f:selectItem itemLabel="Wilaya de Guelma" itemValue="Guelma" />
+                                                <f:selectItem itemLabel="Wilaya de Constantine" itemValue="Constantine" />
+                                                <f:selectItem itemLabel="Wilaya de Media" itemValue="Media" />
+                                                <f:selectItem itemLabel="Wilaya de Mostaganem" itemValue="Mostaganem" />
+                                                <f:selectItem itemLabel="Wilaya de M'Sila" itemValue="M'Sila" />
+                                                <f:selectItem itemLabel="Wilaya de Mascara" itemValue="Mascara" />
+                                                <f:selectItem itemLabel="Wilaya d'Ouargla" itemValue="Ouargla" />
+                                                <f:selectItem itemLabel="Wilaya d'Oran" itemValue="Oran" />
+                                                <f:selectItem itemLabel="Wilaya d'El Bayadh" itemValue="El Bayadh" />
+                                                <f:selectItem itemLabel="Wilaya d'Illizi" itemValue="Illizi" />
+                                                <f:selectItem itemLabel="Wilaya de Bordj Bou Arreridj" itemValue="Bordj Bou Arreridj" />
+                                                <f:selectItem itemLabel="Wilaya de Boumerdès" itemValue="Boumerdès" />
+                                                <f:selectItem itemLabel="Wilaya d'El Tarf" itemValue="El Tarf" />
+                                                <f:selectItem itemLabel="Wilaya de Tindouf" itemValue="Tindouf" />
+                                                <f:selectItem itemLabel="Wilaya de Tissemsilt" itemValue="Tissemsilt" />
+                                                <f:selectItem itemLabel="Wilaya d'El Oued" itemValue="El Oued" />
+                                                <f:selectItem itemLabel="Wilaya de Khenchela" itemValue="Khenchela" />
+                                                <f:selectItem itemLabel="Wilaya de Souk Ahras" itemValue="Souk Ahras" />
+                                                <f:selectItem itemLabel="Wilaya de Tipaza" itemValue="Tipaza" />
+                                                <f:selectItem itemLabel="Wilaya de Mila" itemValue="Mila" />
+                                                <f:selectItem itemLabel="Wilaya d'Ain Defla" itemValue="Ain Defla" />
+                                                <f:selectItem itemLabel="Wilaya de Naama" itemValue="Naama" />
+                                                <f:selectItem itemLabel="Wilaya d'Ain Témouchent" itemValue="Ain Témouchent" />
+                                                <f:selectItem itemLabel="Wilaya de Ghardaia" itemValue="Ghardaia" />
+                                                <f:selectItem itemLabel="Wilaya de Relizane" itemValue="Relizane" />
+
+                                                <p:ajax event="change" update=":form " />
+                                             </p:selectOneMenu>
+                                             <br/>
+                                             <br/>
+                                             <p:outputLabel for="minPrix" value="Prix Min" />
+                                             <p:inputNumber id="minPrix"  value="#{indexController.prixMin}" placeholder="Prix Min" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="." style="text-align: center; width: 100%;"/>
+                                             <br/>
+                                             <br/>
+                                             <p:outputLabel for="maxPrix" value="Prix Max" />
+                                             <p:inputNumber id="maxPrix"  value="#{indexController.prixMax}" placeholder="Prix Max" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="." style="text-align: center; width: 100%;"/>
+                                             <br/>
+                                             <br/>
+                                           
+                                             <br/>
+                                             <br/>
+                                             <p:commandButton  id="Button1" value="Chercher"  update = ":form" style="text-align: center; width: 85%;">
+                                             </p:commandButton> 
+
+                                            </p:panel>
+                                    </h:form>
+
+                               </p:overlayPanel>
+                              
+                                <p:commandButton id="menuCon" icon="fa fa-list-ul" title="Menu" style="height: 30px; width: 50px; color: black;  background: white;  border-color: white; "/>
+                                <p:overlayPanel for="menuCon" hideEffect="fade" style="width: 280px; height: 250px">
+                                     <ui:include src="/menuIndex/connexionMenu.xhtml" />
+                                </p:overlayPanel>
+                                    
+                                </h:panelGrid>
+   
+                            </f:facet>
+                             
+                            
+                        </p:menubar>
+                
+             </h:form>
+                   <p:sidebar widgetVar="sidebar1" baseZIndex="10000" style="width: 280px">
+                                <ui:include src="/menuIndex/connexionMenuLeft.xhtml" /> 
+                   </p:sidebar>
+    </h:body>
+</html>

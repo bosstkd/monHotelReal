@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Mon Hotel</title>
+        <link href="style/style.css" rel="stylesheet"/>
+        <f:facet name="monhotel">
+            <meta name="description" content="L'époque des Plateformes dédiées, seules à être bardées de conseillers et autres consultants est révolue. 
+		Nous avons créé monhotel-dz.com afin que les hôtels, les agences et les clients soient aussi bien accompagnés de services trés pratiques qui répondent à leurs attentes.Mahmoudi Mohammed ElAmine, dirigeant de monhotel-dz.com
+		" />
+		<meta name="keywords" content="hotel, hôtel, agence, voyage, réservation, reservation, chambre, algérie, algerie, gestion, plateforme, monhotel, monhotel-dz,publication, promotion, vacance, touriste, convention" />
+		<meta name="author" content="Mahmoudi Med ElAmine" />
+		<meta name="categories" content="touristique" />
+		<meta name="generator" content="http://www.monhotel-dz.com" />
+        </f:facet>
+      
+                
+    </h:head>
+    
+   
+    <h:body>
+                  <br/>
+                    <h:form id="form" >
+                        <p:tabView activeIndex="#{indexController.activeIndex}" >
+                                           <p:tab title="" id="htlTab"  >
+                                               <br/>
+                                                 <p:carousel value="#{indexController.listHotel}" headerText="Nos Hôtels" var="htl" itemStyle="height: 425px ; text-align:left" style="width: 100%; height: 100%; font-family: serif; font-weight: inherit; font-style: italic" responsive="true">
+                                                    <h:panelGrid columns="2" id="basic"  style="text-align: left; margin-bottom:5px; font-size: 14px; height:250px; box-shadow: #ADADAD 2px 2px 2px;">                                                        
+                                                        <f:facet name="header">
+                                                                  <p:graphicImage id="logo" name="uploadTest/#{htl.codeH}/logo/logo_RS.jpg" style="cursor:pointer; height: 25%; width: 10%" title="logo" />
+                                                                  <p:outputLabel value="#{htl.raisonSocial.length() gt 25? htl.raisonSocial.subSequence(0, 25):htl.raisonSocial}#{htl.raisonSocial.length() gt 25? '...':''}" style="font-weight: bold; font-size: 15px; font-style: italic; color: black; text-shadow:  black 1px 0 1px;" />
+                                                                  <p:outputLabel value="_" style="color: white"/>
+                                                                  <p:graphicImage id="etoile" name="uploadTest/facture/etoiles/#{htl.etoile}.jpg" title="nbr etoiles" style="height: 10%; width: 10%" />                                                            
+                                                        </f:facet>
+                                                        
+                                                        <h:panelGrid style="text-align: left; width: 100%">
+                                                             <p:lightBox iframe="true" id="lighbox9" width="940px" height="660px">
+                                                                        <p:link outcome="images" style="color: blue">
+                                                                            <p:graphicImage id="img2" name="uploadTest/#{htl.codeH}/photos/#{indexController.img(htl.codeH)}" style="cursor:pointer; height: 47%; width: 100%"  title="Image de présentation" />
+                                                                            <f:param id="paramMPH" name="cdH" value="#{htl.codeH}" />
+                                                                        </p:link>
+                                                                </p:lightBox> 
+                                                             
+                                                             
+                                                             <h:panelGrid columns="2" >
+                                                                 <p:outputLabel value="#{htl.description.subSequence(0, 40)}..."  /> 
+                                                                 <p:commandLink id="imageBtn" value="lire la suite" type="button" style="color: blue" />
+                                                                 <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" my="#{indexController.posit(htl)}" style=" width: 500px;">
+                                                                        <h:panelGrid columns="2" style="width: 100%; text-align: right">
+										<h:panelGrid style="width: 100%; text-align: left">
+										   <p:outputLabel value="#{htl.raisonSocial}: " style="font-weight: bold; font-size: 15px; font-style: italic; color: black; text-shadow:  black 1px 0 1px;" />
+                                                                                </h:panelGrid>
+										<p:graphicImage id="logos" name="uploadTest/#{htl.codeH}/logo/logo_RS.jpg" style="cursor:pointer; " title="logo" />
+                                                                        </h:panelGrid>
+										<br/>
+										<p:outputLabel value="#{htl.description}" style="font-size: 18px; font-family: serif; font-style: italic;" /> 
+                                                                 </p:overlayPanel>
+                                                             </h:panelGrid>
+                                                             
+                                                            <p:lightBox iframe="true" id="lighbox3" width="920px" height="580px">
+                                                                             <p:link outcome="c_interface/connexionClt" value="Demande de réservation" style="font-size: 11px; color: blue">
+                                                                                 <f:param id="paramMP1" name="cdH" value="#{htl.codeH}" />
+                                                                             </p:link>
+                                                            </p:lightBox>
+                                                        </h:panelGrid>
+                                                        
+                                                        <f:facet name="footer">
+                                                            
+                                                            <h:panelGrid columns="2" style="text-align: left; width: 100%">
+                                                               <p:outputLabel value="Tel: #{htl.tel}/#{htl.fax}.   Adresse:#{htl.adresse},   Wilaya: #{htl.wilaya},   commune: #{htl.commune}." style="font-size: 11px" />
+                                                               <p:lightBox iframe="true" id="lighbox4" width="940px" height="660px">
+                                                                        <p:link outcome="images" style="color: blue">
+                                                                             <p:commandButton icon="fa fa-search" />
+                                                                            <f:param id="paramMP0" name="cdH" value="#{htl.codeH}" />
+                                                                        </p:link>
+                                                                </p:lightBox> 
+                                                            </h:panelGrid>
+                                                       
+                                                              <h:panelGrid columns="5" style="text-align: left; width: 100%">
+                                                                <p:commandButton id="btnPicine" icon="fa fa-support" title="equipé de picine" disabled="#{!htl.picine}" style="background-color: white; color: #{indexController.color(htl.picine)}; border-color: white; font-size: 15px"/>
+                                                                <p:commandButton id="btnRestaurant" icon="fa fa-spoon" title="equipé de restaurant" disabled="#{!htl.restaurant}" style="background-color: white; color: #{indexController.color(htl.restaurant)}; border-color: white; font-size: 15px"/>
+                                                                <p:commandButton id="btnCafe" icon="fa fa-coffee" title="equipé d'une cafétéria" disabled="#{!htl.cafeteria}" style="background-color: white; color: #{indexController.color(htl.cafeteria)}; border-color: white; font-size: 15px"/>
+                                                                <p:commandButton id="btnBar" icon="fa fa-glass" title="equipé d'un bar" disabled="#{!htl.bar}" style="background-color: white; color: #{indexController.color(htl.bar)}; border-color: white; font-size: 15px"/>
+                                                                <p:commandButton id="btnWifi" icon="fa fa-wifi" title="Wifi disponible" disabled="#{!htl.wifi}" style="background-color: white; color: #{indexController.color(htl.wifi)}; border-color: white; font-size: 15px"/>
+                                                            </h:panelGrid>
+                                                        </f:facet>
+                                 
+                                                  </h:panelGrid>
+                                                </p:carousel>
+                  
+                                           </p:tab>
+                                           <p:tab title="" id="agcTab">
+
+                                                   <p:repeat value="#{indexController.listPub}" var="pub" >
+                                                   	<br/>
+                                                       <p:panel id="basicAgc"  header="#{pub.codeA.raisonSocial.toUpperCase()}." footer="Tel: #{pub.codeA.tel}/#{pub.codeA.fax}. Adresse:#{pub.codeA.adresse}, Wilaya: #{pub.codeA.wilaya}, commune: #{pub.codeA.commune}."  style="margin-bottom:5px; width: 98%; font-size: 18px">
+                                                       <p:outputLabel value="#{pub.titre.toUpperCase()}" style="font-weight: bold"/>
+                              
+                                                       <div class="p-grid">
+                                                            <div class="p-col-fixed" style="width:200px">
+                                                                <div class="box">
+                                                                    <h:panelGrid columns="2" cellspacing="10">
+                                                                           <p:graphicImage id="img" name="uploadTest/#{pub.codeA.codeA}/logo/logo_RS.jpg" style="cursor:pointer" title="Image de présentation" />
+                                                                           <h:panelGrid columns="2">
+                                                                                       <p:outputLabel value="Du:" />
+                                                                                         <p:outputLabel value="#{pub.dateD}" style="font-weight: bold">
+                                                                                           <f:convertDateTime pattern="dd/MM/yyyy" /> 
+                                                                                         </p:outputLabel>
+                                                                                        <p:outputLabel value="Au:" />
+                                                                                          <p:outputLabel value="#{pub.dateF}" style="font-weight: bold">
+                                                                                           <f:convertDateTime pattern="dd/MM/yyyy" /> 
+                                                                                          </p:outputLabel>
+                                                                           </h:panelGrid>
+                                                                    </h:panelGrid>
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-col">
+                                                                <div class="box">
+
+                                                                    <p:outputLabel value="Détails:" style="font-weight: bold"/>
+                                                                    <br/>
+                                                                    <h:outputText  value="#{pub.detail}"  style="font-size: 18px;"/>                                              
+
+                                                                    
+                                                                    <p:lightBox iframe="true" id="lighboxAgc" width="820px" height="630px">
+                                                                        <p:link outcome="imagesAgc" value="Clique ici pour plus de détails." style="color: blue; font-size: 16px" disabled="#{!pub.valide}">
+                                                                            <f:param id="paramPubAgc" name="cdPub" value="#{pub.codePub}" />
+                                                                        </p:link>
+                                                                    </p:lightBox>
+                                                                    
+                                                                    <p:lightBox iframe="true" id="lighbox3" width="650px" height="430px">
+                                                                        <p:link outcome="c_interface/connexionCltPub" value="S'inscrire" style="color: blue; font-size: 16px" disabled="#{!pub.valide}">
+                                                                            <f:param id="paramAgc" name="cdA" value="#{pub.codeA.codeA}" />
+                                                                            <f:param id="paramPub" name="cdPub" value="#{pub.codePub}" />
+                                                                        </p:link>
+                                                                    </p:lightBox>
+                                                             
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                  </p:panel>   
+																									  
+                                                </p:repeat>
+
+                                           </p:tab>
+
+                                       </p:tabView>
+                        
+                                       <br/>
+                                        
+                         
+                         </h:form>
+                         <iframe id="imagepgframe" name="imagepgframe" frameborder="0"  height="530" width="100%" scrolling="auto" src="http://monhotel-dz.com/frameP/do_not_go_to_Algeria.html" />
+                         <iframe id="pieds" name="imagepgframe" frameborder="0"  height="1125" width="100%" scrolling="auto" src="http://monhotel-dz.com/pied/services.html" />
+                        
+        
+                   <h:form style="">  
+                        <p:growl id="messages"/>  
+                       
+                     
+                        <p:menubar style="font-family: fantasy; font-size: 17px; box-shadow: 5px 0px 5px deepskyblue ; text-shadow:  black 1px 0 1px; position: fixed; top: 0px; left: 0px; width: 100%">
+                            
+                         <p:menuitem>
+                            <h:link outcome="/index.xhtml" >
+                               <h:graphicImage value="/img/lgn2.jpg" height="30"/>
+                            </h:link>
+                         </p:menuitem>       
+                            
+
+           
+                            <p:menuitem value="Contacts" icon="ui-icon-mail-closed" url="contacts.xhtml" target="_blank" />
+                            <p:menuitem value="Tutoriels" url="http://www.monhotel-dz.com/tuto/tuto.html"  target="_blank" icon="ui-icon-video" />
+                            
+                            
+                            <f:facet name="options">
+                                <h:panelGrid columns="6" cellspacing="0">
+                                    <p:outputLabel value="Trouvez:" />
+                                    <p:selectOneMenu id="Combobox1" value="#{indexController.rechIndex}" style="height: 30px">
+                                        <f:selectItem itemLabel="Hôtels" itemValue="htlRech" />
+                                        <f:selectItem itemLabel="Agences" itemValue="agcRech" />
+                                       
+                                        <p:ajax event="change" update=":form" listener="#{indexController.procedRech}" />
+                                    </p:selectOneMenu>
+                                    
+                             
+                                    <p:inputText value = "#{indexController.raisonSociale}" style="margin:1px 10px 1px 1px; height: 22px"  placeholder="Recherche" >
+                                        <p:ajax event="keyup" update=":form" process="@parent:@parent" />
+                                    </p:inputText>
+                              
+                               <p:commandButton id="imageBtn" type="button" icon="ui-icon-triangle-1-s" style="color: cornflowerblue;margin:1px 10px 1px 1px; font-size: 17px; width: 30px"/>
+                               <p:overlayPanel  id="imagePanel" for="imageBtn" hideEffect="fade">
+                                    <h:form>
+                                            <p:panel  style="font-size: 13px; text-align: center">
+
+                                             <p:outputLabel for="wil" value="Wilaya" />
+                                             <p:selectOneMenu id="wil" value="#{indexController.wilaya}" style="width: 75%">
+                                                <f:selectItem itemLabel="Aucun choix" itemValue="" />
+                                                <f:selectItem itemLabel="Wilaya d'Adrar" itemValue="Adrar" />
+                                                <f:selectItem itemLabel="Wilaya de Chlef" itemValue="Chlef" />
+                                                <f:selectItem itemLabel="Wilaya de Laghouat" itemValue="Laghouat" />
+                                                <f:selectItem itemLabel="Wilaya d'Oum El Bouaghi" itemValue="Oum El Bouaghi" />
+                                                <f:selectItem itemLabel="Wilaya de Batna" itemValue="Batna" />
+                                                <f:selectItem itemLabel="Wilaya de Béjaia" itemValue="Béjaia" />
+                                                <f:selectItem itemLabel="Wilaya de Biskra" itemValue="Biskra" />
+                                                <f:selectItem itemLabel="Wilaya de Bechar" itemValue="Bechar" />
+                                                <f:selectItem itemLabel="Wilaya de Blida" itemValue="Blida" />
+                                                <f:selectItem itemLabel="Wilaya de Bouira" itemValue="Bouira" />
+                                                <f:selectItem itemLabel="Wilaya de Tamanrasset" itemValue="Tamanrasset" />
+                                                <f:selectItem itemLabel="Wilaya de Tebessa" itemValue="Tebessa" />
+                                                <f:selectItem itemLabel="Wilaya de Tlemcen" itemValue="Tlemcen" />
+                                                <f:selectItem itemLabel="Wilaya de Tiaret" itemValue="Tiaret" />
+                                                <f:selectItem itemLabel="Wilaya de Tizi Ouzou" itemValue="Tizi Ouzou" />
+                                                <f:selectItem itemLabel="Wilaya d'Alger" itemValue="Alger" />
+                                                <f:selectItem itemLabel="Wilaya de Djelfa" itemValue="Djelfa" />
+                                                <f:selectItem itemLabel="Wilaya de Jijel" itemValue="Jijel" />
+                                                <f:selectItem itemLabel="Wilaya de Sétif" itemValue="Sétif" />
+                                                <f:selectItem itemLabel="Wilaya de Saida" itemValue="Saida" />
+                                                <f:selectItem itemLabel="Wilaya de Skikda" itemValue="Skikda" />
+                                                <f:selectItem itemLabel="Wilaya de Sidi Bel Abbès" itemValue="Sidi Bel Abbès" />
+                                                <f:selectItem itemLabel="Wilaya d'Annaba" itemValue="Annaba" />
+                                                <f:selectItem itemLabel="Wilaya de Guelma" itemValue="Guelma" />
+                                                <f:selectItem itemLabel="Wilaya de Constantine" itemValue="Constantine" />
+                                                <f:selectItem itemLabel="Wilaya de Media" itemValue="Media" />
+                                                <f:selectItem itemLabel="Wilaya de Mostaganem" itemValue="Mostaganem" />
+                                                <f:selectItem itemLabel="Wilaya de M'Sila" itemValue="M'Sila" />
+                                                <f:selectItem itemLabel="Wilaya de Mascara" itemValue="Mascara" />
+                                                <f:selectItem itemLabel="Wilaya d'Ouargla" itemValue="Ouargla" />
+                                                <f:selectItem itemLabel="Wilaya d'Oran" itemValue="Oran" />
+                                                <f:selectItem itemLabel="Wilaya d'El Bayadh" itemValue="El Bayadh" />
+                                                <f:selectItem itemLabel="Wilaya d'Illizi" itemValue="Illizi" />
+                                                <f:selectItem itemLabel="Wilaya de Bordj Bou Arreridj" itemValue="Bordj Bou Arreridj" />
+                                                <f:selectItem itemLabel="Wilaya de Boumerdès" itemValue="Boumerdès" />
+                                                <f:selectItem itemLabel="Wilaya d'El Tarf" itemValue="El Tarf" />
+                                                <f:selectItem itemLabel="Wilaya de Tindouf" itemValue="Tindouf" />
+                                                <f:selectItem itemLabel="Wilaya de Tissemsilt" itemValue="Tissemsilt" />
+                                                <f:selectItem itemLabel="Wilaya d'El Oued" itemValue="El Oued" />
+                                                <f:selectItem itemLabel="Wilaya de Khenchela" itemValue="Khenchela" />
+                                                <f:selectItem itemLabel="Wilaya de Souk Ahras" itemValue="Souk Ahras" />
+                                                <f:selectItem itemLabel="Wilaya de Tipaza" itemValue="Tipaza" />
+                                                <f:selectItem itemLabel="Wilaya de Mila" itemValue="Mila" />
+                                                <f:selectItem itemLabel="Wilaya d'Ain Defla" itemValue="Ain Defla" />
+                                                <f:selectItem itemLabel="Wilaya de Naama" itemValue="Naama" />
+                                                <f:selectItem itemLabel="Wilaya d'Ain Témouchent" itemValue="Ain Témouchent" />
+                                                <f:selectItem itemLabel="Wilaya de Ghardaia" itemValue="Ghardaia" />
+                                                <f:selectItem itemLabel="Wilaya de Relizane" itemValue="Relizane" />
+
+                                                <p:ajax event="change" update=":form " />
+                                             </p:selectOneMenu>
+                                             <br/>
+                                             <br/>
+                                             <p:outputLabel for="minPrix" value="Prix Min" />
+                                             <p:inputNumber id="minPrix"  value="#{indexController.prixMin}" placeholder="Prix Min" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="." style="text-align: center; width: 100%;"/>
+                                             <br/>
+                                             <br/>
+                                             <p:outputLabel for="maxPrix" value="Prix Max" />
+                                             <p:inputNumber id="maxPrix"  value="#{indexController.prixMax}" placeholder="Prix Max" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="." style="text-align: center; width: 100%;"/>
+                                             <br/>
+                                             <br/>
+                                           
+                                             <br/>
+                                             <br/>
+                                             <p:commandButton  id="Button1" value="Chercher"  update = ":form" style="text-align: center; width: 85%;">
+                                             </p:commandButton> 
+
+                                            </p:panel>
+                                    </h:form>
+
+                               </p:overlayPanel>
+                              
+                                <p:commandButton id="menuCon" icon="fa fa-list-ul" title="Menu" style="height: 30px; width: 50px; color: black;  background: white;  border-color: white; "/>
+                                <p:overlayPanel for="menuCon" hideEffect="fade" style="width: 280px; height: 250px">
+                                     <ui:include src="/menuIndex/connexionMenu.xhtml" />
+                                </p:overlayPanel>
+                                    
+                                </h:panelGrid>
+                              
+                                
+                                
+                                
+                            </f:facet>
+                             
+                            
+                        </p:menubar>
+                
+             </h:form>
+                  
+    </h:body>
+</html>

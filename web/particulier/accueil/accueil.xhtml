@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Acueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="style/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body>
+
+        <h:panelGrid columns="3" cellspacing="30" style="position: absolute; left: 25%; top: 5px">
+            
+            <p:link >
+                <p:graphicImage id="accueil" name="original/home.png" style="cursor:pointer; background-color: white; width: 150px; height: 150px; border-radius: 15px" title="Accueil"/>
+            </p:link>
+            
+            <p:link href="http://www.pressealgerie.fr/Lecteur-journaux/index.html" >
+                <p:graphicImage id="journal" name="original/soffice-icone-9550-128.png" style="cursor:pointer; background-color: white; width: 150px; height: 150px; border-radius: 15px" title="Journaux"/>
+            </p:link>
+            
+            <p:link href="https://www.tameteo.com/meteo-Afrique-Algerie-1-5-63.html">
+                <p:graphicImage id="meteo" name="original/meteo.png" style="cursor:pointer; background-color: white; width: 150px; height: 150px; border-radius: 15px" title="Météo"/>
+            </p:link>
+            
+            <p:link href="../demandeR/demandeRsv.xhtml">
+                <p:graphicImage id="res" name="original/reserver.png" style="cursor:pointer; background-color: white; width: 150px; height: 150px; border-radius: 15px" title="Demande de réservation"/>
+            </p:link>
+            
+              <p:link href="../voyage/indexACon.xhtml" >
+                <p:graphicImage id="voyage" name="original/voyage.png" style="cursor:pointer; background-color: white; width: 150px; height: 150px; border-radius: 15px" title="Inscription voyage"/>
+            </p:link>
+            
+             <p:link href="../inscPartPub/inscPartPub.xhtml">
+                <p:graphicImage id="appart" name="original/appartement.png" style="cursor:pointer; background-color: white; width: 150px; height: 150px; border-radius: 15px" title="trouvez mon apparte vacance"/>
+            </p:link>
+            
+             <p:link href="../publicationPart/publicationPart.xhtml">
+                <p:graphicImage id="pub" name="original/pub.png" style="cursor:pointer; background-color: white; width: 150px; height: 150px; border-radius: 15px" title="Publication"/>
+            </p:link>
+            
+            <p:link href="../demRClt/demandeRCltPart.xhtml">
+                <p:graphicImage id="mouv" name="original/mouvement.png" style="cursor:pointer; background-color: white; width: 150px; height: 150px; border-radius: 15px" title="Mes Mouvements"/>
+            </p:link>
+            
+             <p:link href="../demRClt/insPart2Part.xhtml">
+                <p:graphicImage id="insc" name="original/inscrits.png" style="cursor:pointer; background-color: white; width: 150px; height: 150px; border-radius: 15px" title="Liste Inscrits"/>
+            </p:link>
+            
+        </h:panelGrid>
+        
+        
+    </h:body>
+</html>

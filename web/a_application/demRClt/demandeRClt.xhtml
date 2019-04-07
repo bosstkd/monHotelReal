@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Demandes de réservation particuliers</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToAgcCon}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+
+        <p:panel>
+        <h:form id="formTab">
+            
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+            
+            <p:dataTable id="tabInf" value="#{demandeRCltController.listDemAgc}" var="demande" resizableColumns="true" scrollWidth="true"  rows="20"  paginator="true" class="blueTable" style="text-align: center; font-size: 13px;" >
+
+                <p:column filterBy=" #{demande.npid.npid}" headerText="N°PID" filterMatchMode="contains" style="width:80px;text-align: center">
+                              <h:outputText value=" #{demande.npid.npid}" />
+                </p:column>
+                
+                <p:column filterBy=" #{demande.npid.nomPrenom}" headerText="Nom et prénom" filterMatchMode="contains" style="width:80px;text-align: center">
+                              <h:outputText value=" #{demande.npid.nomPrenom}" />
+                </p:column>
+                
+                <p:column filterBy=" #{demande.npid.num_tel}" headerText="Numéro Mob" filterMatchMode="contains" style="width:80px;text-align: center">
+                              <h:outputText value=" #{demande.npid.num_tel}" />
+                </p:column>
+                
+                <p:column filterBy=" #{demande.npid.lienP}" headerText="Daira" filterMatchMode="contains" style="width:80px;text-align: center">
+                              <h:outputText value=" #{demande.npid.lienP}" />
+                </p:column>
+                                
+                <p:column filterBy=" #{demande.du}" headerText=" Date arrivée" filterMatchMode="contains" style="width:100px;text-align: center">
+                              <h:outputText value="#{demande.du}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                </p:column>
+                
+                <p:column filterBy=" #{demande.au}" headerText=" Date départ" filterMatchMode="contains" style="width:100px;text-align: center">
+                            <h:outputText value="#{demande.au}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                </p:column>
+                
+                <p:column filterBy="#{demande.codeH.raisonSocial}" headerText="Hotel" filterMatchMode="contains" style="width:100px;text-align: center">
+                     <h:outputText value="#{demande.codeH.raisonSocial}" />
+                </p:column>
+                
+                <p:column headerText="Chambre" style="width:200px;text-align: center">
+                    <h:outputText value="Type #{demande.typeChambre} avec #{demande.nbPlace} place(s)." />
+                </p:column>
+                
+                <p:column filterBy=" #{demande.dateDm}" headerText="Date demande" filterMatchMode="contains" style="width:100px;text-align: center">
+                            <h:outputText value="#{demande.dateDm}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                </p:column>
+                
+                 
+
+         </p:dataTable>
+                         
+        </h:form>
+        
+       </p:panel>
+    </h:body>
+</html>

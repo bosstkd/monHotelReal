@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Gestion caisse</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+        
+       
+         <p:fieldset id="pnf" legend="Gestion caisse" toggleable="true" toggleSpeed="500" collapsed="true" style="width: 25%;">   
+                 <h:form id="frm">
+                        <p:panel>
+                             <h:panelGrid  columns="2" cellpadding="5"  style="display:block; text-align:center; width:100%">
+                                 
+                                         <h:outputText value="Motif d'opération"  />
+                                         <p:inputText id="motif" value="#{caisseController.motif}" required="true" style=" text-align:center; "/>
+
+                                         <h:outputText value="Somme:" />
+                                         <p:inputNumber id="somme" value="#{caisseController.somme}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="."  placeholder="Versement" required="true"  style=" text-align:center; "/>
+
+                                         <p:commandButton  id="Button1" actionListener="#{caisseController.Ajouter}" value="Versement"  update = ":form:tab :form:msgs">
+                                         </p:commandButton>  
+
+                                         <p:commandButton  id="Button2" actionListener="#{caisseController.Retirer}" value="Reboursement"  update = ":form:tab :form:msgs">
+                                         </p:commandButton>  
+                             </h:panelGrid>
+                        </p:panel>
+                 </h:form>
+           </p:fieldset>         
+           <p:draggable for="pnf" />
+ 
+          <h:form id="form" >
+            <p:growl id="msgs" showDetail="true" sticky="true"/>
+            
+                <p:panel>
+                    <p:dataTable id="tab" var="cas" value="#{caisseController.listCaisse}" rows="10" paginator="true" resizableColumns="true" scrollable="true" >
+                         
+                        <p:column filterBy="#{cas.motif}" headerText="Motif d'opération" filterMatchMode="contains" style="width:200px;text-align: center">
+                              <h:outputText value="#{cas.motif}" />
+                          </p:column>
+                        <p:column filterBy="#{cas.somme}" headerText="Somme" filterMatchMode="contains" style="width:120px;text-align: left">
+                            <h:outputText value="#{cas.somme}" >
+                                <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                            </h:outputText>
+                          </p:column>
+                          <p:column headerText="Date" style="width:150px;text-align: center">
+                              <h:outputText value="#{cas.dates}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />  
+                              </h:outputText>
+                          </p:column>
+                        
+                        <p:column filterBy="#{cas.codeR}" headerText="Code Réservation" filterMatchMode="contains" style="text-align: center">
+                              <h:outputText value="#{cas.codeR}" />
+                          </p:column>
+                        
+                          <p:column filterBy="#{cas.codeU}" headerText="Code User" filterMatchMode="contains" style="width:60px;text-align: center; font-size:10px">
+                              <h:outputText value="#{cas.codeU}" />
+                          </p:column>
+                       
+                      </p:dataTable>
+      
+            </p:panel>
+            </h:form>
+       
+         <p:fieldset id="pnf1" legend="Présentation graphique" toggleable="true" toggleSpeed="500" collapsed="true" style="width: 60%;">   
+           <h:form id="charts">
+               <p:panel>
+                   <h:panelGrid  columns="8" cellpadding="7"  style="display:block; text-align:center; width:100%">
+                       
+                       <h:panelGrid  columns="2" cellpadding="7"  style="text-align:center; width:100%">
+                           <p:selectBooleanCheckbox  id="Checkbox1" value="#{caisseController.journ}" >
+                                        
+                           </p:selectBooleanCheckbox> 
+                           <p:outputLabel   value="Recherche Journalière" />
+                       </h:panelGrid>
+                       
+                       <p:outputLabel   value="     " />
+                       <p:outputLabel for="Dt_Du" value="DU:" /> 
+                       <p:calendar id="Dt_Du" value="#{caisseController.du}" placeholder="dd/MM/yy" effect="fade" />
+                         <p:outputLabel   value="     " />
+                        <p:outputLabel for="Dt_Au" value="AU:" /> 
+                        <p:calendar id="Dt_Au" value="#{caisseController.au}" placeholder="dd/MM/yy" effect="fade" />
+                          
+                        <p:commandButton  id="Button1" actionListener="#{caisseController.calcule}" value="Afficher" update="charts:pnl" />
+
+                   </h:panelGrid>
+
+                   
+                   </p:panel>
+                 
+                 <p:panel id="pnl">
+                        <p:chart type="bar" model="#{caisseController.animatedModel2}" style="width: 100%; height: 400px;" />
+                 </p:panel>  
+           </h:form>
+        </p:fieldset> 
+      
+           
+                     
+            
+    </h:body>
+</html>

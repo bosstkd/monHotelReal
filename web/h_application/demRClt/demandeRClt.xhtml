@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Demandes de réservation particuliers</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+
+        <p:panel>
+        <h:form id="formTab">
+            
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+            
+            <p:dataTable id="tabInf" value="#{demandeRCltController.listDem}" var="demande" resizableColumns="true" scrollWidth="true"  rows="10"  paginator="true" class="blueTable" style="text-align: center; font-size: 15px;" >
+
+                <p:column filterBy=" #{demande.npid.npid}" headerText="N°PID" filterMatchMode="contains" style="width:80px;text-align: center">
+                              <h:outputText value=" #{demande.npid.npid}" />
+                </p:column>
+                
+                <p:column filterBy=" #{demande.npid.nomPrenom}" headerText="Nom et prénom" filterMatchMode="contains" style="width:80px;text-align: center">
+                              <h:outputText value=" #{demande.npid.nomPrenom}" />
+                </p:column>
+                
+                <p:column filterBy=" #{demande.npid.num_tel}" headerText="Numéro Mob" filterMatchMode="contains" style="width:80px;text-align: center">
+                              <h:outputText value=" #{demande.npid.num_tel}" />
+                </p:column>
+                
+                <p:column filterBy=" #{demande.du}" headerText=" Date arrivée" filterMatchMode="contains" style="width:100px;text-align: center">
+                              <h:outputText value="#{demande.du}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                </p:column>
+                
+                <p:column filterBy=" #{demande.au}" headerText=" Date départ" filterMatchMode="contains" style="width:100px;text-align: center">
+                            <h:outputText value="#{demande.au}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Chambre" style="width:200px;text-align: center">
+                    <h:outputText value="Type #{demande.typeChambre} avec #{demande.nbPlace} place(s)." />
+                </p:column>
+                
+                <p:column filterBy=" #{demande.dateDm}" headerText="Date demande" filterMatchMode="contains" style="width:100px;text-align: center">
+                            <h:outputText value="#{demande.dateDm}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                </p:column>
+                    
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton update=":formTab:tabInf :formTab:msgs" actionListener="#{demandeRCltController.accepter(demande.codeDmClt)}"  disabled="#{demandeRCltController.isAccepted(demande.codeDmClt)}" icon="fa fa-check" title="#{demande.commentaire}">
+                          <p:confirm header="Confirmation" message="Veuillez confirmer l'acceptation svp." icon="fa fa-check-circle" />
+                    </p:commandButton>
+                    <p:confirmDialog id="confir" global="true" showEffect="slide" hideEffect="slide">
+                                    <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog> 
+                
+                </p:column>
+                
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton update=":formTab:tabInf :formTab:msgs" actionListener="#{demandeRCltController.supprimer(demande.codeDmClt)}" icon="ui-icon-closethick" title="#{demande.commentaire}">
+                          <p:confirm header="Confirmation" message="Veuillez confirmer la suppression de la demande svp." icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog id="confirm" global="true" showEffect="slide" hideEffect="slide">
+                                    <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog> 
+                
+                </p:column>
+                
+         </p:dataTable>
+            
+        </h:form>
+        
+       </p:panel>
+        
+        
+        
+         <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+      
+
+                <f:facet name="start">
+                    <p:graphicImage name="/original/giphy.gif" style="height: 100px; width: 120px" />
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value="Status: Mail envoyer avec succès" />
+                </f:facet>
+            
+            </p:ajaxStatus>
+
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <p:graphicImage name="/original/giphy.gif" />
+            </p:dialog>
+        
+        
+        
+        
+    </h:body>
+</html>

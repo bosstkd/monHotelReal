@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+            <title>Inscription</title>
+            <link href="styleCSS/client.css" rel="stylesheet"/>
+    </h:head>
+    
+    <h:body>
+        
+        
+       
+        <h:form id="Form1" >
+            <h:panelGrid columns="3" cellpadding="5" style=" position: absolute; left: 30%">
+                 <p:button value="Accueil" href="../../index.xhtml" style="width: 100px;" />
+                 <p:button value="Connexion" href="../../connexionPart.xhtml" style="width: 120px;" />
+                  <p:lightBox iframe="true" id="lighbox3" width="450px" height="300px">
+                        <h:outputLink value="recup.xhtml" title="Récupération psw" style="width:100%" >
+                            <p:commandButton id="movieBtn" value="Récupération mot de passe" type="button" style="width: 280px;"/>
+                        </h:outputLink>
+                  </p:lightBox>
+                 
+            </h:panelGrid> 
+                           
+            
+             <p:panel id="panel" header="Inscription" style="font-size: 15px; position: absolute; top: 70px; left: 20%;">
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+             <h:panelGrid columns="4" cellpadding="10"  style="display:block; text-align:right">
+                 <p:outputLabel for="Combobox1" value="Type Pièce d'identité:" /> 
+                 <p:selectOneMenu id="Combobox1" value="#{clientController.pieceId}" >
+                         <f:selectItem itemLabel="Carte national" itemValue="Carte national" />
+                         <f:selectItem itemLabel="Permis de conduire" itemValue="Permis de conduire" />
+                         <f:selectItem itemLabel="Passport" itemValue="Passport" />
+                         <f:selectItem itemLabel="Autre" itemValue="Autre" />
+                     </p:selectOneMenu>
+                 
+                 <p:outputLabel for="PCI" value="N° PCI:" /> 
+                 <p:inputText id="PCI"  value="#{clientController.npid}" placeholder="Numéro piece d'identité" required="true">
+                    <f:validateLength minimum="5" />
+                 </p:inputText>
+                
+                 <p:outputLabel for="Dates" value="Date de délivrance:" /> 
+                 <p:calendar id="Dates" value="#{clientController.dateP}" effect="fold" required="true"/>
+                 
+                 <p:outputLabel for="lieu_p" value="Par:" /> 
+                 <p:inputText id="lieu_p" value="#{clientController.lienP}" placeholder="Lieu de délivrance" required="true">
+                  
+                 </p:inputText>
+                 
+                 <p:outputLabel for="nom" value="Nom et prénom:" /> 
+                 <p:inputText id="nom" value="#{clientController.nomPrenom}" placeholder="nom et prénom" required="true">
+                 </p:inputText>
+                 <p:outputLabel value=" " /> 
+                 <p:outputLabel value=" " /> 
+                 <p:outputLabel for="lieun" value="lieu de naissance:" /> 
+                 <p:inputText id="lieun" value="#{clientController.lieuN}" placeholder="lieu de naissance" required="true">
+                 </p:inputText>
+                  <p:outputLabel for="daten" value="date de naissance:" /> 
+                  <p:calendar id="daten" value="#{clientController.dateN}" effect="fold" required="true"/>
+                  
+                 <p:outputLabel for="nat" value="Nationalité:" />   
+                 
+                  <p:selectOneMenu id="nat" value="#{clientController.nationalite}" required="true">
+                                            <f:selectItem itemLabel="Algérien-ne" itemValue="Algérien-ne" />
+                                            <f:selectItem itemLabel="Afghan-e" itemValue="Afghan-e" />
+                                            <f:selectItem itemLabel="Albanais-e" itemValue="Albanais-e" />
+                                            <f:selectItem itemLabel="Allemand-e" itemValue="Allemand-e" />
+                                            <f:selectItem itemLabel="Américain-e" itemValue="Américain-e" />
+                                            <f:selectItem itemLabel="Andorran-e" itemValue="Andorran-e" />
+                                            <f:selectItem itemLabel="Angolais-e" itemValue="Angolais-e" />
+                                            <f:selectItem itemLabel="Argentin-e" itemValue="Argentin-e" />
+                                            <f:selectItem itemLabel="Arménien-ne" itemValue="Arménien-ne" />
+                                            <f:selectItem itemLabel="Arubain-ne" itemValue="Arubain-ne" />
+                                            <f:selectItem itemLabel="Australien-ne" itemValue="Australien-ne" />
+                                            <f:selectItem itemLabel="Autrichien-ne" itemValue="Autrichien-ne" />
+                                            <f:selectItem itemLabel="Azerbaidjanais-e" itemValue="Azerbaidjanais-e" />
+                                            <f:selectItem itemLabel="Bahamien-ne" itemValue="Bahamien-ne" />
+                                            <f:selectItem itemLabel="Bahreinien-ne" itemValue="Bahreinien-ne" />
+                                            <f:selectItem itemLabel="Bangladais-e" itemValue="Bangladais-e" />
+                                            <f:selectItem itemLabel="Barbadien-ne" itemValue="Barbadien-ne" />
+                                            <f:selectItem itemLabel="Belge" itemValue="Belge" />
+                                            <f:selectItem itemLabel="Bélizien-ne" itemValue="Bélizien-ne" />
+                                            <f:selectItem itemLabel="Béninois-e" itemValue="Béninois-e" />
+                                            <f:selectItem itemLabel="Bermudien-ne" itemValue="Bermudien-ne" />
+                                            <f:selectItem itemLabel="Bhoutanais-e" itemValue="Bhoutanais-e" />
+                                            <f:selectItem itemLabel="Biélorusse" itemValue="Biélorusse" />
+                                            <f:selectItem itemLabel="Birman-e" itemValue="Birman-e" />
+                                            <f:selectItem itemLabel="Bissau-Guinéen-ne" itemValue="Bissau-Guinéen-ne" />
+                                            <f:selectItem itemLabel="Bolivien-ne" itemValue="Bolivien-ne" />
+                                            <f:selectItem itemLabel="Bosniaque, Bosnien-ne" itemValue="Bosniaque, Bosnien-ne" />
+                                            <f:selectItem itemLabel="Botswanais-e, Botswanéen-ne" itemValue="Botswanais-e, Botswanéen-ne" />
+                                            <f:selectItem itemLabel="Brésilien-ne" itemValue="Brésilien-ne" />
+                                            <f:selectItem itemLabel="Britannique" itemValue="Britannique" />
+                                            <f:selectItem itemLabel="Brunéien-ne" itemValue="Brunéien-ne" />
+                                            <f:selectItem itemLabel="Bulgare" itemValue="Bulgare" />
+                                            <f:selectItem itemLabel="Burkinabé-e, Burkinais-e" itemValue="Burkinabé-e, Burkinais-e" />
+                                            <f:selectItem itemLabel="Burundais-e" itemValue="Burundais-e" />
+                                            <f:selectItem itemLabel="Camerounais-e" itemValue="Camerounais-e" />
+                                            <f:selectItem itemLabel="Canadien-ne" itemValue="Canadien-ne" />
+                                            <f:selectItem itemLabel="Cap-Verdien-ne" itemValue="Cap-Verdien-ne" />
+                                            <f:selectItem itemLabel="Centrafricain-e" itemValue="Centrafricain-e" />
+                                            <f:selectItem itemLabel="Chilien-ne" itemValue="Chilien-ne" />
+                                            <f:selectItem itemLabel="Chinois-e" itemValue="Chinois-e" />
+                                            <f:selectItem itemLabel="Chypriote, Cypriote" itemValue="Chypriote, Cypriote" />
+                                            <f:selectItem itemLabel="Colombien-ne" itemValue="Colombien-ne" />
+                                            <f:selectItem itemLabel="Comorien-ne" itemValue="Comorien-ne" />
+                                            <f:selectItem itemLabel="Congolais-e" itemValue="Congolais-e" />
+                                            <f:selectItem itemLabel="Congolais-e" itemValue="Congolais-e" />
+                                            <f:selectItem itemLabel="Costaricain-e, Costaricien-ne" itemValue="Costaricain-e, Costaricien-ne" />
+                                            <f:selectItem itemLabel="Croate" itemValue="Croate" />
+                                            <f:selectItem itemLabel="Cubain-e" itemValue="Cubain-e" />
+                                            <f:selectItem itemLabel="Danois-e" itemValue="Danois-e" />
+                                            <f:selectItem itemLabel="Djiboutien-ne" itemValue="Djiboutien-ne" />
+                                            <f:selectItem itemLabel="Dominicain-e" itemValue="Dominicain-e" />
+                                            <f:selectItem itemLabel="Dominiquais-e" itemValue="Dominiquais-e" />
+                                            <f:selectItem itemLabel="gyptien-ne" itemValue="gyptien-ne" />
+                                            <f:selectItem itemLabel="mirien-ne" itemValue="mirien-ne" />
+                                            <f:selectItem itemLabel="quato-Guinéen-ne" itemValue="quato-Guinéen-ne" />
+                                            <f:selectItem itemLabel="quatorien-ne" itemValue="quatorien-ne" />
+                                            <f:selectItem itemLabel="rythréen-ne" itemValue="rythréen-ne" />
+                                            <f:selectItem itemLabel="Espagnol-e" itemValue="Espagnol-e" />
+                                            <f:selectItem itemLabel="Estonien-ne" itemValue="Estonien-ne" />
+                                            <f:selectItem itemLabel="Est-Timorais-e" itemValue="Est-Timorais-e" />
+                                            <f:selectItem itemLabel="thiopien-ne" itemValue="thiopien-ne" />
+                                            <f:selectItem itemLabel="Fidjien-ne" itemValue="Fidjien-ne" />
+                                            <f:selectItem itemLabel="Finlandais-e" itemValue="Finlandais-e" />
+                                            <f:selectItem itemLabel="Français-e" itemValue="Français-e" />
+                                            <f:selectItem itemLabel="Gabonais-e" itemValue="Gabonais-e" />
+                                            <f:selectItem itemLabel="Gambien-ne" itemValue="Gambien-ne" />
+                                            <f:selectItem itemLabel="Géorgien-ne" itemValue="Géorgien-ne" />
+                                            <f:selectItem itemLabel="Ghanéen-ne" itemValue="Ghanéen-ne" />
+                                            <f:selectItem itemLabel="Gibraltarien-ne" itemValue="Gibraltarien-ne" />
+                                            <f:selectItem itemLabel="Grec - Grecque" itemValue="Grec - Grecque" />
+                                            <f:selectItem itemLabel="Grenadien-ne" itemValue="Grenadien-ne" />
+                                            <f:selectItem itemLabel="Guatémaltèque" itemValue="Guatémaltèque" />
+                                            <f:selectItem itemLabel="Guinéen-ne" itemValue="Guinéen-ne" />
+                                            <f:selectItem itemLabel="Guyanais-e, Guyanien-ne" itemValue="Guyanais-e, Guyanien-ne" />
+                                            <f:selectItem itemLabel="Haitien-ne" itemValue="Haitien-ne" />
+                                            <f:selectItem itemLabel="Hondurien-ne" itemValue="Hondurien-ne" />
+                                            <f:selectItem itemLabel="Hongrois-e" itemValue="Hongrois-e" />
+                                            <f:selectItem itemLabel="Indien-ne" itemValue="Indien-ne" />
+                                            <f:selectItem itemLabel="Indonésien-ne" itemValue="Indonésien-ne" />
+                                            <f:selectItem itemLabel="Irakien-ne, Iraquien-ne" itemValue="Irakien-ne, Iraquien-ne" />
+                                            <f:selectItem itemLabel="Iranien-ne" itemValue="Iranien-ne" />
+                                            <f:selectItem itemLabel="Irlandais-e" itemValue="Irlandais-e" />
+                                            <f:selectItem itemLabel="Islandais-e" itemValue="Islandais-e" />
+                                            <f:selectItem itemLabel="Italien-ne" itemValue="Italien-ne" />
+                                            <f:selectItem itemLabel="Ivoirien-ne" itemValue="Ivoirien-ne" />
+                                            <f:selectItem itemLabel="Jamaicain-e" itemValue="Jamaicain-e" />
+                                            <f:selectItem itemLabel="Japonais-e" itemValue="Japonais-e" />
+                                            <f:selectItem itemLabel="Jordanien-ne" itemValue="Jordanien-ne" />
+                                            <f:selectItem itemLabel="Kazakh(-e)" itemValue="Kazakh(-e)" />
+                                            <f:selectItem itemLabel="Kenyan-e" itemValue="Kenyan-e" />
+                                            <f:selectItem itemLabel="Kirghiz" itemValue="Kirghiz" />
+                                            <f:selectItem itemLabel="Kiribatien-ne" itemValue="Kiribatien-ne" />
+                                            <f:selectItem itemLabel="Kosovar-e" itemValue="Kosovar-e" />
+                                            <f:selectItem itemLabel="Koweitien-ne" itemValue="Koweitien-ne" />
+                                            <f:selectItem itemLabel="Laotien-ne" itemValue="Laotien-ne" />
+                                            <f:selectItem itemLabel="Lesothan-e" itemValue="Lesothan-e" />
+                                            <f:selectItem itemLabel="Letton-(n)e" itemValue="Letton-(n)e" />
+                                            <f:selectItem itemLabel="Libanais-e" itemValue="Libanais-e" />
+                                            <f:selectItem itemLabel="Libérien-ne" itemValue="Libérien-ne" />
+                                            <f:selectItem itemLabel="Libyen-ne" itemValue="Libyen-ne" />
+                                            <f:selectItem itemLabel="Liechtensteinois-e" itemValue="Liechtensteinois-e" />
+                                            <f:selectItem itemLabel="Lituanien-ne" itemValue="Lituanien-ne" />
+                                            <f:selectItem itemLabel="Luxembourgeois-e" itemValue="Luxembourgeois-e" />
+                                            <f:selectItem itemLabel="Macédonien-ne" itemValue="Macédonien-ne" />
+                                            <f:selectItem itemLabel="Malaisien-ne" itemValue="Malaisien-ne" />
+                                            <f:selectItem itemLabel="Malawite, Malawien-ne" itemValue="Malawite, Malawien-ne" />
+                                            <f:selectItem itemLabel="Maldivien-ne" itemValue="Maldivien-ne" />
+                                            <f:selectItem itemLabel="Malgache" itemValue="Malgache" />
+                                            <f:selectItem itemLabel="Malien-ne" itemValue="Malien-ne" />
+                                            <f:selectItem itemLabel="Maltais-e" itemValue="Maltais-e" />
+                                            <f:selectItem itemLabel="Marocain-e" itemValue="Marocain-e" />
+                                            <f:selectItem itemLabel="Mauricien-ne" itemValue="Mauricien-ne" />
+                                            <f:selectItem itemLabel="Mauritanien-ne" itemValue="Mauritanien-ne" />
+                                            <f:selectItem itemLabel="Mexicain-e" itemValue="Mexicain-e" />
+                                            <f:selectItem itemLabel="Monégasque" itemValue="Monégasque" />
+                                            <f:selectItem itemLabel="Mongol-e" itemValue="Mongol-e" />
+                                            <f:selectItem itemLabel="Monténégrin-e" itemValue="Monténégrin-e" />
+                                            <f:selectItem itemLabel="Mozambicain-e" itemValue="Mozambicain-e" />
+                                            <f:selectItem itemLabel="Namibien-ne" itemValue="Namibien-ne" />
+                                            <f:selectItem itemLabel="Néerlandais-e" itemValue="Néerlandais-e" />
+                                            <f:selectItem itemLabel="Néo-Zélandais-e" itemValue="Néo-Zélandais-e" />
+                                            <f:selectItem itemLabel="Népalais-e" itemValue="Népalais-e" />
+                                            <f:selectItem itemLabel="Nicaraguayen-ne" itemValue="Nicaraguayen-ne" />
+                                            <f:selectItem itemLabel="Nigérian-e" itemValue="Nigérian-e" />
+                                            <f:selectItem itemLabel="Nigérien-ne" itemValue="Nigérien-ne" />
+                                            <f:selectItem itemLabel="Nord-Coréen-ne" itemValue="Nord-Coréen-ne" />
+                                            <f:selectItem itemLabel="Norvégien-ne" itemValue="Norvégien-ne" />
+                                            <f:selectItem itemLabel="Omanais-e" itemValue="Omanais-e" />
+                                            <f:selectItem itemLabel="Ougandais-e" itemValue="Ougandais-e" />
+                                            <f:selectItem itemLabel="Ouzbek" itemValue="Ouzbek" />
+                                            <f:selectItem itemLabel="Pakistanais-e" itemValue="Pakistanais-e" />
+                                            <f:selectItem itemLabel="Panaméen-ne" itemValue="Panaméen-ne" />
+                                            <f:selectItem itemLabel="Papouasien-ne" itemValue="Papouasien-ne" />
+                                            <f:selectItem itemLabel="Palisténi-ne" itemValue="Palisténi-ne" />
+                                            <f:selectItem itemLabel="Paraguayen-ne" itemValue="Paraguayen-ne" />
+                                            <f:selectItem itemLabel="Péruvien-ne" itemValue="Péruvien-ne" />
+                                            <f:selectItem itemLabel="Philippin-e" itemValue="Philippin-e" />
+                                            <f:selectItem itemLabel="Polonais-e" itemValue="Polonais-e" />
+                                            <f:selectItem itemLabel="Portoricain-e" itemValue="Portoricain-e" />
+                                            <f:selectItem itemLabel="Portugais-e" itemValue="Portugais-e" />
+                                            <f:selectItem itemLabel="Qatari-e, Qatarien-ne" itemValue="Qatari-e, Qatarien-ne" />
+                                            <f:selectItem itemLabel="Roumain-e" itemValue="Roumain-e" />
+                                            <f:selectItem itemLabel="Russe" itemValue="Russe" />
+                                            <f:selectItem itemLabel="Rwandais-e" itemValue="Rwandais-e" />
+                                            <f:selectItem itemLabel="Saint-Vincentais-e, Grenadin-e" itemValue="Saint-Vincentais-e, Grenadin-e" />
+                                            <f:selectItem itemLabel="Salvadorien-ne" itemValue="Salvadorien-ne" />
+                                            <f:selectItem itemLabel="Saoudien-ne" itemValue="Saoudien-ne" />
+                                            <f:selectItem itemLabel="Sénégalais-e" itemValue="Sénégalais-e" />
+                                            <f:selectItem itemLabel="Serbe" itemValue="Serbe" />
+                                            <f:selectItem itemLabel="Sierra-Léonais-e" itemValue="Sierra-Léonais-e" />
+                                            <f:selectItem itemLabel="Singapourien-ne" itemValue="Singapourien-ne" />
+                                            <f:selectItem itemLabel="Slovaque" itemValue="Slovaque" />
+                                            <f:selectItem itemLabel="Slovène" itemValue="Slovène" />
+                                            <f:selectItem itemLabel="Somalien-ne" itemValue="Somalien-ne" />
+                                            <f:selectItem itemLabel="Soudanais-e" itemValue="Soudanais-e" />
+                                            <f:selectItem itemLabel="Sri-Lankais-e" itemValue="Sri-Lankais-e" />
+                                            <f:selectItem itemLabel="Sud-Africain-e" itemValue="Sud-Africain-e" />
+                                            <f:selectItem itemLabel="Sud-Coréen-ne" itemValue="Sud-Coréen-ne" />
+                                            <f:selectItem itemLabel="Suédois-e" itemValue="Suédois-e" />
+                                            <f:selectItem itemLabel="Suisse" itemValue="Suisse" />
+                                            <f:selectItem itemLabel="Surinamien-ne" itemValue="Surinamien-ne" />
+                                            <f:selectItem itemLabel="Swazi-e" itemValue="Swazi-e" />
+                                            <f:selectItem itemLabel="Syrien-ne" itemValue="Syrien-ne" />
+                                            <f:selectItem itemLabel="Tadjik" itemValue="Tadjik" />
+                                            <f:selectItem itemLabel="Taiwanais-e" itemValue="Taiwanais-e" />
+                                            <f:selectItem itemLabel="Tanzanien-ne" itemValue="Tanzanien-ne" />
+                                            <f:selectItem itemLabel="Tchadien-ne" itemValue="Tchadien-ne" />
+                                            <f:selectItem itemLabel="Tchèque" itemValue="Tchèque" />
+                                            <f:selectItem itemLabel="Thailandais-e" itemValue="Thailandais-e" />
+                                            <f:selectItem itemLabel="Togolais-e" itemValue="Togolais-e" />
+                                            <f:selectItem itemLabel="Tunisien-ne" itemValue="Tunisien-ne" />
+                                            <f:selectItem itemLabel="Turc - Turque" itemValue="Turc - Turque" />
+                                            <f:selectItem itemLabel="Turkmène" itemValue="Turkmène" />
+                                            <f:selectItem itemLabel="Tuvaluan-e" itemValue="Tuvaluan-e" />
+                                            <f:selectItem itemLabel="Ukrainien-ne" itemValue="Ukrainien-ne" />
+                                            <f:selectItem itemLabel="Uruguayen-ne" itemValue="Uruguayen-ne" />
+                                            <f:selectItem itemLabel="Vénézuélien-ne" itemValue="Vénézuélien-ne" />
+                                            <f:selectItem itemLabel="Vietnamien-ne" itemValue="Vietnamien-ne" />
+                                            <f:selectItem itemLabel="Yéménite" itemValue="Yéménite" />
+                                            <f:selectItem itemLabel="Zambien-ne" itemValue="Zambien-ne" />
+                                            <f:selectItem itemLabel="Zimbabwéen-ne" itemValue="Zimbabwéen-ne" />
+                  </p:selectOneMenu>
+                 
+                 <p:outputLabel for="adresse" value="Adresse:" /> 
+                 <p:inputTextarea id="adresse" value="#{clientController.adresse}" placeholder="Adresse" >
+                 </p:inputTextarea> 
+                 <p:outputLabel for="mob" value="Mobile:" /> 
+                 <p:inputMask id="mob" value="#{clientController.numTel}" placeholder="téléphone" mask="(9999) 999-999" >
+                 </p:inputMask>
+                              
+                 <p:outputLabel for="mail" value="Adresse Mail:" /> 
+                 <p:inputText id="mail" value="#{clientController.mail}" placeholder="@ Email" required="true">
+                      <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                      <f:validateLength minimum="6" />
+                 </p:inputText>
+                 
+             </h:panelGrid>
+             
+                
+                    
+             <p:commandButton value="S'inscrire" actionListener="#{clientController.confirmeClt}" style="font-size: 19px;" onclick="this.disabled=true" oncomplete="this.disabled= #{!facesContext.validationFailed}" update="@this msgs" icon="ui-icon-circle-check">
+                            <!--<p:confirm header="Confirmation" message="êtes-vous sûr?" icon="ui-icon-alert" />-->
+                </p:commandButton>
+                    
+            
+            </p:panel>               
+        </h:form>
+        
+        
+         <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+      
+
+                <f:facet name="start">
+                    <p:graphicImage name="/original/giphy.gif" style="height: 100px; width: 120px" />
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value="Status: Mail envoyer avec succès" />
+                </f:facet>
+            
+            </p:ajaxStatus>
+
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <p:graphicImage name="/original/giphy.gif" />
+            </p:dialog>
+        
+        
+    </h:body>
+       
+</html>

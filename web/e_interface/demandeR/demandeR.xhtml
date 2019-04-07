@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+            <title>Demande de réservation</title>
+            <link href="styleCSS/client.css" rel="stylesheet"/>
+            
+        <f:metadata>
+            <f:viewAction action="#{sessionInfo.returnToEntCon}" />
+        </f:metadata>
+            
+    </h:head>
+    
+    <h:body>
+        
+        <h:form id="Form1" >
+            
+    
+            
+            <p:fieldset id="pn" legend="Créer une demande de réservation" toggleable="true" toggleSpeed="500" collapsed="false" style="width: 480px;">
+               
+                
+                 <h:form id="frmDemande" >
+                        <p:growl id="msgs" showDetail="true" sticky="true"/>
+
+                       <h:panelGrid columns="2" cellpadding="2" >
+                           <p:panel id="panel" style="height: 250px; width: 300px; text-align: center">
+                       <h:panelGrid columns="3" cellpadding="5"  style="display:block; text-align:left; font-size: 15px;">
+
+                          <p:outputLabel for="nmCh" value="N° Chambre: " /> 
+                          <p:inputText id="nmCh"  value="#{demandeRController.num_ch}" placeholder="N° Chambre" required="true" disabled="true">
+
+                          </p:inputText>
+
+                          <p:message for="nmCh" id="msgNom" display="icon" />
+           
+            <p:outputLabel for="Combobox1" value="Pension: " /> 
+            <p:selectOneMenu id="Combobox1" value="#{demandeRController.typeP}" >
+                         <f:selectItem itemLabel="Demi" itemValue="Demi" />
+                         <f:selectItem itemLabel="Complette" itemValue="Complette" />
+                         <f:selectItem itemLabel="Non" itemValue="Non" />
+            </p:selectOneMenu>
+            <p:outputLabel value="   " /> 
+
+        </h:panelGrid>
+           <br/><br/>
+        <p:commandButton  id="Button1" actionListener="#{demandeRController.confirme}" value="Confirmer"  update = "Form1:frmDemande:panelTab Form1:frmDemande:msgs" style="width: 100%; font-size: 15px; text-align: center"/>
+       <br/><br/>
+        <p:commandButton  id="Button2" value="Actualiser"  update = "Form1:frmDemande:panelTab" style="width: 100%; font-size: 15px; text-align: center"/>
+
+       </p:panel> 
+         
+         <p:panel id="panelTab" style="height: 250px;">
+             <p:dataTable id="demandeDT" var="demande" value="#{demandeRController.listDemandeR}" scrollable="true" scrollHeight="150" rows="3" paginator="true" paginatorPosition="bottom" style="font-size: 15px; text-align: center">
+      
+                                        <p:column filterBy="#{demande.numch.numchApp}" headerText="Chambre"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.numch.numchApp}" />
+                                        </p:column>
+
+                                        <p:column filterBy="#{demande.dateDm}" headerText="Date demande"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.dateDm}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                            </h:outputText>
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.du}" headerText="Du"  filterMatchMode="contains">
+                                             <h:outputText value="#{demande.du}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                             </h:outputText>
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.du}" headerText="Au" filterMatchMode="contains" >
+                                              <h:outputText value="#{demande.au}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                              </h:outputText>
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.typePension}" headerText="Type Pension"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.typePension}" />
+                                        </p:column>
+
+                 
+                                        <p:column  filterBy="#{demande.etatDm?'Confirmer':'En Attente'}" headerText="Etat demande" filterMatchMode="contains" >
+                                            <h:outputText value="#{demande.etatDm?'Confirmer':'En Attente'}" />
+                                        </p:column>
+                 
+                                        <p:column style="width:32px;text-align: center">
+                                            <p:commandButton update="Form1:frmDemande:panelTab Form1:frmDemande:msgs" actionListener="#{demandeRController.annuler(demande.codeDm)}" icon="ui-icon-closethick" title="Supprimer" disabled="#{demande.etatDm}"/>
+                                        </p:column>
+                 
+            </p:dataTable>
+         </p:panel>
+             
+         </h:panelGrid>
+    
+     </h:form>
+                
+                
+                
+                <h:form id="frm0"> 
+                    <h:panelGrid columns="2" cellpadding="5"  style="display:block; text-align:right">
+                        
+                    <p:panel id="pan" style="width: 520px;height: 300px">
+
+                             <h:panelGrid columns="3" cellpadding="2"  style="width: 820px;display:block; text-align:center">
+                                                <p:commandButton value="Ajouter" ajax="true" icon="ui-icon-check" style="width: 150px">
+                                                     <p:ajax  event="click" update="Form1:frm0:DtLst" listener="#{demandeRController.ajtListPid}" />
+                                                </p:commandButton>
+                                                <p:commandButton value="Retirer"  ajax="true"  icon="ui-icon-closethick" style="width: 150px;">
+                                                     <p:ajax  event="click" update="Form1:frm0:DtLst" listener="#{demandeRController.suppListPid}" />
+                                                </p:commandButton>
+                                                <p:commandButton value="Vider" ajax="true" icon=" ui-icon-trash" style="width: 150px">
+                                                     <p:ajax  event="click" update="Form1:frm0:DtLst" listener="#{demandeRController.viderListPid}" />
+                                                </p:commandButton>
+                                         </h:panelGrid>
+                        
+                        
+                                            
+                                         <h:panelGrid columns="2" cellpadding="2" >
+
+                                            <p:dataList id="DtLst" value="#{demandeRController.NPID}" var="npid" type="ordered"  style="font-size: 13px;width:150px; height: 400px;text-align:left">
+                                               <f:facet name="header">
+                                                   Liste PIDs
+                                               </f:facet>
+                                               #{npid}
+                                           </p:dataList>
+                                         
+                                             <p:dataTable id="emplyeeDT" var="client" value="#{clientController.listClientEnt}" selectionMode="single" selection="#{clientController.client}" rowKey="#{client.npid}" scrollable="true" scrollHeight="140" resizableColumns="true" rows="8" paginator="true" paginatorPosition="bottom" style=" font-size: 12px;height: 400px;width: 310px;text-align:center"> 
+                                             <f:facet name="header">
+                                                Liste Employées
+                                            </f:facet>
+                                             <p:ajax event="rowSelect"  listener="#{demandeRController.OnRowSelect}" update="Form1:frm0:DtLst" />
+                                                 <p:column filterBy="#{client.nomPrenom}" headerText="Nom et Prénom"  filterMatchMode="contains">
+                                                     <h:outputText value="#{client.nomPrenom}" />
+                                                 </p:column>
+                                             <p:column filterBy="#{client.npid}" headerText="N° Piéce d'identité" filterMatchMode="contains" >
+                                                     <h:outputText value="#{client.npid}" />
+                                                 </p:column>
+                                         </p:dataTable>
+                                        </h:panelGrid>
+
+                               </p:panel>   
+                    
+                    <p:panel id="panelTab" style="width: 650px;height: 300px">
+                        <h:panelGrid columns="5" cellpadding="5" style="text-align: center; font-size: 14px">
+                                <p:outputLabel for="Date_A" value="Date Arrivée:" style="font-size: 13px" /> 
+                                <p:calendar id="Date_A" value="#{demandeRController.du}" placeholder="dd/MM/yy" effect="fade" required="true" style="font-size: 13px">
+                                        <p:ajax  event="dateSelect" listener="#{demandeRController.du}" />
+                                 </p:calendar>   
+                               
+                                <p:outputLabel for="Date_D" value="Date Départ:" style="font-size: 13px" /> 
+                                <p:calendar id="Date_D" value="#{demandeRController.au}" placeholder="dd/MM/yy" effect="fade" required="true" style="font-size: 13px">
+                                        <p:ajax  event="dateSelect" listener="#{demandeRController.au}" />
+                                </p:calendar>  
+                            
+                                <p:commandButton value="Chambre Libre" ajax="true" style="height: 30px;width: 120px; font-size: 12px">
+                                        <p:ajax  event="click" update="Form1:frm0:singleDT1" />
+                                </p:commandButton>
+                        </h:panelGrid>
+                       
+                        
+                            <p:dataTable id="singleDT1" var="chambre" value="#{demandeRController.listChambre}" selectionMode="single" selection="#{demandeRController.chambre}" rowKey="#{chambre.numCh}" scrollable="true" scrollHeight="160" rows="6" paginator="true" paginatorPosition="bottom" style="font-size: 15px; text-align: center">
+                                 <p:ajax event="rowSelect" listener="#{demandeRController.onRowSelect0}" update="Form1:frmDemande:panel"/>
+
+                                                        <p:column filterBy="#{chambre.numCh}" headerText="N° Chambre"  filterMatchMode="contains">
+                                                            <h:outputText value="#{chambre.numchApp}" />
+                                                        </p:column>
+
+                                                        <p:column filterBy="#{chambre.nbPlace}" headerText="N° Place"  filterMatchMode="contains">
+                                                            <h:outputText value="#{chambre.nbPlace}" />
+                                                        </p:column>
+
+                                                        <p:column  headerText="Prix" >
+                                                            <h:outputText value="#{chambre.prix}" >
+                                                                 <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                                                            </h:outputText>
+                                                        </p:column>
+
+                                                        <p:column filterBy="#{chambre.typeCh}" headerText="Type" filterMatchMode="contains" >
+                                                            <h:outputText value="#{chambre.typeCh}" />
+                                                        </p:column>
+                            </p:dataTable>
+                    </p:panel>
+                     </h:panelGrid>
+                  </h:form>   
+             </p:fieldset>
+            
+            
+        </h:form>
+        
+    </h:body>
+       
+</html>

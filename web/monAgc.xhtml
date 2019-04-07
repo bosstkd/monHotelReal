@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Mon Hotel</title>
+                   
+            </f:facet>
+          
+            <link href="style/style.css" rel="stylesheet"/>
+        </h:head>
+
+        <h:body>
+            
+            <h:form id = "formB">
+            <p:layout fullPage="true">
+               
+                <p:layoutUnit position="south" size="40" closable="true" collapsible="true">
+                    <iframe id="iframe" name="iframe" frameborder="0"  height="135" width="100%" scrolling="auto" src="panPresentation/pied.html">
+                            Your browser does not support iframes.
+                    </iframe>
+                  
+                </p:layoutUnit>
+                
+                
+           
+            
+                <p:layoutUnit position="center">
+
+                        <p:panel id="panelB" >
+                            <iframe id="imagepgframe" name="imagepgframe" frameborder="0"  height="1110" width="100%" scrolling="auto" src="#{welcomeAgcControle.iFrameUrl}">
+                               Your browser does not support iframes.
+                            </iframe>
+                        </p:panel>
+                   
+                    
+
+                 </p:layoutUnit>     
+
+            </p:layout>
+    
+                <p:stack icon="/img/stack.png" expanded="true">
+                    
+                        <p:menuitem value="Refraiche" onclick='window.location.reload(false)' icon="/original/ordinateur-bureau-ecran-moniteur-preferences-icone-7298-128.png"/>
+                        <p:menuitem value="Accueil" outcome="index" update="panelB" icon="/original/application-icone-4104-128.png" />
+                        <p:menuitem value="Contact"  target="_blank" outcome="contacts" update="panelB" icon="/original/mail-repondre-icone-6652-128.png" />
+                        <p:menuitem value="Connexion"  action="#{welcomeAgcControle.iFrameUrl(1)}" update="panelB" icon="/original/utilisateur-icone-9647-128.png" />
+                        <p:menuitem value="Inscription" action="#{welcomeAgcControle.iFrameUrl(0)}" update="panelB" icon="/original/kexi-icone-5106-128.png" />
+
+                </p:stack>  
+                
+                
+ </h:form>   
+        </h:body>
+
+    </f:view>
+</html>
+

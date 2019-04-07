@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Infos Personnel</title>
+        <link href="style/infoPerso.css" rel="stylesheet"/>
+        <f:metadata>
+            <f:viewAction action="#{sessionInfo.returnToAgcCon}" />
+        </f:metadata>
+    </h:head>
+    
+     <h:body>
+        <h:form id = "formPrincipal">
+            
+           
+             
+              <p:panel id="panel" header="Informations Agence" style="font-size: 15px;">
+              <p:growl id="messages" showDetail="true" sticky="true" /> 
+              
+
+               <p:separator/>
+                <h:panelGrid columns="9" cellpadding="5"  >
+
+                   <p:outputLabel for="nrc" value="N° Registre de commerce:" />
+                   
+                    <p:inputMask id="nrc" value="#{infoPersoAgcController.nrc}" mask="99/99 9999999*99"  placeholder="N° Registre de commerce" required="true" style="text-align: center">
+                     <f:validateLength minimum="7" />
+                      <p:ajax update="msgNrc" event="keyup" />
+                    </p:inputMask>
+                   
+                    <p:message for="nrc" id="msgNrc" display="icon" />
+                    
+                    <p:outputLabel for="nif" value="N° Identification Fiscale:" />                    
+                    <p:inputMask id="nif" value="#{infoPersoAgcController.nif}" mask="9999 9999 9999 999"  placeholder="N° Identification Fiscale" required="true" style="text-align: center">
+                        <f:validateLength minimum="15" />
+                    </p:inputMask>
+                    
+                    <p:message for="nif" id="msgNif" display="icon" />
+                    
+                    <p:outputLabel for="nai" value="N° Article d'imposition:" />
+                    <p:inputMask id="nai" value="#{infoPersoAgcController.nai}" mask="999 9999 9999"  placeholder="N° Article d'imposition" required="true" style="text-align: center">
+                        <f:validateLength minimum="11" />
+                    </p:inputMask>
+                    <p:message for="nai" id="msgNai" display="icon" />
+
+                    <p:outputLabel for="tel" value="Tel:" />
+                    <p:inputMask id="tel" value="#{infoPersoAgcController.tel}" mask="(999) 99-99-99" required="true" style="text-align: center"/>
+   
+                    <p:message for="tel" id="msgTel" display="icon" />
+                     
+                     <p:outputLabel for="mobile" value="Mobile:" />
+                     <p:inputMask id="mobile" value="#{infoPersoAgcController.fax}" mask="(9999) 999-999" required="true" style="text-align: center"/>
+                     <p:message for="mobile" id="msgFax" display="icon" />
+                    
+                     
+                     
+                     
+                     <p:outputLabel for="mail" value="Adresse mail:" />
+                     <p:inputText id="mail" value="#{infoPersoAgcController.mail}" label="mail" required="true" style="text-align: center">
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        <f:validateLength minimum="6" />
+                     </p:inputText>
+                     <p:message for="mail" id="msgMail" display="icon" />
+  
+                     
+                </h:panelGrid>
+             
+                 <p:separator/>
+                 
+                    <h:panelGrid columns="6" cellpadding="5" >
+                         <p:outputLabel for="rib" value="Rib:" />
+                            <p:inputText id="rib" value="#{infoPersoAgcController.rib}" required="true" style="width: 300px;">
+                               <f:validateLength minimum="5" />
+                             </p:inputText>
+                        
+                        <p:outputLabel for="adresse" value="Adresse:" />
+                            <p:inputTextarea id="adresse" value="#{infoPersoAgcController.adresse}" label="adresse" required="true" style="width: 300px;">
+                              <f:validateLength minimum="8" />
+                            </p:inputTextarea>
+                        
+                        
+                    </h:panelGrid>
+                    
+                 <p:separator/>
+                 
+                 
+                <h:panelGrid columns="5" cellpadding="5" >
+                    
+                        <p:panel header="Description  sur 250 caractères" id="pandesc" style="width: 550px; height: 200px">
+                            <p:inputTextarea id="descript" value="#{infoPersoAgcController.description}" label="Description" style="width: 98%">
+                              <f:validateLength minimum="8" maximum="250" />
+                            </p:inputTextarea>
+                        </p:panel>
+                    
+                        <p:panel header="Logo de l'agence" id="panLogo" style=" height: 200px">
+                            <p:fileUpload fileUploadListener="#{photoUploadController.SingleFileUploadAgc}" mode="advanced"
+                                             update="msf" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                            <p:growl id="msf" showDetail="true" />
+                        </p:panel>
+                        <p:draggable for="panLogo" />
+                    
+                </h:panelGrid>
+                 
+                <p:separator/>   
+
+                 <p:commandButton value="Modifier" actionListener="#{infoPersoAgcController.modifier}" update="messages" icon="ui-icon-check">
+                            <!--<p:confirm header="Confirmation" message="êtes-vous sûr?" icon="ui-icon-alert" />-->
+                 </p:commandButton>
+                 <br/>
+
+            </p:panel>
+ 
+            
+</h:form>
+    </h:body>
+</html>

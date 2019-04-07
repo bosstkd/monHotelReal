@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+            <title>chambre</title>
+            <link href="style/chambre.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+
+
+    <h:body>
+        
+     <h:form id="Form1" >
+         <p:growl id="msgs" showDetail="true" sticky="true"/>
+         <h:panelGrid columns="2" cellpadding="5" >
+             
+             <p:panel id="panel" header="Configurations Chambre" style="width: 420px; height: 360px">
+        <h:panelGrid columns="3" cellpadding="5"  style="display:block; text-align:left; font-size: 15px;">
+                
+           <p:outputLabel for="Editbox1" value="Numéro de chambre" /> 
+           <p:inputText  id="Editbox1" value="#{chambreController.num_ch}">
+           </p:inputText>
+           <p:message for="Editbox1" id="msgEditbox1" display="icon" />
+           
+           <p:outputLabel for="Editbox2" value="Nombre de place" /> 
+           <p:spinner id="Editbox2" min="1" max="20" value="#{chambreController.nb_place}" />
+           <br/>
+           <p:outputLabel for="Editbox3" value="Prix par nuitée" /> 
+           <p:inputNumber id="Editbox3" value="#{chambreController.prix}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="."  placeholder="Prix par nuitée"/>
+           <br/>
+           <p:outputLabel for="Combobox1" value="Type de chambre" /> 
+           <p:selectOneMenu id="Combobox1" value="#{chambreController.type_ch}" >
+                <f:selectItem itemLabel="Senior" itemValue="Senior" />
+                <f:selectItem itemLabel="Junior" itemValue="Junior" />
+                <f:selectItem itemLabel="VIP" itemValue="VIP" />
+                <f:selectItem itemLabel="Suite" itemValue="Suite" />
+                <f:selectItem itemLabel="Suite Familiale" itemValue="Suite Familiale" />
+                <f:selectItem itemLabel="Appartement" itemValue="Appartement" />
+                <f:selectItem itemLabel="Pour couple" itemValue="Pour couple" />
+                <f:selectItem itemLabel="Salle de conférence" itemValue="Salle de conférence" />
+                <f:selectItem itemLabel="Salle des fetes" itemValue="Salle des fetes" />
+
+            </p:selectOneMenu>
+            <br/>
+
+            
+            <p:outputLabel value="         " /> 
+            <h:panelGrid columns="2" cellpadding="5" >
+                 <p:selectBooleanCheckbox  id="Checkbox1" value="#{chambreController.visible}" /> 
+                 <p:outputLabel for="Checkbox1" value="Visible au conventions" /> 
+            </h:panelGrid>
+           
+            <br/>
+
+        </h:panelGrid >
+         <h:panelGrid columns="3" cellpadding="3" >
+            <p:commandButton  id="Button1"  value="Ajouter" actionListener="#{chambreController.confirme}" update = "panelTab msgs" style="width: 160px;height: 40px;font-size: 15px; text-align: center"/>
+            <p:commandButton  id="Button2"  value="Modifier" actionListener="#{chambreController.modifier}" update = "panelTab msgs" style="width: 100px;height: 40px;font-size: 15px; text-align: center"/>
+            <p:commandButton  id="Button3"  value="Supprimer" actionListener="#{chambreController.suppChambre}" update = "panelTab msgs" style="width: 100px;height: 40px;font-size: 15px; text-align: center"/>
+         </h:panelGrid>
+        </p:panel> 
+         
+             <p:panel id="panelTab" header="Chambres" style="width: 760px; height: 360px">
+             <p:dataTable id="singleDT" var="chambre" value="#{chambreController.listChambre}" selectionMode="single" selection="#{chambreController.chambre}" rowKey="#{chambre.numCh}" scrollable="true" scrollHeight="200" rows="8"  paginator="true" style="font-size: 15px; text-align: center">
+                 <p:ajax event="rowSelect" listener="#{chambreController.onRowSelect}" update=":Form1:panel :Form1:msgs" />
+
+                                        <p:column filterBy="#{chambre.numCh}" headerText="N° Chambre"  filterMatchMode="contains">
+                                            <h:outputText value="#{chambre.numchApp}" />
+                                        </p:column>
+                                       
+                                        <p:column filterBy="#{chambre.nbPlace}" headerText="N° Place"  filterMatchMode="contains">
+                                            <h:outputText value="#{chambre.nbPlace}" />
+                                        </p:column>
+                 
+                                        <p:column  headerText="Prix" >
+                                            <h:outputText value="#{chambre.prix}" style="text-align: right">
+                                              <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                                            </h:outputText>
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{chambre.typeCh}" headerText="Type" filterMatchMode="contains" >
+                                            <h:outputText value="#{chambre.typeCh}" />
+                                        </p:column>
+                 
+                                        <p:column  headerText="Visible au conventions"  >
+                                            <h:outputText value="#{chambre.visible?'Oui':'Non'}" />
+                                        </p:column>
+                    
+                                     
+            </p:dataTable>
+         </p:panel>
+         </h:panelGrid>
+         
+   
+     </h:form>
+
+</h:body>
+    
+</html>

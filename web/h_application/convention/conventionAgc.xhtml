@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+     <h:head>
+            <title>Convention</title>
+            <link href="styleCSS/client.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    
+     <h:body>
+         <h:form id="Form2" >
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+
+             <p:panelGrid columns="2">
+                 <p:panel id="pnlform" header="Configurer" style="font-size: 13px">
+                           <p:panelGrid columns="2" style="display:block; text-align:center">
+                               <p:outputLabel for="CA" value="Code Agence:" /> 
+                               <p:inputText id="CA"  value="#{conventionAgcController.codeA}" placeholder="Code Agence" required="true" disabled="true" style="font-size: 14px"/>
+
+                               <p:outputLabel for="CDEM" value="Code Demande Convention" /> 
+                               <p:inputText id="CDEM"  value="#{conventionAgcController.codeDmConv}" placeholder="Code Demande Convention" style="font-size: 14px"/>
+
+                                <p:outputLabel for="DU" value="Date début convention:" /> 
+                                <p:calendar id="DU" value="#{conventionAgcController.dateD}" effect="fade" required="true"/>
+                                <p:outputLabel for="AU" value="Date fin convention:" /> 
+                                <p:calendar id="AU" value="#{conventionAgcController.dateF}" effect="fade" required="true"/>
+
+                                <p:outputLabel value=" " />
+                                 <h:panelGrid columns="2" cellpadding="5" >
+                                     <p:selectBooleanCheckbox  id="Checkbox1" value="#{conventionAgcController.dette}" >
+                                         <p:ajax event="change" update="prixEng typeConv caution sldCaution" listener="#{conventionAgcController.prixZero}" />
+                                     </p:selectBooleanCheckbox> 
+                                    <p:outputLabel for="Checkbox1" value="Sous dette" /> 
+                                 </h:panelGrid>
+                                
+                                <p:outputLabel for="prixEng" value="Prix d'engagement:" />
+                                <p:inputNumber id="prixEng" value="#{conventionAgcController.prixEngagement}" disabled="#{conventionAgcController.dette}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="." label="Prix d'engagement" required="true" style="text-align: center">
+                                </p:inputNumber>
+                                
+                                <p:outputLabel for="typeConv" value="Type Convention:"  />
+                                <p:selectOneRadio id="typeConv" value="#{conventionAgcController.typeConv}" disabled="#{conventionAgcController.dette}" required="true" style="width: 100px;">
+                                     <f:selectItem itemLabel="Chambre Libre" itemValue="chLib" />
+                                     <f:selectItem itemLabel="Chambre Réservé" itemValue="chRsv" />
+                                     <p:ajax listener="#{conventionAgcController.typeConvChange}" update="caution sldCaution" />
+                                </p:selectOneRadio>
+                                
+                                <p:outputLabel for="reduction" value="% Réduction:" /> 
+                                <p:panel>
+                                    <p:inputNumber id="reduction" value="#{conventionAgcController.reduction}" symbol=" %" symbolPosition="s" maxValue ="50" label="% réduction" required="true" style="text-align: center">
+                                    </p:inputNumber>    
+                                    <p:slider for="reduction" maxValue="50"/>
+                                </p:panel>
+                                
+                                <p:outputLabel for="caution" value="% caution d'annulation:" /> 
+                                <p:panel>
+                                    <p:inputNumber id="caution" value="#{conventionAgcController.quotion}" symbol=" %" symbolPosition="s" maxValue ="80" disabled="#{conventionAgcController.cautionVisiblity}" label="% caution d'annulation" required="true" style="text-align: center">
+                                </p:inputNumber>    
+                                    <p:slider id="sldCaution" for="caution" maxValue="80" disabled="#{conventionAgcController.cautionVisiblity}"/>
+                                 </p:panel>
+                                
+                           </p:panelGrid>
+                     <h:panelGrid columns="2" cellspacing="10" style="width: 100%">
+                           <p:commandButton  id="Button1"  value="Confirmer" actionListener="#{conventionAgcController.confirme}" update = ":Form1 :Form1:msgs" style="width: 100%" />
+                           <p:commandButton  id="ButtonModif"  value="Modifier" actionListener="#{conventionAgcController.modif}" update = ":Form1 :Form1:msgs" style="width: 100%" />
+                     </h:panelGrid>
+            </p:panel>
+             
+            <p:panel id="panelTab" header="Table Agences" style="text-align: center;height: 530px; ">
+                <p:dataTable id="singleDT" var="agence" value="#{mhAgenceController.listMhAgence}" selectionMode="single" selection="#{conventionAgcController.agc}" rowKey="#{agence.codeA}" scrollable="true" resizableColumns="true" rows="10" paginator="true" paginatorPosition="bottom" style="text-align: center; font-size: 15px" >
+                    <p:ajax event="rowSelect"  listener="#{conventionAgcController.selectedConvention}"  update=":Form2:pnlform"/>                    
+                
+ 
+                    <p:column filterBy="#{agence.raisonSocial}" headerText="Raison Sociale"  filterMatchMode="contains">
+                     <h:outputText value="#{agence.raisonSocial}" />
+                 </p:column>
+                    
+                    <p:column filterBy="#{agence.wilaya}" headerText="Wilaya"  filterMatchMode="contains">
+                     <h:outputText value="#{agence.wilaya}" />
+                 </p:column>
+                                       
+                    <p:column filterBy="#{agence.nrc}" headerText="N° Registre de Commerce"  filterMatchMode="contains">
+                     <h:outputText value="#{agence.nrc}" />
+                 </p:column>
+                    
+                 <p:column filterBy="#{agence.tel}" headerText="Téléphone" filterMatchMode="contains">
+                     <h:outputText value="#{agence.tel}" />
+                 </p:column>
+                 
+                 <p:column style="width:32px;text-align: center">
+                     <p:commandButton update=":Form2:rsvDtl"  oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="Afficher">
+                                <f:setPropertyActionListener value="#{agence}" target="#{conventionAgcController.agc}" /> 
+                     </p:commandButton>
+                 </p:column>
+                    
+              </p:dataTable>     
+                
+                <p:dialog header="Informations sur l'agence" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="font-size: 15px;">
+                <p:outputPanel id="rsvDtl" style="text-align:center;">
+                    <p:panel>
+                    
+                    <p:panelGrid  columns="2" rendered="#{not empty conventionAgcController.agc}" columnClasses="label,value">
+                        
+                        <h:outputText value="Raison Sociale" />
+                        <h:outputText value="#{conventionAgcController.agc.raisonSocial}" />
+
+                        <h:outputText value="NRC" />
+                        <h:outputText value="#{conventionAgcController.agc.nrc}" />
+
+                        
+                        <h:outputText value="Adresse" />
+                        <h:outputText value="#{conventionAgcController.agc.adresse}" />
+
+                        <h:outputText value="Wilaya" />
+                        <h:outputText value="#{conventionAgcController.agc.wilaya}" />
+                        
+                        <h:outputText value="Commune" />
+                        <h:outputText value="#{conventionAgcController.agc.wilaya}" />
+                       
+                        <h:outputText value="Contacte infos" />
+                        <h:outputText value="#{conventionAgcController.agc.tel} /  #{conventionAgcController.agc.fax}. Mail:#{conventionAgcController.agc.mail}" />
+                        
+                    </p:panelGrid>
+                           
+                       
+                   </p:panel>
+
+                </p:outputPanel>
+            </p:dialog>
+                
+         </p:panel>
+        </p:panelGrid>
+          </h:form> 
+             
+             
+             <br/>
+             <h:form id="Form1" >
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+             <p:fieldset id="pnf" legend="Agences conventionées et configuration chambre(s)/convention" toggleable="true" toggleSpeed="500" collapsed="true" >
+                 
+                 <p:panel>
+                     <h:panelGrid columns="2" cellspacing="10">
+                         <p:outputLabel for="typeConv" value="Type Convention:" />
+                         <p:selectOneRadio id="typeConv" value="#{conventionAgcController.typeConvForRech}"  required="true" style="width: 500px;">
+                                     <f:selectItem itemLabel="Chambre Libre" itemValue="chLib" />
+                                     <f:selectItem itemLabel="Chambre Réservé" itemValue="chRsv" />
+                                     <p:ajax event="change" update="tbView" />
+                                </p:selectOneRadio>
+                     </h:panelGrid>
+                      
+                     <p:tabView id="tbView">
+                        <p:tab title="Agences conventionées">
+                            <p:panel id="tabConvention" style="font-size: 12px">
+                                <p:dataTable id="conventionDT" var="convention" value="#{conventionAgcController.listConvAgcHtl}" selectionMode="single" selection="#{conventionAgcController.convSelected}" rowKey="#{convention.codeConvAgc}" scrollable="true" resizableColumns="true" rows="10" paginator="true" style="text-align: center">
+                                  <p:ajax event="rowSelect"  listener="#{conventionAgcController.selectConv2}"  update=":Form2:pnlform"/>                    
+                                    <p:column filterBy="#{convention.codeConvAgc}" headerText="Code Convention"  filterMatchMode="contains" style="width: 150px">
+                                           <h:outputText value="#{convention.codeConvAgc}" />
+                                    </p:column>   
+
+                                    <p:column filterBy="#{convention.codeA.raisonSocial}" headerText="Raison Sociale"  filterMatchMode="contains">
+                                       <h:outputText value="#{convention.codeA.raisonSocial}" />
+                                   </p:column>
+
+                                    <p:column filterBy="#{convention.codeA.nrc}" headerText="NRC"  filterMatchMode="contains">
+                                           <h:outputText value="#{convention.codeA.nrc}" />
+                                       </p:column>
+
+                                    <p:column filterBy="#{convention.codeA.tel}" headerText="Tel"  filterMatchMode="contains">
+                                        <h:outputText value="#{convention.codeA.tel}" />
+                                       </p:column>
+
+                                    <p:column filterBy="#{convention.codeA.fax}" headerText="Mob"  filterMatchMode="contains">
+                                        <h:outputText value="#{convention.codeA.fax}" />
+                                       </p:column>
+
+                                       <p:column  headerText="Du"  >
+                                           <h:outputText value="#{convention.dateD}" >
+                                           <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                         </h:outputText>
+                                       </p:column>
+
+                                       <p:column  headerText="Au"  >
+                                         <h:outputText value="#{convention.dateF}" >
+                                           <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                         </h:outputText>
+                                       </p:column>
+
+                                    <p:column filterBy="#{convention.prcReduction}" headerText="% Réduction" filterMatchMode="contains">
+                                           <h:outputText value="#{convention.prcReduction} %" />
+                                       </p:column>
+
+                                    <p:column filterBy="#{convention.prcQuotionAnnule}" headerText="% caution" filterMatchMode="contains">
+                                           <h:outputText value="#{convention.prcQuotionAnnule} %" />
+                                       </p:column>
+
+                                     <p:column filterBy="#{convention.prixEngagement}" headerText="Prix d'engagement" filterMatchMode="contains">
+                                           <h:outputText value="#{convention.prixEngagement}" >
+                                                                               <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                                           </h:outputText>                                        
+                                     </p:column>
+
+                                      <p:column style="width:32px;text-align: center">
+                                          <p:commandButton update=":Form1 :Form1:msgs" actionListener="#{conventionAgcController.supprimer(convention.codeConvAgc)}" icon="ui-icon-closethick" title="Supprimer"/>
+                                      </p:column>
+
+                                    </p:dataTable>                
+                               </p:panel> 
+                        </p:tab>
+                         
+                        <p:tab title="configuration chambre(s)/convention">
+                            <h:panelGrid columns="2" cellspacing="10">
+                                <p:panel header="Liste Agences conventionnées type chambre réservé" id="tabConvention1" style="font-size: 12px; width: 550px; height: 250px">
+                                    <p:dataTable id="conventionDT1" var="convention" value="#{conventionAgcController.listConvAgcHtlRsv}" selectionMode="single" selection="#{pickListView.conv}" rowKey="#{convention.codeConvAgc}" scrollable="true" resizableColumns="true" rows="10" paginator="true" style="text-align: center">
+                                     <p:ajax event="rowSelect"  listener="#{pickListView.selectedConvention1}"  update=":Form1:tbView:pickList"/>                    
+
+                                    <p:column filterBy="#{convention.codeConvAgc}" headerText="Code Convention"  filterMatchMode="contains" style="width: 150px">
+                                           <h:outputText value="#{convention.codeConvAgc}" />
+                                    </p:column>   
+
+                                    <p:column filterBy="#{convention.codeA.raisonSocial}" headerText="Raison Sociale"  filterMatchMode="contains">
+                                       <h:outputText value="#{convention.codeA.raisonSocial}" />
+                                    </p:column>
+
+                                    <p:column filterBy="#{convention.codeA.nrc}" headerText="NRC"  filterMatchMode="contains">
+                                           <h:outputText value="#{convention.codeA.nrc}" />
+                                    </p:column>
+
+                                    </p:dataTable>                
+                               </p:panel> 
+                                
+                                <p:panel header="Configuration chambre" style="font-size: 13px; width: 550px; height: 250px;">
+                                    <p:pickList id="pickList" value="#{pickListView.numChambre}" var="numChambre" itemLabel="#{numChambre}" itemValue="#{numChambre}" >
+                                        <p:ajax event="transfer" listener="#{pickListView.onTransfer}" update=":Form1:msgs" />
+                                    </p:pickList>
+                               </p:panel> 
+                            </h:panelGrid>
+                                
+                        </p:tab>
+                        
+                    </p:tabView>
+                     
+                 </p:panel>
+                 
+                 
+             </p:fieldset>
+             
+         </h:form>
+             
+             
+             
+              <h:form style="width: 10%; position: absolute;
+                top:10px;
+                left:94%;">
+                <p:commandButton value="" style="width: 30px; font-size: 13px" onclick="PF('bar').show()" type="button" icon="ui-icon-circle-triangle-s" />
+                <p:commandButton value="" style="width: 30px; font-size: 13px" onclick="PF('bar').hide()" type="button" icon="ui-icon-circle-triangle-n"/>
+               
+            </h:form>
+             
+             
+             
+              <style type="text/css">           
+            .top {
+                filter:alpha(opacity=100);
+                opacity:0.8;
+                padding:50px 0 0 50px;
+        z-index: 1000;
+        background-color: activeborder;
+            }
+        </style>
+     
+ 
+ 
+    <p:notificationBar position="top" effect="fade" styleClass="bottom" widgetVar="bar" style="width: 92%">
+    <p:fieldset id="pnDm" legend="Demandes de convention Agence" toggleable="true" toggleSpeed="500" collapsed="true" style="width: 97%; background-color: graytext">
+           <h:form id="frmDm"> 
+            <p:panel id="panelTab" style="width: 100%;">
+                <p:commandButton update="#{p:component('demandeDT')}" icon="ui-icon-refresh" title="Actualiser" value="Actualiser"/>
+                <p:dataTable id="demandeDT" var="demande" value="#{demandeConvController.listDemandeHtl}" scrollable="true" scrollHeight="150" rows="3" paginator="true" paginatorPosition="bottom" style="font-size: 12px; text-align: center; width: 100%">
+           
+                                        <p:column filterBy="#{demande.codeDmConv}" headerText="Code Demande"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.codeDmConv}" />
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{demande.dateDmConv}" headerText="Date demande"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.dateDmConv}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                            </h:outputText>
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{demande.codeA.raisonSocial}" headerText="Agence"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.codeA.raisonSocial}" />
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.codeA.nrc}" headerText="NRC"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.codeA.nrc}" />
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.dette?'Sous dette':'Payé'}" headerText="Dette"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.dette?'Sous dette':'Payé'}" />
+                                        </p:column>
+                    
+                                        <p:column  headerText="Prix d'engagement" >
+                                            <h:outputText value="#{demande.prixEngagement}" >
+                                                <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        
+                                        <p:column filterBy="#{demande.typeConv eq 'chLib'?'Chambre libre':'Chambre réservé'}" filterMatchMode="contains" headerText="Type convention" >
+                                            <h:outputText value="#{demande.typeConv eq 'chLib'?'Chambre libre':'Chambre réservé'}" />
+                                        </p:column>
+                                        
+                                        <p:column  headerText="Nbr Chambres" style="width:40px;text-align: center">
+                                            <h:outputText value="#{demande.nbChambre}" />
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.dateD}" headerText="Date début"  filterMatchMode="contains">
+                                             <h:outputText value="#{demande.dateD}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                             </h:outputText>
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.dateF}" headerText="Date fin" filterMatchMode="contains" >
+                                              <h:outputText value="#{demande.dateF}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                              </h:outputText>
+                                        </p:column>
+                    
+                                       <p:column style="width:32px;text-align: center">
+                                           <p:commandButton update="Form2:pnlform" actionListener="#{conventionAgcController.basculer(demande)}" icon="ui-icon-refresh" title="Basculer" />
+                                       </p:column>                                        
+                 
+            </p:dataTable>
+                
+                
+                
+         </p:panel>
+        </h:form>
+        </p:fieldset>
+        <p:draggable for="pnDm" />
+</p:notificationBar>
+             
+             
+             
+             
+             
+             
+    </h:body>
+</html>

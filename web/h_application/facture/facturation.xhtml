@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Gestion caisse</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+        
+       
+         <p:fieldset id="pnf" legend="Création de facture" toggleable="true" toggleSpeed="500" collapsed="true" >   
+          
+           <h:form id="frm">
+            <h:panelGrid  columns="2" cellpadding="5"  style="display:block; text-align:center; width:100%">
+            <p:panel style=" height:380px">
+                <p:dataTable id="checkboxDT" var="fcts" value="#{rsvVueGlobalController.listFct}" selection="#{rsvVueGlobalController.selectedReservation}" rowKey="#{fcts.codeR}" style="margin-bottom:0; font-size: 12px" scrollWidth="true" resizableColumns="true" rows="8" paginator="true">
+                        <f:facet name="header">
+                            Réservation non facturée
+                        </f:facet>
+                    
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+              
+                        <p:column filterBy="#{rsvVueGlobalController.clients(fcts.codeR)}" headerText="Client"  filterMatchMode="contains" style=" text-align:center; width:80px">
+                            <h:outputText value="#{rsvVueGlobalController.clients(fcts.codeR)}" />
+                        </p:column>
+                        
+                        <p:column filterBy="#{fcts.codeR}" headerText="Code Rsv" filterMatchMode="contains" style=" text-align:center; width:120px">
+                            <h:outputText value="#{fcts.codeR}" />
+                        </p:column>
+                        
+                        <p:column  headerText="Date Rsv"  style=" text-align:center; width:70px">
+                            <h:outputText value="#{fcts.dateR}" >
+                                  <f:convertDateTime pattern="dd/MM/yyyy" />  
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column filterBy="#{rsvVueGlobalController.designation(fcts.codeR)}" headerText="Désignation" filterMatchMode="contains" style="text-align:center;">
+                            <h:outputText value="#{rsvVueGlobalController.designation(fcts.codeR)}" />
+                        </p:column>
+                        
+                </p:dataTable>
+            </p:panel>
+                     
+                     
+                        <p:panel style=" height:380px" id="pnl">
+                             <h:panelGrid  columns="2" cellpadding="5"  style="display:block; text-align:left; width:100%">
+                                 
+                                         <h:outputText value="Entreprise:"  />
+                                         <p:selectOneMenu id="Combobox1" value="#{rsvVueGlobalController.raisonSociale}" >
+                                             <p:ajax  update="Combobox1"/>
+
+                                            <f:selectItem itemLabel="Aucune Modification" itemValue="" />
+                                            <f:selectItems value="#{rsvVueGlobalController.entreprise}" />
+                                        </p:selectOneMenu> 
+                                 
+                                         <h:outputText value="Type de paiement:"  />
+                                         <p:selectOneMenu id="Combobox2" value="#{rsvVueGlobalController.typeP}"  >
+                                             <p:ajax listener="#{rsvVueGlobalController.chqSelected}" update="numCheque"/>
+
+                                             
+                                            <f:selectItem itemLabel="Espece" itemValue="Espece" />
+                                            <f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+                                            <f:selectItem itemLabel="Virement" itemValue="Virement" />
+                                            <f:selectItem itemLabel="A terme" itemValue="A terme" />
+                                        </p:selectOneMenu> 
+                                         
+                                         <h:outputText value="N°Cheque:"  />
+                                         <p:inputText id="numCheque" value="#{rsvVueGlobalController.numCheque}" placeholder="N° Cheque" disabled="#{!rsvVueGlobalController.etatNmChq}">
+                                         </p:inputText>
+                                         
+                                          <h:outputText value="Remarque:"  />
+                                          <p:inputText id="Remarque" value="#{rsvVueGlobalController.remarque}" placeholder="Remarque"/>
+                                         
+                                         <p:outputLabel  value="     " /> 
+                                         <h:panelGrid  columns="2" cellpadding="5">
+                                             <p:selectBooleanCheckbox  id="Checkbox1" value="#{rsvVueGlobalController.fctParRsv}" />
+                                             <p:outputLabel for="Checkbox1" value=" Facture/Réservation." style="font-weight: bold; font-size: 15px"/> 
+                                         </h:panelGrid>
+                                         
+                             </h:panelGrid>
+                            <p:commandButton  id="Button1" actionListener="#{rsvVueGlobalController.Ajouter}" value="Confirmer"  update = ":frm:checkboxDT :formTab:tabInf" />
+                        </p:panel>
+                         
+                </h:panelGrid>         
+                 </h:form>
+           </p:fieldset>         
+           <p:draggable for="pnf" />
+ 
+           
+        
+           <p:panel>
+        <h:form id="formTab">
+            <p:dataTable id="tabInf" value="#{rsvVueGlobalController.listFctOk}" var="user" resizableColumns="true" selectionMode="single" selection="#{rsvVueGlobalController.selectedFct}" scrollWidth="true"  rows="10"  paginator="true" rowKey="#{user.numFct}" class="blueTable" style="text-align: center; font-size: 15px;" >
+                         
+                         <p:ajax event="rowSelect" listener="#{rsvVueGlobalController.onRowSelect}" update=":frmt:JTextField" />
+                
+                          <p:column filterBy=" #{user.numFct}" headerText=" N°Fct" filterMatchMode="contains" style="width:80px;text-align: center">
+                              <h:outputText value=" #{user.numFct}" />
+                          </p:column>
+                         
+                          <p:column filterBy="#{user.dates}" headerText="Date facturation" filterMatchMode="contains" style="width:60px;text-align: center">
+                              <h:outputText value="#{user.dates}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                          </p:column>
+
+                         <p:column filterBy="#{user.codeC}" headerText="Client" filterMatchMode="contains" style="width:200px;text-align: center">
+                              <h:outputText value="#{user.codeC}" />
+                          </p:column>
+
+             
+                          <p:column filterBy="#{user.codeR}" headerText="Code Réservation lié" filterMatchMode="contains" style="width:120px;text-align: center">
+                              <h:outputText value="#{user.codeR}" />
+                          </p:column>
+             
+                          <p:column filterBy="#{user.dateR}" headerText="Date de Réservation" filterMatchMode="contains" style="width:60px;text-align: center">
+                              <h:outputText value="#{user.dateR}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                          </p:column>
+             
+                         
+             
+                          <p:column filterBy="#{user.typePaiement}" headerText="Type paiement" filterMatchMode="contains" style="width:50px;text-align: center">
+                              <h:outputText value="#{user.typePaiement}" />
+                          </p:column>
+             
+                      </p:dataTable>
+            
+        </h:form>
+          <h:form id="frmt" style="width: 100%;text-align: center">
+                <br/>
+                <p:inputText disabled="true" id="JTextField" value="#{rsvVueGlobalController.numFctPdf}" style="height: 20px;width:340px;text-align: center; font-size: 18px; font-weight: bold;"/>
+                <br/>
+                <br/>
+                <h:commandButton value="Facture" actionListener="#{rsvVueGlobalController.PDF}"  onclick="this.form.target='_blank'" class="btn" style="height: 30px; width:28%;text-align: center; "/> 
+                <h:outputText value="    " />
+                <h:commandButton value="Détails charge supplémentaire" actionListener="#{rsvVueGlobalController.Chrg}"  onclick="this.form.target='_blank'" class="btn" style="height: 30px; width:28%;text-align: center; "/> 
+                <h:outputText value="    " />
+                <p:commandButton value="Supprimer" update=":frm:checkboxDT :formTab:tabInf " actionListener="#{rsvVueGlobalController.annulerFct}" icon="ui-icon-closethick" title="Supprimer" style="height: 30px; width:28%;text-align: center; ">
+                                   <p:confirm header="Confirmation" message="Veuillez confirmer la suppression de la facture svp." icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:confirmDialog id="confirm" global="true" showEffect="slide" hideEffect="slide">
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog> 
+          
+          </h:form>
+       </p:panel>
+    </h:body>
+</html>

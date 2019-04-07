@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Gestion caisse</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+
+           <h:form id="charts">
+               <p:panel>
+                   <h:panelGrid  columns="6" cellpadding="7"  style="display:block; text-align:center; width:100%">
+    
+                       <p:outputLabel for="Dt_Du" value="DU:" /> 
+                       <p:calendar id="Dt_Du" value="#{statController.du}" placeholder="dd/MM/yy" effect="fade" />
+                         <p:outputLabel   value="     " />
+                        <p:outputLabel for="Dt_Au" value="AU:" /> 
+                        <p:calendar id="Dt_Au" value="#{statController.au}" placeholder="dd/MM/yy" effect="fade" />
+                          
+                        <p:commandButton  id="Button1" actionListener="#{statController.calcule}" value="Afficher" update="charts:pnl charts:pnl2" />
+
+                   </h:panelGrid>
+
+                   
+                   </p:panel>
+                 
+                 <p:panel id="pnl">
+                          <p:chart type="line" model="#{statController.multiAxisModel}" style="height:400px;"/>
+                 </p:panel>  
+               
+                 <p:panel id="pnl2">
+                          <p:chart type="line" model="#{statController.multiAxisModel2}" style="height:400px;"/>
+                 </p:panel>  
+           </h:form>
+      
+           
+                     
+            
+    </h:body>
+</html>

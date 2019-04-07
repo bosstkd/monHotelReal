@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Offre RnB</title>
+
+        <link href="styleCSS/client.css" rel="stylesheet"/>
+        <f:facet name="monhotel">
+            <meta name="description" content="L'époque des Plateformes dédiées, seules à être bardées de conseillers et autres consultants est révolue. 
+		Nous avons créé monhotel-dz.com afin que les hôtels, les agences et les clients soient aussi bien accompagnés de services trés pratiques qui répondent à leurs attentes.Mahmoudi Mohammed ElAmine, dirigeant de monhotel-dz.com
+		" />
+		<meta name="keywords" content="hotel, hôtel, agence, RnB, voyage, reservation, chambre, algérie, algerie, gestion, plateforme, monhotel, monhotel-dz,publication, promotion, vacance, touriste, convention" />
+		<meta name="author" content="Mahmoudi Med ElAmine" />
+		<meta name="categories" content="touristique" />
+		<meta name="generator" content="http://www.monhotel-dz.com" />
+        </f:facet>
+      
+                
+    </h:head>
+    
+   
+    <h:body>
+                  <br/>
+                    <h:form id="formMnC" >
+                         <p:growl id="messages" showDetail="true" sticky="true" /> 
+                        <br/>                       
+    <p:outputLabel value="Nos Offres RnB" style="font-size: 18px; font-family: serif; font-weight: inherit; font-style: italic"/>              
+
+                        
+                       
+    
+    <p:dataGrid  var="pub" value="#{indexController.listPartPubAll}" columns="3" layout="grid"
+        rows="6" paginator="true" id="cars" paginatorPosition="top"
+        paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="6,12,16">
+         
+      
+ 
+       <p:panel id="basicAgc"  header="#{pub.type} F#{pub.nbPiece} à #{pub.adresse} - #{pub.wilaya} " footer="Contact:  #{pub.NPId.num_tel} / #{pub.NPId.mail}."  style="box-shadow: #f0776c 2px 5px 2px">
+                                                        <p:outputLabel value="* #{pub.NPId.nomPrenom}" />
+                                                       <div class="p-grid">
+                                                            <div class="p-col-fixed" style="width:200px">
+                                                                <div class="box">
+                                                                    <h:panelGrid columns="2" cellspacing="10">
+                                                                        <p:graphicImage id="img" name="uploadTest/particulier/#{pub.NPId.npid}/logo/logo_RS.jpg" style="cursor:pointer" title="Image de présentation" />
+                                                                           <h:panelGrid columns="2"  style="text-align: center">
+                                                                               
+                                                                               <p:outputLabel value="Date début:" style="font-size: 11px"/>
+                                                                                         <p:outputLabel value="#{pub.dateDu}" style="font-weight: bold;">
+                                                                                           <f:convertDateTime pattern="dd/MM/yyyy" /> 
+                                                                                         </p:outputLabel>
+                                                                                       
+                                                                                        <p:outputLabel value="Date fin  :" style="font-size: 13px"/>
+                                                                                          <p:outputLabel value="#{pub.dateAu}" style="font-weight: bold;">
+                                                                                           <f:convertDateTime pattern="dd/MM/yyyy" /> 
+                                                                                          </p:outputLabel>
+                                                                                        
+                                                                                        <p:outputLabel value="Prix/nuitée: " style="font-size: 13px"/>
+                                                                                        <p:outputLabel value="#{pub.prix}" style="font-weight: bold;">
+                                                                                           <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/> 
+                                                                                        </p:outputLabel>
+                                                                                        
+                                                                                        <p:outputLabel value="" />
+                                                                                        <h:panelGrid columns="4" >
+                                                                                            <p:commandButton id="btnWifi" icon="fa fa-wifi" title="Wifi disponible"  style="background-color: white; color: #{indexController.color(pub.wifi)}; border-color: white; font-size: 15px" />
+                                                                                            <p:commandButton id="btnMeuble" icon="fa fa-hotel" title="meublé"  style="background-color: white; color: #{indexController.color(pub.meuble)}; border-color: white; font-size: 15px" />
+                                                                                            <p:commandButton id="btnCuisine" icon="fa fa-cutlery" title="equipé d'une cuisine"  style="background-color: white; color: #{indexController.color(pub.cuisine)}; border-color: white; font-size: 15px" />
+                                                                                            <p:commandButton id="btnGarage" icon="fa fa-car" title="Garage disponible"  style="background-color: white; color: #{indexController.color(pub.garage)}; border-color: white; font-size: 15px" />
+                                                                                        </h:panelGrid>
+                                                                           </h:panelGrid>
+                                                                          
+                                                                    </h:panelGrid>
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-col">
+                                                                <div class="box">
+
+                                                                <h:panelGrid columns="2" >
+                                                                    <p:outputLabel value="#{pub.description.subSequence(0, 40)}..."  style="font-size: 12px"/> 
+                                                                    <p:commandLink id="imageBtn" value="lire la suite" type="button" style="color: blue; font-size: 12px" />
+                                                                    <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" my="#{indexController.positPart(pub)}" style=" width: 500px;">
+                                                                        <p:outputLabel value="#{pub.description}" style="font-size: 18px; font-family: serif; font-style: italic;" /> 
+                                                                    </p:overlayPanel>
+                                                                </h:panelGrid>
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    <p:panelGrid columns="2" >
+                                                                        <p:lightBox iframe="true" id="lighbox3" width="650px" height="430px">
+                                                                            <p:link outcome="particulier/connexionCltPubPart" value="S'inscrire" style="color: blue; font-size: 16px" disabled="#{!pub.active}">
+                                                                                <f:param id="paramNpidp" name="npidp" value="#{pub.NPId.npid}" />
+                                                                                <f:param id="paramPubPart" name="cdPubPart" value="#{pub.codePubParticulier}" />
+                                                                            </p:link>
+                                                                        </p:lightBox>
+
+                                                                       <p:lightBox iframe="true" id="lighboxPart" width="820px" height="630px">
+                                                                        <p:link outcome="menuIndex/partPubCarossel/imagesPart" value="Photo de l'offre." style="color: blue; font-size: 16px" disabled="#{!pub.active}">
+                                                                            <f:param id="cdPubId" name="cdPubPart" value="#{pub.codePubParticulier}" />
+                                                                        </p:link>
+                                                                       </p:lightBox>
+                                                                    </p:panelGrid>  
+                                                                    
+                                                                    
+                                                                    <br/>
+                                                                   
+                                                                    
+                                                              <p:confirmDialog id="confirm" global="true" showEffect="slide" hideEffect="slide">
+                                                                    <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="width: 40%" />
+                                                                    <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="width: 40%" />
+                                                              </p:confirmDialog>
+                                                               
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                  </p:panel> 
+ 
+                                         </p:dataGrid>
+
+                                       <br/>
+                                        
+                         
+                         </h:form>
+  
+    </h:body>
+</html>

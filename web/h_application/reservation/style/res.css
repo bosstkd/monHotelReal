@@ -1,0 +1,121 @@
+body {
+  background-image:url(../../../img/reserv.png);
+   background-position: center;
+    background-size: cover; 
+     background-repeat: repeat;
+}
+
+
+
+panel {
+  margin: -28px -25px 25px;
+  padding: 15px 25px;
+  line-height: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ADADAD;
+  text-align:center;
+  background: #f7f7f7;
+}
+
+
+select{
+  width: 150px;
+  height: 20px;
+  margin-bottom: 25px;
+  padding-left:10px;
+  font-size: 15px;
+  text-align: center;
+  font-style: italic;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input, textArea {
+  width: 180px;
+  height: 20px;
+  margin-bottom: 25px;
+  padding-left:10px;
+  text-align: center;
+  font-size: 15px;
+  font-style: italic;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+
+text, label{
+    font-family: fantasy;
+    font-style: italic;
+    font-size: 15px;
+}
+
+#datalist {
+   height:150px;
+   overflow:auto;
+   font-size: 15px;
+   font-style: italic;
+}
+
+#n_p_id{
+  width: 100px;
+  height: 20px;
+  margin-bottom: 25px;
+  padding-left:10px;
+  font-size: 15px;
+  font-style: italic;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#listBox{
+  width: 95%;
+  margin-bottom: 25px;
+  padding-left:10px;
+  font-size: 15px;
+  font-style: italic;  
+}
+
+
+
+.opr{
+  width: 440px;
+  height: 30px;
+  padding: 0;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  background: #f7f7f7;
+  
+  border-radius: 5px;
+  cursor: pointer; 
+  outline:0;
+  color: #000000;
+}
+
+
+#overL, #overC{
+    height: 310px;
+}
+
+.btn {
+  height: 30px;
+  padding: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+  background: cadetblue;
+  border-color: #000000;  
+  border-radius: 5px;
+  cursor: pointer; 
+  outline:0;
+}
+
+.btn:hover {
+    background-color: yellow;
+}

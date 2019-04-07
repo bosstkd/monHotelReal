@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+ <h:head>
+  <title>Connexion</title>
+  <link href="../styleCss/index.css" rel="stylesheet"/>
+ </h:head>
+    <h:body>
+            <div id="wb_LayoutGrid2">
+            <h:form id="FormConnexion" style="display:inline-block;width:50%;top: 50px; left: 25%; position: relative">
+               <p:panel id="panel" header="SE CONNECTER" > 
+                   <p:growl id="messages" showDetail="true" sticky="true" /> 
+                   
+                    <div class="row">
+                    <div class="col-1">
+                    <div id="wb_Heading1" style="display:inline-block;width:100%;text-align:center;z-index:0;">
+                    </div>
+                    <hr id="Line1" style="display:block;width: 100%;z-index:1;"/>
+                    <p:inputText type="text" id="code_h" style="z-index:2;" value="#{connexionController.code_h}"  placeholder="Code Hotel" class="classInput">
+                      <f:ajax event="blur" render="msgCode_h" />
+                      <f:validator binding="#{codeHValidator}" />
+                    </p:inputText>
+                    <p:message for="code_h" id="msgCode_h" display="icon" />
+                    
+                    <hr id="Line5" style="display:block;width: 100%;z-index:3;"/>
+                    <p:inputText type="text" id="user" style="z-index:4; "  value="#{connexionController.email}"  placeholder="ID Utilisateur" class="classInput">
+                      <f:validateLength minimum="4" />
+                    </p:inputText>
+                    <p:message for="user" id="msgUser" display="icon" />
+                    
+                    <hr id="Line6" style="display:block;width: 100%;z-index:5;"/>
+                    <p:inputText type="password" id="psw" style="z-index:6; " value="#{connexionController.psw}" placeholder="Mot de  passe" class="classInput"/>
+                    <hr id="Line7" style="display:block;width: 100%;z-index:7;"/>
+                    <p:commandButton value="Connexion" action="#{connexionController.doLogin}" update="messages" icon="ui-icon-check" style="display:inline-block;width:100%;height:45px;z-index:8; text-align: center; font-size: 20px;">
+                    </p:commandButton>
+                </div>
+            </div>
+              </p:panel>
+            </h:form>
+            </div>
+</h:body>
+</html>

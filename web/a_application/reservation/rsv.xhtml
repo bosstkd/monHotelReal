@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Demande convention</title>
+         <link href="style/users.css" rel="stylesheet"/>
+         <f:metadata>
+            <f:viewAction action="#{sessionInfo.returnToAgcCon}" />
+        </f:metadata>
+    </h:head>
+    
+   
+    <h:body>
+        
+        <p:layout fullPage="true">
+            <p:layoutUnit position="west" size="200" header="Menu" resizable="true" collapsible="true" style="font-size: 12px; text-align: center">
+                <br/><br/>
+                
+                        <h:form>
+                         <p:panel header="Critères de recherche"  style="font-size: 12px; text-align: center">
+                          
+                              <p:outputLabel for="typeConv" value="Type de convention:" />
+                     
+                              <p:selectOneRadio id="typeConv" value="#{indexController.typeConv}"  required="true" style="width: 145px">
+                                <f:selectItem itemLabel="Chambre Libre" itemValue="chLib" />
+                                <f:selectItem itemLabel="Chambre Réservé" itemValue="chRsv" />
+                                <p:ajax event="change" update=":form:listHtl " /> 
+                              </p:selectOneRadio>
+                             
+                             
+                          <p:outputLabel for="wil" value="Wilaya" />
+                          <p:selectOneMenu id="wil" value="#{indexController.wilaya}" style="width: 75%">
+                             <f:selectItem itemLabel="Aucun choix" itemValue="" />
+                             <f:selectItem itemLabel="Wilaya d'Adrar" itemValue="Adrar" />
+                             <f:selectItem itemLabel="Wilaya de Chlef" itemValue="Chlef" />
+                             <f:selectItem itemLabel="Wilaya de Laghouat" itemValue="Laghouat" />
+                             <f:selectItem itemLabel="Wilaya d'Oum El Bouaghi" itemValue="Oum El Bouaghi" />
+                             <f:selectItem itemLabel="Wilaya de Batna" itemValue="Batna" />
+                             <f:selectItem itemLabel="Wilaya de Béjaia" itemValue="Béjaia" />
+                             <f:selectItem itemLabel="Wilaya de Biskra" itemValue="Biskra" />
+                             <f:selectItem itemLabel="Wilaya de Bechar" itemValue="Bechar" />
+                             <f:selectItem itemLabel="Wilaya de Blida" itemValue="Blida" />
+                             <f:selectItem itemLabel="Wilaya de Bouira" itemValue="Bouira" />
+                             <f:selectItem itemLabel="Wilaya de Tamanrasset" itemValue="Tamanrasset" />
+                             <f:selectItem itemLabel="Wilaya de Tebessa" itemValue="Tebessa" />
+                             <f:selectItem itemLabel="Wilaya de Tlemcen" itemValue="Tlemcen" />
+                             <f:selectItem itemLabel="Wilaya de Tiaret" itemValue="Tiaret" />
+                             <f:selectItem itemLabel="Wilaya de Tizi Ouzou" itemValue="Tizi Ouzou" />
+                             <f:selectItem itemLabel="Wilaya d'Alger" itemValue="Alger" />
+                             <f:selectItem itemLabel="Wilaya de Djelfa" itemValue="Djelfa" />
+                             <f:selectItem itemLabel="Wilaya de Jijel" itemValue="Jijel" />
+                             <f:selectItem itemLabel="Wilaya de Sétif" itemValue="Sétif" />
+                             <f:selectItem itemLabel="Wilaya de Saida" itemValue="Saida" />
+                             <f:selectItem itemLabel="Wilaya de Skikda" itemValue="Skikda" />
+                             <f:selectItem itemLabel="Wilaya de Sidi Bel Abbès" itemValue="Sidi Bel Abbès" />
+                             <f:selectItem itemLabel="Wilaya d'Annaba" itemValue="Annaba" />
+                             <f:selectItem itemLabel="Wilaya de Guelma" itemValue="Guelma" />
+                             <f:selectItem itemLabel="Wilaya de Constantine" itemValue="Constantine" />
+                             <f:selectItem itemLabel="Wilaya de Media" itemValue="Media" />
+                             <f:selectItem itemLabel="Wilaya de Mostaganem" itemValue="Mostaganem" />
+                             <f:selectItem itemLabel="Wilaya de M'Sila" itemValue="M'Sila" />
+                             <f:selectItem itemLabel="Wilaya de Mascara" itemValue="Mascara" />
+                             <f:selectItem itemLabel="Wilaya d'Ouargla" itemValue="Ouargla" />
+                             <f:selectItem itemLabel="Wilaya d'Oran" itemValue="Oran" />
+                             <f:selectItem itemLabel="Wilaya d'El Bayadh" itemValue="El Bayadh" />
+                             <f:selectItem itemLabel="Wilaya d'Illizi" itemValue="Illizi" />
+                             <f:selectItem itemLabel="Wilaya de Bordj Bou Arreridj" itemValue="Bordj Bou Arreridj" />
+                             <f:selectItem itemLabel="Wilaya de Boumerdès" itemValue="Boumerdès" />
+                             <f:selectItem itemLabel="Wilaya d'El Tarf" itemValue="El Tarf" />
+                             <f:selectItem itemLabel="Wilaya de Tindouf" itemValue="Tindouf" />
+                             <f:selectItem itemLabel="Wilaya de Tissemsilt" itemValue="Tissemsilt" />
+                             <f:selectItem itemLabel="Wilaya d'El Oued" itemValue="El Oued" />
+                             <f:selectItem itemLabel="Wilaya de Khenchela" itemValue="Khenchela" />
+                             <f:selectItem itemLabel="Wilaya de Souk Ahras" itemValue="Souk Ahras" />
+                             <f:selectItem itemLabel="Wilaya de Tipaza" itemValue="Tipaza" />
+                             <f:selectItem itemLabel="Wilaya de Mila" itemValue="Mila" />
+                             <f:selectItem itemLabel="Wilaya d'Ain Defla" itemValue="Ain Defla" />
+                             <f:selectItem itemLabel="Wilaya de Naama" itemValue="Naama" />
+                             <f:selectItem itemLabel="Wilaya d'Ain Témouchent" itemValue="Ain Témouchent" />
+                             <f:selectItem itemLabel="Wilaya de Ghardaia" itemValue="Ghardaia" />
+                             <f:selectItem itemLabel="Wilaya de Relizane" itemValue="Relizane" />
+                             
+                          </p:selectOneMenu>
+                          <br/>
+                          <br/>
+                          <p:outputLabel for="minPrix" value="Prix Min" />
+                          <p:inputNumber id="minPrix"  value="#{indexController.prixMin}" placeholder="Prix Min" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="." style="text-align: center; width: 100%;"/>
+                          <br/>
+                          <br/>
+                          <p:outputLabel for="maxPrix" value="Prix Max" />
+                          <p:inputNumber id="maxPrix"  value="#{indexController.prixMax}" placeholder="Prix Max" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="." style="text-align: center; width: 100%;"/>
+                          <br/>
+                          <br/>
+                          <p:outputLabel for="nomHotel" value="Hôtel" />
+                          <p:inputText id="nomHotel"  value="#{indexController.raisonSociale}"  placeholder="Mon Hôtel" style="text-align: center; width: 85%;">
+
+                          </p:inputText>
+         
+                          <br/>
+                          <br/>
+                          <p:commandButton  id="Button1" value="Chercher"  update = ":form:listHtl" style="text-align: center; width: 85%;">
+                          </p:commandButton> 
+                          
+                         </p:panel>
+                            
+                            
+                            
+                        </h:form>
+                        
+                      
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center">
+                        
+                                <h:form id="form" >
+                                   
+                                    <p:dataList id="listHtl" value="#{indexController.listHotelConv}" widgetVar="htlsList" var="htl" type="unordered" itemType="none" paginator="true" paginatorPosition="bottom" rows="10" style="width: 90%; background-color: buttontext">
+                                     
+                                        <p:panel id="basic" header="#{htl.raisonSocial}.  #{htl.etoile} Etoile(s)" footer="Tel: #{htl.tel}/#{htl.fax}. Adresse:#{htl.adresse}, Wilaya: #{htl.wilaya}, commune: #{htl.commune}."  style="margin-bottom:5px; width: 98%; font-size: 14px">
+                                        
+                                          <div class="p-grid">
+                                                <div class="p-col-fixed" style="width:200px">
+                                                    <div class="box">
+                                                        
+                                                            <p:lightBox iframe="true" id="lighbox4" width="940px" height="660px">
+                                                            <p:link outcome="images" style="color: blue">
+                                                                <p:graphicImage id="img" name="uploadTest/#{htl.codeH}/logo/logo_RS.jpg" style="cursor:pointer" title="Image de présentation" />
+                                                                <f:param id="paramMP0" name="cdH" value="#{htl.codeH}" />
+                                                            </p:link>
+                                                        </p:lightBox>    
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="p-col">
+                                                    <div class="box">
+                                                        <p:graphicImage id="etoile" name="uploadTest/facture/etoile/#{htl.etoile}.jpg" title="nbr etoiles" style="width:130px" />
+                                                        <br/>
+                                                        <h:outputText  value="#{htl.description}"  style="font-size: 16px; font-weight: bold; "/>                                              
+                                            
+                                     
+                                                        <p:lightBox iframe="true" id="lighbox3" width="900px" height="580px">
+                                                            <p:link outcome="#{indexController.typeConv eq 'chLib' ? 'reservation':'reservation2' }" value="Reservation" style="color: blue">
+                                                                <f:param id="paramMP1" name="cdH" value="#{htl.codeH}" />
+                                                                <f:param id="paramMP2" name="nomH" value="#{htl.raisonSocial}" />
+                                                                <f:param id="paramMP3" name="typeConv" value="#{indexController.typeConv}" />
+                                                            </p:link>
+                                                        </p:lightBox>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          
+                       
+                                      </p:panel> 
+                                      <br/>
+                                      
+                                  </p:dataList>
+                                </h:form>
+                        
+                    </p:layoutUnit>
+
+   </p:layout>
+        
+        
+         <h:form style="width: 30px; position: absolute;
+                top:10px;
+                left:95%;">
+                <p:lightBox iframe="true" id="lighbox3" width="1200px" height="500px" >
+                                <h:outputLink value="tabRes.xhtml" title="Rechercher Réservation" style="width:100%;" >
+                                    <p:commandButton id="movieBtn" type="button" icon="ui-icon-search" style="height: 30px"/>
+                                </h:outputLink>
+                </p:lightBox>  
+            </h:form>
+
+    </h:body>
+
+</html>
+

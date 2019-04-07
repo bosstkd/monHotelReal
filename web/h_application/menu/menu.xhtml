@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Menu</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+       </h:head>
+    <h:body>
+       <!-- <h:outputStylesheet name="style.css" /> -->
+
+    <h:form id="frm" style="width: 100%;">  
+    <p:growl id="messages"/>
+ 
+    
+    <p:menubar >
+        <p:submenu label="Ouvrir" icon="ui-icon-document" style="font-size: 16px; text-shadow:  black 1px 0 1px;">
+            <p:submenu label="Configuration" icon="ui-icon-gear" >
+                <p:menuitem value="Chambres" action="#{menuController.iFrameUrl('chambre')}" update=":panelC" disabled="#{menuController.chambre}" />
+                <p:menuitem value="Comptes utilisateurs" action="#{menuController.iFrameUrl('utilisateur')}" update=":panelC" disabled="#{menuController.compteUser}" />
+                <p:menuitem value="Informations personnelles" action="#{menuController.iFrameUrl('infos')}" update=":panelC" disabled="#{menuController.informationPerso}" />
+                <p:menuitem value="Clients" action="#{menuController.iFrameUrl('clientSCh')}" update=":panelC" disabled="#{menuController.clients}" />
+                <p:menuitem value="Entreprises" action="#{menuController.iFrameUrl('entreprise')}" update=":panelC" disabled="#{menuController.entreprises}" />
+                <p:submenu label="Convention" >
+                      <p:menuitem value="Convention Agence" action="#{menuController.iFrameUrl('conventionAgc')}" update=":panelC" disabled="#{menuController.convention}" />
+                      <p:menuitem value="Convention Entreprise" action="#{menuController.iFrameUrl('convention')}" update=":panelC" disabled="#{menuController.entreprises}" />
+                </p:submenu>
+               
+            </p:submenu>
+            <p:separator />
+            <p:menuitem value="Déconnecter" action="#{connexionController.doLogout}" />
+        </p:submenu>
+        
+         <p:submenu label="Opérations" icon="ui-icon-pencil" style="font-size: 16px; text-shadow:  black 1px 0 1px;">
+             <p:menuitem value="Réservation" action="#{menuController.iFrameUrl('rsv')}" update=":panelC" disabled="#{menuController.reservation}" />
+             <p:menuitem value="Charges supplémentaires" action="#{menuController.iFrameUrl('chrg')}" update=":panelC" disabled="#{menuController.chargeSupp}" />
+             <p:menuitem value="Libération" action="#{menuController.iFrameUrl('lbr')}" update=":panelC" disabled="#{menuController.liberation}" />
+             <p:menuitem value="Versements" action="#{menuController.iFrameUrl('vrs')}" update=":panelC" disabled="#{menuController.versement}" />
+             <p:menuitem value="Gestion caisse" action="#{menuController.iFrameUrl('cas')}" update=":panelC" disabled="#{menuController.gestionCaisse}" />
+             <p:menuitem value="Facturation" action="#{menuController.iFrameUrl('fct')}" update=":panelC" disabled="#{menuController.facturation}" />
+         </p:submenu>
+        
+         <p:submenu label="Informations" icon="ui-icon-help" style="font-size: 16px; text-shadow: black 1px 0 1px;">
+             <p:menuitem value="Calendrier" action="#{menuController.iFrameUrl('cld')}" update=":panelC" disabled="#{menuController.calendrier}" />
+             <p:menuitem value="Statistiques" action="#{menuController.iFrameUrl('stat')}" update=":panelC" disabled="#{menuController.statistique}" />
+             <p:menuitem value="Liste police" action="#{menuController.iFrameUrl('polc')}" update=":panelC" disabled="#{menuController.listePolice}" />
+             <p:menuitem value="Demandes réservation particuliers" action="#{menuController.iFrameUrl('demPart')}" update=":panelC" disabled="#{menuController.listePolice}" />
+         </p:submenu>
+         <p:menuitem value="Déconnecter" action="#{connexionController.doLogout}" icon="ui-icon-close" style="font-size: 16px; text-shadow:  black 1px 0 1px;"/>
+
+        
+        <f:facet name="options">
+            <p:commandButton id="txt_count" value="#{connexionController.number}" action="#{menuController.iFrameUrl('demPart')}" disabled="#{menuController.listePolice}" update=":panelC" icon="#{connexionController.ico}" title="Demande de réservation particulier" style="background-color: white; color: #{connexionController.color}; border-color: white; font-size: 14px"/>
+            <p:poll interval="3" listener="#{connexionController.increment}" update="txt_count" />
+            <p:outputLabel value="Bonjour #{menuController.hotel}." style="font-family: monospace; font-size: 17px; font-weight: bold; text-shadow: black 1px 0 1px;"/>
+        </f:facet>
+        
+    </p:menubar>
+    
+    </h:form>
+    
+    
+    </h:body>
+</html>

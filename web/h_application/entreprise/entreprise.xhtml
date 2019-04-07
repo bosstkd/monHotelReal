@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+     <h:head>
+            <title>Entreprise</title>
+            <link href="styleCSS/client.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    
+     <h:body>
+         <h:form id="Form1" >
+ 
+             <p:panel id="panel"  style="font-size: 15px;">
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+                <h:panelGrid columns="9" cellpadding="5"  style="display:block; text-align:right">
+                    
+                    <p:outputLabel for="RSocial" value="Raison sociale:" /> 
+                    <p:inputText id="RSocial"  value="#{entrepriseController.raisonSocial}" placeholder="Nom d'entreprise" required="true">
+                        <f:validateLength minimum="5" />
+                     </p:inputText>
+                     <p:message for="RSocial" id="MsgRSocial" display="icon" />
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     
+                     
+                     
+                     <p:outputLabel for="nrc" value="N° Registre de commerce:" /> 
+                        <p:inputMask id="nrc" value="#{entrepriseController.nrc}" mask="99/99 9999999*99"  placeholder="N° Registre de commerce" required="true" style="text-align: center">
+                          <f:validateLength minimum="5" />
+                        </p:inputMask>
+                     <p:message for="nrc" id="msgNrc" display="icon" />
+                     
+                     <p:outputLabel for="nif" value="N° D'identification fiscal:" /> 
+                        <p:inputMask id="nif" value="#{entrepriseController.nif}" mask="9999 9999 9999 999"  placeholder="N° Identification Fiscale" required="true" style="text-align: center">
+                           <f:validateLength minimum="15" />
+                       </p:inputMask>
+                     <p:message for="nif" id="msgNif" display="icon" />
+                     
+                     <p:outputLabel for="nai" value="N° D'Article d'imposition:" /> 
+                        <p:inputMask id="nai" value="#{entrepriseController.nai}" mask="999 9999 9999"  placeholder="N° Article d'imposition" required="true" style="text-align: center">
+                           <f:validateLength minimum="11" />
+                       </p:inputMask>
+                     <p:message for="nai" id="msgNai" display="icon" />
+                     
+                     
+                     <p:outputLabel for="adresse" value="Adresse:" /> 
+                     <p:inputTextarea id="adresse"  value="#{entrepriseController.adresse}" placeholder="Adresse" >
+
+                     </p:inputTextarea>
+                     <p:message for="adresse" id="msgAdresse" display="icon" />
+                     
+                     <p:outputLabel for="tel" value="N° Téléphone" /> 
+                     <p:inputMask id="tel"  value="#{entrepriseController.tel}"  placeholder="mobile" mask="(9999) 999-999">
+
+                     </p:inputMask>
+                     <p:message for="tel" id="msgTel" display="icon" />
+                     
+                     <p:outputLabel for="mail" value="Adresse Mail:" /> 
+                     <p:inputText id="mail"  value="#{entrepriseController.mail}" placeholder="E-mail">
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                     </p:inputText>
+                     <p:message for="mail" id="msgMail" display="icon" />
+                     
+                     <p:outputLabel value=" " /> 
+                     <p:panel style="text-align: left;">
+                         <p:selectBooleanCheckbox  id="Checkbox1" value="#{entrepriseController.exonore}" />
+                         <p:outputLabel for="Checkbox1" value="  Exonoré de la TVA" id="tva_exo"/> 
+                     </p:panel>
+                      
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     <p:outputLabel value=" " /> 
+                     
+               
+                </h:panelGrid>
+             
+             <h:panelGrid columns="9" cellpadding="5">
+                 <p:commandButton  id="Button1"  value="Ajouter" actionListener="#{entrepriseController.confirme}" update = "panelTab msgs" style="width: 500px"/>
+                 <p:commandButton  id="Button2"  value="Modifier" actionListener="#{entrepriseController.modifier}" update = "panelTab msgs" style="width: 400px"/>
+                <p:commandButton  id="Button3"  value="Supprimer" actionListener="#{entrepriseController.supp}" update = "panelTab msgs" style="width: 250px"/>
+             </h:panelGrid>
+             
+             
+             </p:panel >
+             
+             <br/>
+            <p:panel id="panelTab" header="Table d'informations Entreprise" style="text-align: center">
+                <p:dataTable id="singleDT" var="entreprise" value="#{entrepriseController.listEtp}" selectionMode="single" selection="#{entrepriseController.entreprise}" rowKey="#{entreprise.codeC}" scrollable="true" resizableColumns="true" rows="10" paginator="true" style="text-align: center; font-size: 16px" >
+                    <p:ajax event="rowSelect"  listener="#{entrepriseController.onRowSelect}"  update=":Form1:panel :Form1:msgs" />                    
+                
+ 
+                 <p:column filterBy="#{entreprise.raisonSociale}" headerText="Raison Sociale"  filterMatchMode="contains">
+                     <h:outputText value="#{entreprise.raisonSociale}" />
+                 </p:column>
+                    
+                    <p:column filterBy="#{entreprise.codeC}" headerText="Code client"  filterMatchMode="contains">
+                     <h:outputText value="#{entreprise.codeC}" />
+                 </p:column>
+                                       
+                    <p:column filterBy="#{entreprise.nrc}" headerText="N° Registre de Commerce"  filterMatchMode="contains">
+                     <h:outputText value="#{entreprise.nrc}" />
+                 </p:column>
+                 
+                   
+                 
+                 <p:column  headerText="N° Article d'imporsition"  >
+                     <h:outputText value="#{entreprise.nai}" />
+                 </p:column>
+                 
+                 <p:column  headerText="N° d'indetification fiscale"  >
+                     <h:outputText value="#{entreprise.nif}" />
+                 </p:column>
+                    
+                 <p:column filterBy="#{entreprise.tel}" headerText="Téléphone" filterMatchMode="contains">
+                     <h:outputText value="#{entreprise.tel}" />
+                 </p:column>
+                 
+              </p:dataTable>
+         </p:panel>
+         </h:form>
+    </h:body>
+</html>

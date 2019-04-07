@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Liste des inscrits</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToPartCon()}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+
+        
+        <h:form id="frmDm"> 
+           <p:growl id="msgs" showDetail="true" sticky="true" /> 
+
+            <p:panel id="panelTab" style="width: 100%; ">
+                <p:commandButton update="#{p:component('demandeDT')}" icon="ui-icon-refresh" title="Actualiser" value="Actualiser" style="width: 15%"/>
+                <p:dataTable id="demandeDT" var="inscrit" value="#{publicationPartController.pubInscRealiser}" scrollable="true" scrollHeight="150" rows="3" paginator="true" paginatorPosition="bottom" style="font-size: 12px; text-align: center; width: 100%">
+           
+                                        <p:column filterBy="#{inscrit.dateInscription}" headerText="Date inscription"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.dateInscription}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                            </h:outputText>
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{inscrit.npidins.nomPrenom}" headerText="Nom et prénom"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.npidins.nomPrenom}" />
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{inscrit.npidins.num_tel}" headerText="Tel"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.npidins.num_tel}" />
+                                        </p:column>
+                    
+                                        <p:column  headerText="Adresse" >
+                                            <h:outputText value="#{inscrit.npidins.adresse}" />
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{inscrit.codePubPart.type} F#{inscrit.codePubPart.nbPiece}" headerText="Type de mobilier"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.codePubPart.type} F#{inscrit.codePubPart.nbPiece}" />
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{inscrit.codePubPart.adresse} - #{inscrit.codePubPart.wilaya}" headerText="Adresse"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.codePubPart.adresse} - #{inscrit.codePubPart.wilaya}" />
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{inscrit.codePubPart.dateDu}" headerText="Du"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.dateInscription}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                            </h:outputText>
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{inscrit.codePubPart.dateAu}" headerText="Au"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.dateInscription}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                            </h:outputText>
+                                        </p:column>
+       
+            </p:dataTable>
+         </p:panel>
+        </h:form>
+        
+        
+        
+        
+    </h:body>
+</html>

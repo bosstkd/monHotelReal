@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Publication particulier</title>
+        <link href="styleCSS/client.css" rel="stylesheet"/>
+            <f:metadata>
+                  <f:viewAction action="#{sessionInfo.returnToPartCon()}" />
+            </f:metadata>
+        
+    </h:head>
+    
+     <h:body>
+        <h:form id = "formPrincipal">
+            
+           
+              <p:panel id="panel" header="Lancé une publication" style="font-size: 14px;width: 900px; position: absolute; left: 15%; top: 15px">
+              <p:growl id="messages" showDetail="true" sticky="true" /> 
+              
+
+               <p:separator/>
+                <h:panelGrid columns="6" cellpadding="5"  >
+
+                    
+                     <h:outputText value="Type de location:"  />
+                     <p:selectOneMenu id="Combobox2" value="#{publicationPartController.type}"  >
+                                            <f:selectItem itemLabel="Maison" itemValue="Maison" />
+                                            <f:selectItem itemLabel="Villa" itemValue="Villa" />
+                                            <f:selectItem itemLabel="Appartement" itemValue="Appartement" />
+                     </p:selectOneMenu> 
+                    
+                      <p:outputLabel for="Date_D" value="Date Début:"  /> 
+                      <p:calendar id="Date_D" value="#{publicationPartController.dateDu}" placeholder="dd/MM/yy" effect="fade" required="true" >
+                                        <p:ajax  event="dateSelect" listener="#{publicationPartController.dateDu}" />
+                                </p:calendar>  
+
+                      <p:outputLabel for="Date_F" value="Date Fin:"  /> 
+                                <p:calendar id="Date_F" value="#{publicationPartController.dateAu}" placeholder="dd/MM/yy" effect="fade" required="true" >
+                                    <p:ajax  event="dateSelect" listener="#{publicationPartController.dateAu}" />
+                                </p:calendar>  
+                      
+                      <p:outputLabel for="wilaya" value="Wilaya:"  />
+                      <p:inputText id="wilaya" value="#{publicationPartController.wilaya}" required="true" />  
+                      
+                      <p:outputLabel for="nbPiece" value="Nombre de piece:"  />
+                      <p:spinner id="nbPiece" min="1" max="20" value="#{publicationPartController.nbPiece}" />
+                      
+                      <p:outputLabel value="Services: "  />
+                      
+                        <h:panelGrid columns="4" >
+                            <p:commandButton id="btnWifi" update="btnWifi" icon="fa fa-wifi" title="Wifi disponible"  style="background-color: white; color: #{publicationPartController.color(publicationPartController.wifi)}; border-color: white; font-size: 15px" >
+                                <p:ajax listener="#{publicationPartController.modServ('a')}" />
+                            </p:commandButton>
+                            <p:commandButton id="btnMeuble" update="btnMeuble" icon="fa fa-hotel" title="meublé"  style="background-color: white; color: #{publicationPartController.color(publicationPartController.meuble)}; border-color: white; font-size: 15px" >
+                                                            <p:ajax listener="#{publicationPartController.modServ('b')}" />
+                            </p:commandButton>
+                            <p:commandButton id="btnCuisine" update="btnCuisine" icon="fa fa-cutlery" title="equipé d'une cuisine"  style="background-color: white; color: #{publicationPartController.color(publicationPartController.cuisine)}; border-color: white; font-size: 15px" >
+                                                            <p:ajax listener="#{publicationPartController.modServ('c')}" />
+                            </p:commandButton>
+                            <p:commandButton id="btnGarage"  update="btnGarage" icon="fa fa-car" title="Garage disponible"  style="background-color: white; color: #{publicationPartController.color(publicationPartController.garage)}; border-color: white; font-size: 15px" >
+                                                            <p:ajax listener="#{publicationPartController.modServ('d')}" />
+                            </p:commandButton>
+                        </h:panelGrid>
+                                            
+                      <p:outputLabel for="visibilite" value="Visible:" />
+                      <p:selectBooleanCheckbox id="visibilite" value="#{publicationPartController.active}" />
+                      
+                       <p:outputLabel  value=" " />
+                       <p:outputLabel  value=" " />
+                       
+                      <p:outputLabel for="prix" value="Prix/nuitée:" /> 
+                      <p:inputNumber id="prix" value="#{publicationPartController.prix}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="."  placeholder="Versement" required="true"  style=" text-align:center; "/>
+
+                </h:panelGrid>
+             
+                 <p:separator/>
+                 
+                 <h:panelGrid columns="2" >
+                      <p:outputLabel value="Adresse: "  />
+                      <p:inputText id="adresse" value="#{publicationPartController.adresse}" style="width: 780px;" />  
+                 </h:panelGrid>
+                 
+                 <p:separator/>
+                     
+                        <p:panel header="Détails sur 1000 caractères" id="pandesc" style="width: 860px;">
+                         
+                            <p:scrollPanel style="width:100%; height:100%">
+                                <p:inputTextarea id="descript" value="#{publicationPartController.description}" label="Description" style="width: 100%; height: 100%">
+                                    <f:validateLength minimum="8" maximum="1000" />
+                                  </p:inputTextarea>
+                            </p:scrollPanel>
+                            
+                        </p:panel>
+
+                <p:separator/>   
+
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:commandButton value="Publier" actionListener="#{publicationPartController.publie}" update="panelTab messages" style="width: 150px"/>
+                    <p:commandButton value="Modifier" actionListener="#{publicationPartController.modifier}" update="panelTab messages" />
+                </h:panelGrid>
+               
+                 <br/>
+
+            </p:panel>
+ 
+            <p:panel id="panelTab" header="Table des publications" style="font-size: 14px;width: 900px; position: absolute; left: 15%; top: 480px; margin-bottom:20px" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" >
+               
+                <p:dataTable id="singleDT" var="pub" value="#{publicationPartController.listPartPub}" selectionMode="single" selection="#{publicationPartController.pubSelected}" rowKey="#{pub.codePubParticulier}" scrollable="true"  resizableColumns="true" rows="8" paginator="true" style="text-align: center; font-size: 14px">
+                    <p:ajax event="rowSelect"  listener="#{publicationPartController.onRowSelect}"  update="formPrincipal:panel" />
+                    <p:ajax event="rowSelect"  listener="#{photoUploadControllerPart.onRowSelect}"  update="formPrincipal:panelTab" />
+                    
+                
+ 
+                 <p:column filterBy="#{pub.type}" headerText="Type Publication"  filterMatchMode="contains">
+                     <h:outputText value="#{pub.type}" />
+                 </p:column>
+                    
+                 <p:column filterBy="#{pub.wilaya}" headerText="Wilaya"  filterMatchMode="contains">
+                     <h:outputText value="#{pub.wilaya}" />
+                 </p:column>
+                    
+                 <p:column  headerText="Prix" >
+                     <h:outputText value="#{pub.prix}" style="text-align: right">
+                            <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                     </h:outputText>
+                 </p:column>
+                                       
+                 <p:column filterBy="#{pub.datePub}" headerText="Date Publication"  filterMatchMode="contains">
+                                            <h:outputText value="#{pub.datePub}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                            </h:outputText>
+                 </p:column>
+                 
+                 <p:column  headerText="Visibilité" >
+                     <h:outputText value="#{pub.active?'Oui':'Non'}" />
+                 </p:column>
+                 
+                    <p:column filterBy="#{pub.dateDu}" headerText="Date Début"  filterMatchMode="contains">
+                                            <h:outputText value="#{pub.dateDu}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                            </h:outputText>
+                    </p:column>
+                 
+                    <p:column filterBy="#{pub.dateAu}" headerText="Date Fin"  filterMatchMode="contains">
+                         <h:outputText value="#{pub.dateAu}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                         </h:outputText>
+                    </p:column>
+                 
+                    
+                    
+                     <p:column style="width:32px;text-align: center">
+                         
+                         <p:commandButton update="singleDT :formPrincipal:messages" actionListener="#{publicationPartController.annule(pub.codePubParticulier)}" icon="ui-icon-closethick" title="Annuler" >
+                               <p:confirm header="Confirmation" message="Voulez vous Annuler la publication !?" icon="ui-icon-alert" />
+                         </p:commandButton>
+                         
+                         <p:confirmDialog id="confirm" global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                         </p:confirmDialog> 
+                     
+                     </p:column>
+                    
+              </p:dataTable>
+                
+                <h:panelGrid columns="2" style="width: 100%">
+                    <p:inputText id="pubCode" value="#{photoUploadControllerPart.codeP}" disabled="true" style="text-align: center; width: 98%" />
+                    <p:lightBox iframe="true" id="lighbox9" width="540px" height="460px">
+                                        <p:link outcome="images" style="color: blue">
+                                            <p:commandButton value="Ajouter des images" icon="fa fa-photo" disabled="#{!photoUploadControllerPart.active}" style="height: 35px"/>
+                                        </p:link>
+                    </p:lightBox>
+                </h:panelGrid>
+                 
+            </p:panel>
+            
+</h:form>
+         
+         
+   
+    </h:body>
+</html>

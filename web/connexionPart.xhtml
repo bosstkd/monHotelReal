@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+ <h:head>
+  <title>Connexion</title>
+  <link href="style/indexPart.css" rel="stylesheet"/>
+ </h:head>
+    <h:body>
+            <div id="wb_LayoutGrid2">
+          <h:form>
+            <h:form id="FormConnexion" >
+               <p:panel id="panel" header="Connexion Particulier" style="display:inline-block;width:25%;top: 300px; left: 70%; position: relative"> 
+                   <p:growl id="messages" showDetail="true" sticky="true" /> 
+                   
+                   <h:panelGrid columns="2" >
+                   
+                   <p:graphicImage id="img" name="uploadTest/user.jpg" style="cursor:pointer; width: 100px; height: 100px" title="User" />
+
+                       
+                   <p:panelGrid style="width: ">
+                       <p:inputText type="text" id="code_h" style="text-align: center; font-size: 16px" value="#{connexionCltPart.npid}"  placeholder="Identifiant" class="classInput"/>
+                        <p:separator />
+                        <p:inputText type="password" id="psw" style="text-align: center; font-size: 16px" value="#{connexionCltPart.psw}" placeholder="Mot de  passe" class="classInput"/>
+                   </p:panelGrid> 
+                       
+                   </h:panelGrid>
+
+                   <p:separator />
+                   <p:commandButton value="Connexion" action="#{connexionCltPart.doLogin}" update="messages" icon="ui-icon-check" style="display:inline-block;width:100%;height:35px;z-index:8; text-align: center; font-size: 20px;"/>
+                    
+                    <p:lightBox iframe="true" id="lighbox3" width="450px" height="300px" style="text-align: right;">
+                        <h:outputLink value="c_interface/inscriptionClt/recup.xhtml" title="Récupération psw" style="width:100%; " >
+                            <p:outputLabel value="Mot de passe oublier" style="width: 280px; color: blue; "/>
+                        </h:outputLink>
+                    </p:lightBox>
+              
+              </p:panel>
+            </h:form>
+                
+                <p:dock position="bottom" >
+                    <p:menuitem value="Accueil" icon="/resources/original/application-icone-4104-128.png" url="index.xhtml"/>
+                    <p:menuitem value="S'inscrir" icon="/resources/original/kexi-icone-5106-128.png"  outcome="c_interface/inscriptionClt/clientSChambreClt.xhtml" />
+                    <p:menuitem value="Contacts" icon="/resources/original/mail-repondre-icone-6652-128.png"  target="_blank" outcome="contacts" />
+                </p:dock>
+          </h:form>
+            </div>
+</h:body>
+</html>

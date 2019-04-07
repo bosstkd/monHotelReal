@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Telechargement images</title>
+                
+            </f:facet>
+             
+            <link href="styleCSS/client.css" rel="stylesheet"/>
+        </h:head>
+
+        <h:body>
+            <h:form>
+                <p:panel header="Ajouter des images de la publication">
+                 <p:fileUpload fileUploadListener="#{photoUploadControllerPart.MutlipleFileUpload}"  mode="advanced" dragDropSupport="false"
+                               multiple="true" update="msf0" sizeLimit="8000000" fileLimit="5" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" >
+                 </p:fileUpload>
+                                                 <p:growl id="msf0" showDetail="true" />
+                </p:panel>
+            </h:form>
+        </h:body>
+
+    </f:view>
+</html>
+

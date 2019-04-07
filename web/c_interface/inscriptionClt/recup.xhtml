@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Récup</title>
+            <link href="styleCSS/client.css" rel="stylesheet"/>
+    </h:head>
+    <h:body>
+        
+        <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+            <f:facet name="default">
+                <h:outputText value="Status: Envoi de mail" />
+            </f:facet>
+
+            <f:facet name="start">
+                <p:graphicImage name="/original/giphy.gif" style="height: 100px; width: 120px" />
+            </f:facet>
+
+            <f:facet name="complete">
+                <h:outputText value="Status: Mail envoyer avec succès" />
+            </f:facet>
+        </p:ajaxStatus>
+
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="/original/giphy.gif" />
+        </p:dialog>
+        
+        <h:form id="form" >
+            <p:growl id="msgs" showDetail="true" sticky="true"/>
+            <p:panel header="Récupération mot de passe.">
+            
+            <h:panelGrid columns="2" cellpadding="5" >
+                <p:outputLabel for="PCI" value="N° Piece identité" /> 
+                <p:inputText id="PCI"  value="#{recupController.numPci}" placeholder="N° Piece identité" required="true">
+                 </p:inputText>
+                
+                <p:outputLabel for="mail" value="Adresse Email" /> 
+                <p:inputText id="mail"  value="#{recupController.mail}" placeholder="Adresse Email" required="true">
+                     <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                      <f:validateLength minimum="6" />
+                 </p:inputText>
+            </h:panelGrid> 
+             
+                <p:commandButton value="Envoi par mail" actionListener="#{recupController.confirmer}" style="font-size: 19px;" update="msgs" icon="ui-icon-circle-check" />
+                        
+                </p:panel>
+         </h:form>
+    </h:body>
+        
+</html>

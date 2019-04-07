@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Live Chat</title>
+         <f:metadata>
+            <f:viewAction action="#{sessionInfo.returnToPartCon()}" />
+        </f:metadata>
+    </h:head>
+    <script type="text/javascript">
+        setInterval("nextMessage()", 200); //update the chart every 200 ms               
+         
+        function updateMessages(xhr, status, args) {
+            if(!args.ok) return;
+           var audio = new Audio('notif.mp3');
+           var getUset = document.getElementById("myId").value;
+            var n = args.text.length; 
+                n = n / 30;
+                n = n + 1;
+                n = n * 20; 
+                
+              var r = getUset.localeCompare(args.user);   
+        if(!r){
+            $('#chat').append('<div class="msg" style = "width: 240px" ><p style="text-align: left; font-size: 9px;" >'+args.user+' ' +args.dateSent+ ' </p> <p style = "color: white; font-size: 18px; border:1px black solid; background-color: #228B22; width: 230px;  height: '+n+'px; border-radius: 15px; font-style: italic" > '+args.text+' </p> </div>');
+        }else{
+            $('#chat').append('<div class="msg" style = "width: 240px" ><p style="text-align: right; font-size: 9px;" >'+args.user+' ' +args.dateSent+ ' </p> <p style = "color: black; font-size: 18px; border:1px black solid; background-color: aliceblue; width: 230px;  height: '+n+'px; border-radius: 15px; font-style: italic" > '+args.text+' </p> </div>');
+        }      
+        
+            window.scrollTo(0,document.body.scrollHeight);
+            document.getElementById("textField").value = "";
+            audio.play();
+    }
+         
+    </script>
+    <h:body>
+        <h:form prependId="false" style="position: fixed; bottom: 0px; left: 0px; width: 100%;">
+            <p:separator/>
+            <h:panelGrid columns="2" style="width: 100%">
+                 <p:inputText id="textField" value="#{messageBean.message.message}" placeholder="write text" />
+                 <p:commandButton icon="fa fa-send-o" actionListener="#{messageBean.sendMessage}" />
+            </h:panelGrid>
+            <p:inputText id="myId" value="#{messageBean.message.user}" style="font-size: 1px; color: white"  disabled="true"/>
+
+            <p:remoteCommand name="nextMessage" actionListener="#{messageBean.firstUnreadMessage}"
+                             oncomplete="updateMessages(xhr, status, args);"/>
+            
+        </h:form>
+        
+        <div id="chat"></div>
+        <br/> <br/> <br/>
+       
+    </h:body>
+</html>

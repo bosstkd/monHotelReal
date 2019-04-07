@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f43d4d41-bf77-4c08-9cdc-8e24c41216de">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nom_entreprise" class="java.lang.String"/>
+	<parameter name="logoLink" class="java.lang.String"/>
+	<parameter name="adresse" class="java.lang.String"/>
+	<parameter name="tel" class="java.lang.String"/>
+	<parameter name="mail" class="java.lang.String"/>
+	<parameter name="rc" class="java.lang.String"/>
+	<parameter name="compte" class="java.lang.String"/>
+	<parameter name="ai" class="java.lang.String"/>
+	<parameter name="nif" class="java.lang.String"/>
+	<parameter name="cd_client" class="java.lang.String"/>
+	<parameter name="nm_client" class="java.lang.String"/>
+	<parameter name="nbl" class="java.lang.String"/>
+	<parameter name="dts" class="java.lang.String"/>
+	<parameter name="Tht" class="java.lang.String"/>
+	<parameter name="etoile" class="java.lang.String"/>
+	<field name="charge" class="java.lang.String"/>
+	<field name="dtChrg" class="java.util.Date"/>
+	<field name="code_r" class="java.lang.String"/>
+	<field name="prix_ch" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="113" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="4" width="132" height="26" forecolor="#3366FF" uuid="d48251b8-e643-46bc-b99d-44daadd46153"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Lato Black" size="12" isBold="true" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nom_entreprise}]]></textFieldExpression>
+			</textField>
+			<image onErrorType="Blank">
+				<reportElement x="7" y="31" width="132" height="50" uuid="2c252cec-4b1a-4f71-9615-913415e3b438"/>
+				<imageExpression><![CDATA[$P{logoLink}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="331" y="81" width="66" height="15" uuid="72ab17a7-ecd5-4a93-afe7-ebaae6da577e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Id Fiscal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="58" width="46" height="15" uuid="02dba8cc-000a-4096-885a-6bac7a696220"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[R.C:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="201" y="58" width="130" height="15" uuid="58d85ad9-8a0b-4638-9393-268be65693f8"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="36" width="144" height="15" uuid="699f9112-4b37-4816-b9f9-d7ac7cc13113"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mail}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="331" y="59" width="66" height="15" uuid="99414b70-9aff-4376-938b-186ab53cf066"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Compte banque:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="36" width="40" height="15" uuid="7f9ff23f-220d-43bd-8ff0-cc9a4f9e793d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="59" width="144" height="15" uuid="a9e1bc7b-e4aa-4c92-9bb0-d1d5e32b2594"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="7" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{compte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="81" width="130" height="15" uuid="fe8ceccd-c4c8-489a-acbf-d79342423e6d"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="35" width="130" height="15" uuid="692a28ec-5ec9-4c12-8ead-1db9fa6012d5"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="152" y="35" width="46" height="15" uuid="d6a61915-8b8e-4596-8514-b8706495b038"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Tel / Mob:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="165" y="4" width="381" height="16" uuid="2276f6a8-9fe7-493c-aac5-2084ad67e7e7"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="152" y="81" width="46" height="15" uuid="3fbf35d8-8a14-4949-a5cc-e88010663a27"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[NAI:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="81" width="144" height="15" uuid="d67d3c33-5295-460e-ac58-47fd7ed60306"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nif}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center">
+				<reportElement x="7" y="82" width="132" height="18" uuid="20d14e20-4266-4789-988e-1e003c19df33"/>
+				<imageExpression><![CDATA[$P{etoile}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="65" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="276" y="21" width="270" height="38" uuid="b8ff8f93-3b06-414f-a513-bb77d79186b4"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="6" y="21" width="264" height="38" uuid="16572c8c-36bc-4885-9524-0995937fd2c4"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="354" y="1" width="124" height="14" forecolor="#00CC99" uuid="15c677b5-5703-4cd0-8325-6fa341a9929e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true" isItalic="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Charges supplémentaires]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="8" width="350" height="1" forecolor="#3333FF" uuid="7a8987ff-c497-4553-9919-cc0cbc96c0e6"/>
+				<graphicElement>
+					<pen lineWidth="2.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="478" y="8" width="68" height="1" forecolor="#3333FF" uuid="1df1355a-1a8e-4d52-a027-d57a10fa98b3"/>
+				<graphicElement>
+					<pen lineWidth="2.75"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="64" y="25" width="193" height="15" uuid="bce5a94e-2629-41d5-8e37-26d29da4b918"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cd_client}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="64" y="40" width="193" height="15" uuid="c12baf26-5ff1-46d1-a7c8-2ff662ae7589"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nm_client}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="289" y="39" width="69" height="12" uuid="160d8417-aaea-4d41-8d51-5215ef686ecc"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="28" width="69" height="12" uuid="4b7d4ffd-706c-4e8e-b4d4-86d938d313c8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Facture Liée:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="25" width="48" height="15" uuid="5bbee517-b6e6-4570-b648-64a8315f4e61"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Code Client:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="40" width="48" height="15" uuid="e7df4f32-b487-460d-b9b9-009881298c0a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Nom  Client:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement x="363" y="28" width="165" height="12" uuid="95be35fd-4477-4087-9521-abd3ef32096e"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nbl}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="363" y="39" width="165" height="12" uuid="76c13c3c-6384-40dc-9d9c-d7125730a35b"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dts}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="471" y="5" width="79" height="20" forecolor="#FFFFFF" backcolor="#003366" uuid="26a78c10-5c57-4c8e-b473-716be5b617d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[Prix]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="6" y="5" width="208" height="20" forecolor="#FFFFFF" backcolor="#003366" uuid="ae5c3f0e-900e-468f-8070-42763a400bb8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[Charges]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="355" y="5" width="115" height="20" forecolor="#FFFFFF" backcolor="#003366" uuid="90743644-f059-40a5-9288-745c4c8ceaae"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[Code réservation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="215" y="5" width="139" height="20" forecolor="#FFFFFF" backcolor="#003366" uuid="c27626af-2676-4949-bb60-462679f92848"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="1" width="208" height="20" uuid="993cd093-46ec-4248-82a3-0cf382286a45"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{charge}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="215" y="1" width="139" height="20" uuid="99240606-4363-44c2-8be2-ec31e7108b76"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="10" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dtChrg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="1" width="115" height="20" uuid="a7e1085e-08ca-4bc6-a3cb-3f0305cc3a64"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{code_r}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="471" y="1" width="75" height="20" uuid="36007bed-706a-46b4-aa69-da9db60f755c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="10" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prix_ch}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="6" y="22" width="544" height="1" uuid="19550c62-5739-4824-8aa2-e18fc9519ccb"/>
+			</line>
+		</band>
+	</detail>
+	<summary>
+		<band height="253" splitType="Stretch">
+			<textField pattern="">
+				<reportElement x="458" y="2" width="88" height="15" uuid="29bed44e-b675-4620-893e-707caabcf85b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Tht}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="2" width="181" height="15" uuid="3a1a42a6-8508-4719-8113-44ade8798a5b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total des charges supplémentaires]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="31" width="80" height="15" uuid="dcb16747-3a7e-4cae-9190-461a1f8fb39b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Cachet et signature:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="101" y="32" width="100" height="14" uuid="faacc0ce-4f5a-4b37-968b-4f8bc4d958ca"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

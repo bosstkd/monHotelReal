@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+ 
+   
+            <h:head>
+                <meta charset="utf-8"/>
+                <title>confirmation</title>
+                <link href="conformation.css" rel="stylesheet"/>
+                <link href="confirmation.css" rel="stylesheet"/>
+            </h:head>
+    <h:body>
+        
+        <div id="Layer1" style="position:relative;text-align:left;margin:0px 0px 0px 0px;width:850px;height:813px;float:left;display:block;z-index:7;">
+        <div id="wb_Form1" style="position:absolute;left:20px;top:37px;width:752px;height:743px;z-index:3;">
+
+            
+        
+            
+            
+                <h:form id="Form1">
+                   
+                        <div id="wb_Text1" style="position:absolute;left:57px;top:154px;width:638px;height:29px;text-align:center;z-index:0;">
+                        <span style="color:#000000;font-family:Arial;font-size:24px;"><strong>Confirmation de votre demande d’inscription </strong></span></div>
+                        <div id="wb_Image1" style="position:absolute;left:40px;top:25px;width:229px;height:104px;z-index:1;">
+                        <img src="images/logo_0.png" id="Image1" alt=""/></div>
+                        <div id="wb_Text2" style="position:absolute;left:40px;top:211px;width:673px;height:407px;z-index:2;text-align:left;">
+                            <span style="color:#000000;font-family:Arial;font-size:15px;line-height:17px;">Veuillez lire attentivement les infomations ci-dessous et confirmer votre enregistrement:</span><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"><br/><br/></span><span style="color:#000000;font-family:Arial;font-size:13px;line-height:18px;"><strong>Raison sociale:    #{mhAgenceController.raison_Social}<br/><br/>Adresse:   #{mhAgenceController.adresse}<br/>Commune:    #{mhAgenceController.commune}<br/>Wilaya:    #{mhAgenceController.wilaya}<br/>Code postal:    #{mhAgenceController.codePostal}<br/><br/>NRC:    #{mhAgenceController.nrc}<br/>NAI :    #{mhAgenceController.nai}<br/>NIF :    #{mhAgenceController.nif}<br/><br/>Rib :    #{mhAgenceController.rib}<br/><br/>Tel :    #{mhAgenceController.tel}<br/>Mob:    #{mhAgenceController.fax}<br/>Mail:    #{mhAgenceController.mail}</strong><br/></span><span style="color:#000000;font-family:Arial;font-size:13px;line-height:16px;"><br/><br/></span><span style="color:#000000;font-family:Arial;font-size:15px;line-height:18px;"><strong>NB:<br/>Après analyse de vos informations un e-mail de confirmation vous sera envoyer dans les 48h. <br/>Dans le cas échéant veuillez nous contacté sur : 0670 298 533.<br/><br/>J'ai lu est je déclare que les informations ci-dessus sont correcte: <br/>
+                                    <p:selectBooleanCheckbox value="#{mhAgenceController.accept}">
+                                        <p:ajax update="btnConf" listener="#{mhAgenceController.addMessage}" />
+                                    </p:selectBooleanCheckbox>
+                                    Confirmation.<br/>
+                                    
+                                    #{mhAgenceController.setActivate(true)}
+                                   
+                                    <p:commandButton id = "btnConf" value="Enregistrer" actionListener="#{mhAgenceController.save}" disabled="#{mhAgenceController.activate}" icon="ui-icon-check">
+                                        <f:setPropertyActionListener value="#{true}" target="#{mhAgenceController.activate}"/>
+                                    </p:commandButton>
+                                
+                                </strong>
+                            </span>
+                        </div>
+                
+                </h:form>
+        </div>
+        </div>
+        
+            <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                <f:facet name="default">
+                    <h:outputText value="Status: Envoi de mail" />
+                </f:facet>
+
+                <f:facet name="start">
+                    <p:graphicImage name="/original/giphy.gif" style="height: 100px; width: 120px" />
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value="Status: Mail envoyer avec succès" />
+                </f:facet>
+            </p:ajaxStatus>
+
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <p:graphicImage name="/original/giphy.gif" />
+            </p:dialog>
+    </h:body>
+       
+</html>

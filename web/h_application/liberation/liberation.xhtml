@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Libération</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+        
+          <h:form id="form" >
+            <p:growl id="msgs" showDetail="true" sticky="true"/>
+            
+            <p:panel style="font-size: 15px">
+                    <p:dataTable id="tab" var="rsv" value="#{tabRsvController.listTabRsvWOFctAct}"  selectionMode="single" selection="#{tabRsvController.mdlRsv}" rowKey="#{rsv.codeR}" rows="10" paginator="true" resizableColumns="true" scrollable="true" >
+                        
+                          <p:column filterBy="#{rsv.numCh}" headerText="N° Chbr" filterMatchMode="contains" style="width:50px;text-align: center">
+                              <h:outputText value="#{rsv.numCh}" />
+                          </p:column>
+                          <p:column filterBy="#{rsv.nomPrenom}" headerText="Nom" filterMatchMode="contains" style="width:200px;text-align: left">
+                              <h:outputText value="#{rsv.nomPrenom}" />
+                          </p:column>
+                          <p:column headerText="Du" style="width:80px;text-align: center">
+                              <h:outputText value="#{rsv.dtA}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                          </p:column>
+                          <p:column headerText="Au" style="width:80px;text-align: center">
+                              <h:outputText value="#{rsv.dtD}" >
+                                 <f:convertDateTime pattern="dd/MM/yyyy" /> 
+                              </h:outputText>
+                          </p:column>
+                        
+                          <p:column headerText="Période ouverte" filterMatchMode="contains" style="width:128px;text-align: center; font-size:18px">
+                              <h:outputText value="#{rsv.periodeOuverte?'Oui':'Non'}" />
+                          </p:column>
+                        
+                          <p:column filterBy="#{rsv.codeR}" headerText="Code Réservation" filterMatchMode="contains" style="width:160px;text-align: center">
+                              <h:outputText value="#{rsv.codeR}" />
+                          </p:column>
+                          <p:column headerText="Date_RSV" style="text-align: center">
+                              <h:outputText value="#{rsv.dateR}" > 
+                                  <f:convertDateTime  pattern="dd/MM/yyyy HH:mm" />
+                              </h:outputText>
+                          </p:column>
+                         
+                          <p:column headerText="Visualisation" style="width:100px;text-align: center">
+                              <p:commandButton update=":form:rsvDtl" oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="Afficher">
+                                 <f:setPropertyActionListener value="#{rsv}" target="#{tabRsvController.mdlRsv}" /> 
+                              </p:commandButton>
+                          </p:column>
+                        
+                          <p:column headerText="Libération" style="width:100px;text-align: center">
+                              <p:commandButton update=":form:tab :form:msgs" actionListener="#{tabRsvController.liberation(rsv.codeR)}" icon="ui-icon-closethick" title="Libération">
+                                  <p:confirm header="Confirmation" message="Veuillez confirmer la libération svp." icon="ui-icon-alert" />   
+                              </p:commandButton>    
+                              <p:confirmDialog id="confirm" global="true" showEffect="fade" hideEffect="slide" >
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                             </p:confirmDialog>
+                          </p:column>
+                        
+                      </p:dataTable>
+                    
+                    
+               <p:dialog header="Info de reservation" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="rsvDtl" style="text-align:center;">
+                    <p:panel>
+                    
+                    <p:panelGrid  columns="2" rendered="#{not empty tabRsvController.mdlRsv}" columnClasses="label,value">
+                      
+                        <h:outputText value="Client:" />
+                        <h:outputText value="#{tabRsvController.getInfo(tabRsvController.mdlRsv.codeR, 'code_c')}" />
+
+                        <h:outputText value="N° Nuitee" />
+                        <h:outputText value="#{tabRsvController.mdlRsv.nbNuitee}" />
+
+                        
+                        <h:outputText value="Désignation:" />
+                        <h:outputText value="#{tabRsvController.getInfo(tabRsvController.mdlRsv.codeR, 'designation')}" />
+
+                        <h:outputText value="N°Fct:" />
+                        <h:outputText value="#{tabRsvController.getInfo(tabRsvController.mdlRsv.codeR, 'numFct')}" />
+                        
+                        <h:outputText value="Type Paiement:" />
+                        <h:outputText value="#{tabRsvController.getInfo(tabRsvController.mdlRsv.codeR, 'type_paiement')}" />
+                       
+                        <h:outputText value="Pension:" />
+                        <h:outputText value="#{tabRsvController.mdlRsv.pension}" />
+                        
+                        <h:outputText value="Tht:" />
+                        <h:outputText value="#{tabRsvController.Tht(tabRsvController.mdlRsv.codeR)}" >
+                                                          <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                        </h:outputText>
+                        
+                        <h:outputText value="Ttc:" />
+                        <h:outputText value="#{tabRsvController.ttc}" >
+                        <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                        </h:outputText>
+                        
+                        <h:outputText value="Versement:" />
+                        <h:outputText value="#{tabRsvController.mdlRsv.versement}" >
+                        <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                        </h:outputText>
+                    </p:panelGrid>
+                           
+                   </p:panel>
+                </p:outputPanel>
+            </p:dialog>
+                    
+                </p:panel>
+                
+            
+            </h:form>
+    </h:body>
+</html>

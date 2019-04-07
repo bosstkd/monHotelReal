@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+ <h:head>
+  <title>Connexion</title>
+  <link href="style/index.css" rel="stylesheet"/>
+
+ </h:head>
+    
+    
+    <h:body>
+      
+            <h:form id="FormConnexion" >
+                                
+                <p:panel id="panel" header="Demande de réservation." style="display:inline-block;width:80%;top: 50px; left: 10%; position: relative"> 
+                   <p:growl id="messages" showDetail="true" sticky="true" /> 
+                   
+                   
+                   <p:panel header="Identificateur">
+                       <h:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel for="nmPid" value="N° Piece identité " /> 
+                             <p:inputText  id="nmPid" value="#{connexionCltController.npid}" required="true">
+                            </p:inputText>
+                            
+                            <p:outputLabel for="psw" value="Mot de passe " /> 
+                             <p:inputText type="password" id="psw" value="#{connexionCltController.psw}" required="true">
+                            </p:inputText>
+                            
+                             <p:outputLabel value="" />
+                             
+                             <p:lightBox iframe="true" id="lighbox3" width="450px" height="300px">
+                                            <h:outputLink value="inscriptionClt/recup.xhtml" title="Récupération psw" style="width:100%" >
+                                                <p:outputLabel value="Mot de passe oublier" style="width: 280px; color: blue"/>
+                                            </h:outputLink>
+                             </p:lightBox>
+                           
+                       </h:panelGrid>
+                   </p:panel>
+                   
+                   
+                   <br/>
+                   <p:commandButton value="Confirmer" action="#{connexionCltController.confirmePart}" update="messages" icon="ui-icon-check" style="display:inline-block;width:100%;height:35px;z-index:8; text-align: center; font-size: 20px;">
+                       <f:setPropertyActionListener target="#{connexionCltController.code_npid}" value="#{param['npidp']}" />
+                       <f:setPropertyActionListener target="#{connexionCltController.code_pubPart}" value="#{param['cdPubPart']}" />
+                   </p:commandButton>
+
+               </p:panel>
+            </h:form>
+
+</h:body>
+</html>

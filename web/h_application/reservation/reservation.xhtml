@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+     <h:head>
+            <title>Reservation</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    
+    
+    <h:body>
+        
+  <style type="text/css">
+    .label {
+        width:20%;
+        padding:4px;
+    }
+ 
+    .value {
+        width:80%;
+        padding:4px;
+    }
+ 
+    .grid {
+        width:100%;
+    }
+ 
+    .error {
+        color: red;
+    }
+ 
+    .outputLabel {
+        font-weight: bold;
+    }
+ 
+    .grid {
+        width:33%;
+        padding:4px;
+    }
+    .ui-wizard-nav-next {
+     width: 80px;
+    }
+    .ui-wizard-nav-back{
+        width: 80px;
+    }
+    
+</style>     
+         
+    <p:panel style="width: 80%; position: absolute; left: 8%; top: 2%">
+            
+    <h:form id="frm">
+         
+    <p:growl id="growl" sticky="true" showDetail="true"/>     
+            
+    <p:wizard flowListener="#{reservationController.onFlowProcess}" >
+                  <p:tab title="Choix clients sur chambre">
+                               <p:panel id="pan" header="Liste N°PIDs">
+                                         <p:growl id="msg0" showDetail="true" sticky="true"/>
+
+                                         <h:panelGrid columns="3" cellpadding="2"  style="width: 100%;display:block; text-align:center">
+                                                <p:commandButton value="Ajouter"  actionListener='#{reservationController.ajtListPid}' ajax="true" update="msg0 datalist" icon="ui-icon-check" style="width: 300px">
+                                                     <p:ajax  event="click" update=":frm:prixTtc :frm:vrs" listener="#{reservationController.prixTotal}" />
+                                                </p:commandButton>
+                                                <p:commandButton value="Retirer"  actionListener='#{reservationController.suppListPid}' ajax="true" update="msg0 datalist" icon="ui-icon-closethick" style="width: 300px;">
+                                                     <p:ajax  event="click" update=":frm:prixTtc :frm:vrs" listener="#{reservationController.prixTotal}" />
+                                                </p:commandButton>
+                                                <p:commandButton value="Vider"  actionListener='#{reservationController.viderListPid}' ajax="true" update="msg0 datalist" icon=" ui-icon-trash" style="width: 290px">
+                                                     <p:ajax  event="click" update=":frm:prixTtc :frm:vrs" listener="#{reservationController.prixTotal}" />
+                                                </p:commandButton>
+                                         </h:panelGrid>
+                                         
+                                         <h:panelGrid columns="2" cellpadding="2" >
+
+                                         <p:dataList id="datalist" value="#{reservationController.NPID}" var="npid" type="ordered"  style="width:300px; height: 320px;text-align:left; font-size: 16px;">
+                                            <f:facet name="header">
+                                                Liste PIDs
+                                            </f:facet>
+                                            #{npid}
+                                        </p:dataList>
+                                         
+                                             <p:dataTable id="singleDT" var="client" value="#{clientController.listClient}" selectionMode="single" selection="#{clientController.client}" rowKey="#{client.npid}" scrollable="true" scrollHeight="195" resizableColumns="true" rows="8" paginator="true" paginatorPosition="bottom" style=" height: 320px;text-align:center; width: 600px"> 
+                                             <f:facet name="header">
+                                                Liste client
+                                            </f:facet>
+                                             
+                                             <p:ajax event="rowSelect"  listener="#{reservationController.OnRowSelect}"  />
+                                                 <p:column filterBy="#{client.nomPrenom}" headerText="Nom et Prénom"  filterMatchMode="contains">
+                                                     <h:outputText value="#{client.nomPrenom}" />
+                                                 </p:column>
+                                             <p:column filterBy="#{client.npid}" headerText="N° Piéce d'identité" filterMatchMode="contains" >
+                                                     <h:outputText value="#{client.npid}" />
+                                                 </p:column>
+                                         </p:dataTable>
+                                        </h:panelGrid>
+                               </p:panel>      
+                        </p:tab>
+ 
+                        <p:tab title="Entreprise liée">
+                            <p:panel id="panC" header="Entreprise">
+                                    <p:growl id="message" showDetail="true" sticky="true"/>
+                                    <p:dataTable id="EntDT" var="entreprise" value="#{entrepriseController.listEtp}" selectionMode="single" selection="#{entrepriseController.entreprise}" rowKey="#{entreprise.raisonSociale}" scrollable="true" scrollHeight="230" resizableColumns="true" rows="8" paginator="true" paginatorPosition="bottom">
+                                        <p:ajax event="rowSelect"  listener="#{reservationController.OnRowSelect02}"  update=":frm:code_c"/>
+                                        <p:column filterBy="#{entreprise.raisonSociale}" headerText="Raison Sociale"  filterMatchMode="contains">
+                                                <h:outputText value="#{entreprise.raisonSociale}" />
+                                        </p:column>
+
+                                        <p:column filterBy="#{entreprise.nrc}" headerText="NRC"  filterMatchMode="contains">
+                                            <h:outputText value="#{entreprise.nrc}" />
+                                        </p:column>
+
+                                        <p:column filterBy="#{entreprise.codeC}" headerText="Code Entreprise" filterMatchMode="contains">
+                                            <h:outputText value="#{entreprise.codeC}" />
+                                        </p:column>
+
+                                    </p:dataTable>
+                            </p:panel>
+                        </p:tab>
+ 
+        <p:tab title="Confirmation de réservation" id="confirmRsv">
+            <p:panel id="panel" header="Réservation">
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+             <h:panelGrid columns="6" cellpadding="5"  style="display:block; text-align:right; font-size: 15px;">
+                 
+                     <p:outputLabel for="n_ch" value="N° Chambre:" /> 
+                     <p:inputText id="n_ch"  value="#{reservationController.numCh}" placeholder="N° Chambre" required="true" style="text-align: center; width: 100px">
+                         <f:validateLength minimum="2" />
+                         <p:ajax event="keyup" update="prixCh prixTot prixTtc vrs codeR" listener="#{reservationController.prixChambre}" />
+                         <f:ajax event="blur" render="n_chMsg" />
+                         <f:validator binding="#{chambreExist}" />
+                     </p:inputText>
+                     <p:message for="n_ch" id="n_chMsg" display="icon" />
+                     
+                  
+                      <p:outputLabel for="code_c" value="Code entreprise:" /> 
+                        <p:inputText id="code_c"  value="#{reservationController.codeC}" placeholder="Code entreprise">
+                         <p:ajax event="keyup" update="prixCh prixTot prixTtc vrs codeR" listener="#{reservationController.prixChambre}" />
+                        </p:inputText>
+                       
+                      <p:inputText id="numCmd"  value="#{reservationController.numCmd}" placeholder="Num Bon de commande">
+                      </p:inputText>
+                      
+                      
+                      
+                     <p:outputLabel for="Date_A" value="Date Arrivée:" /> 
+                        <p:calendar id="Date_A" value="#{reservationController.dt_A}" placeholder="dd/MM/yy" effect="fade" required="true" >
+                           <p:ajax  event="dateSelect" update="prixTot prixTtc vrs codeR :frmNotif:chLibre" listener="#{reservationController.prixTotal}" />
+                        </p:calendar>   
+                     <p:message for="Date_A" id="Date_AMsg" display="icon" />
+                     
+                     <p:outputLabel for="Date_D" value="Date Départ:" /> 
+                     <p:calendar id="Date_D" value="#{reservationController.dt_D}" placeholder="dd/MM/yy" effect="fade" required="true" disabled="#{reservationController.periode_ouv}">
+                        <p:ajax  event="dateSelect" update="prixTot prixTtc vrs codeR :frmNotif:chLibre" listener="#{reservationController.prixTotal}" />
+                        </p:calendar>    
+     
+                     <h:panelGrid columns="2" cellpadding="2"  style="display:block; text-align:left">
+                      <p:selectBooleanCheckbox  id="Checkbox1" value="#{reservationController.periode_ouv}" >
+                          <p:ajax event="change" listener="#{reservationController.prdSelected}" update="Date_D vrs prixTot prixTtc fact" />
+                      </p:selectBooleanCheckbox>    
+                      <p:outputLabel for="Checkbox1" value=" Période départ ouverte" id="periodeOuverte"/> 
+                     </h:panelGrid>
+                     
+                    <p:outputLabel for="Combobox1" value="Pension" /> 
+                    <p:selectOneMenu id="Combobox1" value="#{reservationController.pension}" >
+                         <f:selectItem itemLabel="Demi" itemValue="Demi" />
+                         <f:selectItem itemLabel="Complette" itemValue="Complette" />
+                         <f:selectItem itemLabel="Non" itemValue="Non" />
+                         <p:ajax event="change" update="prixTot prixTtc vrs codeR" listener="#{reservationController.prixTotal}" />
+                     </p:selectOneMenu>
+                     <p:outputLabel  value="                  " />
+                     
+                    <p:outputLabel for="Combobox2" value="Type de payement:" /> 
+                    <p:selectOneMenu id="Combobox2" value="#{reservationController.type_p}" >
+                         <f:selectItem itemLabel="Espece" itemValue="Espece" />
+                         <f:selectItem itemLabel="Cheque" itemValue="Cheque" />
+                         <f:selectItem itemLabel="Virement" itemValue="Virement" />
+                         <f:selectItem itemLabel="A terme" itemValue="A terme" />
+                        <p:ajax event="change" update="prixTot prixTtc vrs codeR" listener="#{reservationController.prixTotal}" />
+                     </p:selectOneMenu>
+                    
+                    <h:panelGrid columns="2" cellpadding="2"  style="display:block; text-align:left">
+                        <p:selectBooleanCheckbox  id="fact" value="#{reservationController.fction}" disabled="#{reservationController.fctVisibility}">
+                              <p:ajax event="change" update="vrs" listener="#{reservationController.vrsRsvTtc}" />
+                        </p:selectBooleanCheckbox>
+                            
+                        <p:outputLabel for="fact" value="Création facture" /> 
+                    </h:panelGrid>
+                    
+                    
+                     
+                     <p:outputLabel  value="Code Réservation :" />
+                     <p:outputLabel id="codeR" value="#{reservationController.codeR}" />
+                     <p:outputLabel  value="                  " />
+                     
+       
+                    <p:outputLabel for="prixCh" value="Prix de chambre:" /> 
+                    <p:inputNumber id="prixCh" value="#{reservationController.prixU}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="."  placeholder="Prix par nuitée" required="true" >
+                        <p:ajax event="keyup" update="prixTot prixTtc vrs codeR" listener="#{reservationController.prixTotal}" />
+                    </p:inputNumber>
+                    <p:outputLabel  value="                  " />    
+                    
+           
+                    <p:outputLabel  value="                  " />
+                    <p:commandButton  id="btnAct" actionListener="#{reservationController.prixTotal}" value="Actualiser"  update = " prixTot prixTtc vrs codeR " />
+                    <p:outputLabel  value="                  " />
+                      
+                    
+                     <p:outputLabel for="prixTot" value="Total HT:" /> 
+                     <p:inputNumber id="prixTot" value="#{reservationController.total}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="."  placeholder="HT" disabled="true" />
+                    
+                      
+                      <p:outputLabel  value="                  " />
+                      <p:outputLabel  value="                  " />
+                      <p:outputLabel  value="                  " />
+                      <p:outputLabel  value="                  " />
+                    
+                    <p:outputLabel for="prixTtc" value="Total TC:" /> 
+                     <p:inputNumber id="prixTtc" value="#{reservationController.ttc}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="."  placeholder="TTC" disabled="true" />
+                     
+                      <p:outputLabel  value="                  " />
+                      <p:outputLabel  value="                  " />
+                      <p:outputLabel  value="                  " />
+                      <p:outputLabel  value="                  " />                   
+                    <p:outputLabel for="vrs" value="Versement:" /> 
+                    <p:inputNumber id="vrs" value="#{reservationController.versment}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="."  placeholder="Versement sur réservation" required="true" disabled="#{reservationController.vrsBln}"/>
+                    
+
+             </h:panelGrid>
+             
+             <p:commandButton  id="Button1" actionListener="#{reservationController.reserver}" value="Valider"  update = "#{p:component('demandeDT')} msgs :frmNotif:chLibre" style="width: 100%; height: 40px; font-size: 17px">
+                            <p:confirm header="Confirmation" message="Veuillez confirmer la réservation svp." icon="ui-icon-alert" />
+                        </p:commandButton>    
+                       <p:confirmDialog id="confirm" global="true" showEffect="slide" hideEffect="slide">
+                          <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                          <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                       </p:confirmDialog>
+                                 
+            
+            </p:panel>
+        </p:tab>  
+ 
+    </p:wizard>
+    
+    </h:form>
+          </p:panel>   
+            
+        <h:form id="frmNotif" style="width: 10%; position: absolute;
+                top:10px;
+                left:89%;">
+                <p:commandButton value="Notification" style="width: 136px" onclick="PF('bar').show()" type="button" icon="ui-icon-circle-triangle-s" />
+                <p:commandButton value="Fermer" style="width: 136px" onclick="PF('bar').hide()" type="button" icon="ui-icon-circle-triangle-n"/>
+                <br/>    
+                <p:lightBox iframe="true" id="lighbox3" width="920px" height="550px" >
+                                <h:outputLink value="tabRes.xhtml" title="Rechercher Réservation" style="width:100%;" >
+                                    <p:commandButton id="movieBtn" value="Réservation" type="button" icon="ui-icon-search" style="height: 30px"/>
+                                </h:outputLink>
+                </p:lightBox> 
+                <br/>
+                <p:dataList id="chLibre" value="#{reservationController.listChLibre}" var="chambre" paginator="true" rows="20" paginatorPosition="bottom"  style="width: 136px; height: 320px;text-align:left; font-size: 13px;">
+                                            <f:facet name="header">
+                                                Chambre libre
+                                            </f:facet>
+                                            #{chambre.numchApp}
+                </p:dataList>
+            </h:form>
+        
+        <style type="text/css">           
+            .top {
+                filter:alpha(opacity=100);
+                opacity:0.8;
+                padding:50px 0 0 50px;
+        z-index: 1000;
+        background-color: activeborder;
+            }
+        </style>
+     
+ 
+ 
+    <p:notificationBar position="top" effect="fade" styleClass="bottom" widgetVar="bar" style="width: 85%">
+    <p:fieldset id="pnDm" legend="Demandes de reservations" toggleable="true" toggleSpeed="500" collapsed="true" style="width: 90%; background-color: graytext">
+           <h:form id="frmDm"> 
+            <p:panel id="panelTab" style="width: 100%;">
+                <p:commandButton update="frm:panel #{p:component('demandeDT')}" icon="ui-icon-refresh" title="Actualiser" value="Actualiser"/>
+            <p:dataTable id="demandeDT" var="demande" value="#{reservationController.listDemandeRHtl}" scrollable="true" scrollHeight="150" rows="3" paginator="true" paginatorPosition="bottom" style="font-size: 15px; text-align: center; width: 100%">
+           
+                                        <p:column filterBy="#{demande.codeC.raisonSociale}" headerText="Client"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.codeC.raisonSociale}" />
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.codeC.nrc}" headerText="NRC"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.codeC.nrc}" />
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.numch.numchApp}" headerText="Chambre"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.numch.numchApp}" />
+                                        </p:column>
+
+                                        <p:column filterBy="#{demande.dateDm}" headerText="Date demande"  filterMatchMode="contains">
+                                            <h:outputText value="#{demande.dateDm}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                            </h:outputText>
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.du}" headerText="Du"  filterMatchMode="contains">
+                                             <h:outputText value="#{demande.du}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                             </h:outputText>
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{demande.du}" headerText="Au" filterMatchMode="contains" >
+                                              <h:outputText value="#{demande.au}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                              </h:outputText>
+                                        </p:column>
+                 
+                                        <p:column  filterBy="#{demande.etatDm?'Confirmer':'En Attente'}" headerText="Etat demande" filterMatchMode="contains" >
+                                            <h:outputText value="#{demande.etatDm?'Confirmer':'En Attente'}" />
+                                        </p:column>
+                 
+                                        <p:column style="width:32px;text-align: center">
+                                            <p:commandButton update="frm:panel #{p:component('datalist')}" actionListener="#{reservationController.basculer(demande)}" icon="ui-icon-refresh" title="Basculer" disabled="#{demande.etatDm}"/>
+                                        </p:column>
+                 
+            </p:dataTable>
+         </p:panel>
+        </h:form>
+        </p:fieldset>
+</p:notificationBar>
+            
+  
+    </h:body>
+</html>
+ 

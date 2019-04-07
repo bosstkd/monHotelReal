@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Publication Agence</title>
+        
+         <f:metadata>
+                  <f:viewAction action="#{sessionInfo.returnToPartCon()}" />
+            </f:metadata>
+        
+        <link href="styleCSS/client.css" rel="stylesheet"/>
+        <f:facet name="monhotel">
+            <meta name="description" content="L'époque des Plateformes dédiées, seules à être bardées de conseillers et autres consultants est révolue. 
+		Nous avons créé monhotel-dz.com afin que les hôtels, les agences et les clients soient aussi bien accompagnés de services trés pratiques qui répondent à leurs attentes.Mahmoudi Mohammed ElAmine, dirigeant de monhotel-dz.com
+		" />
+		<meta name="keywords" content="hotel, hôtel, agence, voyage, réservation, reservation, chambre, algérie, algerie, gestion, plateforme, monhotel, monhotel-dz,publication, promotion, vacance, touriste, convention" />
+		<meta name="author" content="Mahmoudi Med ElAmine" />
+		<meta name="categories" content="touristique" />
+		<meta name="generator" content="http://www.monhotel-dz.com" />
+        </f:facet>
+      
+                
+    </h:head>
+    
+   
+    <h:body>
+                  <br/>
+                    <h:form id="form" >
+                         <p:growl id="messages" showDetail="true" sticky="true" /> 
+                        <br/><br/>
+                                                   <p:repeat value="#{indexControllerAgc.listPub}" var="pub" >
+                                                   	<br/>
+                                                       <p:panel id="basicAgc"  header="#{pub.codeA.raisonSocial.toUpperCase()}." footer="Tel: #{pub.codeA.tel}/#{pub.codeA.fax}. Adresse:#{pub.codeA.adresse}, Wilaya: #{pub.codeA.wilaya}, commune: #{pub.codeA.commune}."  style="margin-bottom:5px; width: 99%; font-size: 18px; box-shadow: #f0776c 2px 5px 2px">
+                                                       <p:outputLabel value="#{pub.titre.toUpperCase()}" style="font-weight: bold"/>
+                              
+                                                       <div class="p-grid">
+                                                            <div class="p-col-fixed" style="width:200px">
+                                                                <div class="box">
+                                                                    <h:panelGrid columns="2" cellspacing="10">
+                                                                           <p:graphicImage id="img" name="uploadTest/#{pub.codeA.codeA}/logo/logo_RS.jpg" style="cursor:pointer" title="Image de présentation" />
+                                                                           <h:panelGrid columns="2">
+                                                                                       <p:outputLabel value="Du:" />
+                                                                                         <p:outputLabel value="#{pub.dateD}" style="font-weight: bold">
+                                                                                           <f:convertDateTime pattern="dd/MM/yyyy" /> 
+                                                                                         </p:outputLabel>
+                                                                                        <p:outputLabel value="Au:" />
+                                                                                          <p:outputLabel value="#{pub.dateF}" style="font-weight: bold">
+                                                                                           <f:convertDateTime pattern="dd/MM/yyyy" /> 
+                                                                                          </p:outputLabel>
+                                                                           </h:panelGrid>
+                                                                    </h:panelGrid>
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-col">
+                                                                <div class="box">
+
+                                                                    <p:outputLabel value="Détails:" style="font-weight: bold"/>
+                                                                    <br/>
+                                                                    <h:outputText  value="#{pub.detail}"  style="font-size: 18px;"/>                                              
+
+                                                                    
+                                                                    <p:lightBox iframe="true" id="lighboxAgc" width="820px" height="630px">
+                                                                        <p:link outcome="imagesAgc" value="Clique ici pour plus de détails." style="color: blue; font-size: 16px" disabled="#{!pub.valide}">
+                                                                            <f:param id="paramPubAgc" name="cdPub" value="#{pub.codePub}" />
+                                                                        </p:link>
+                                                                    </p:lightBox>
+                                                                    
+                                                                    <br/>
+                                                                    <p:commandButton actionListener="#{connexionCltController.confirmeAgcConnected (pub.codeA.codeA, pub.codePub)}" value="S'inscrire" disabled="#{!pub.valide}" update=":form:messages" >
+                                                                                                 <p:confirm header="Confirmation" message="Veuillez confirmer votre inscription svp." icon="ui-icon-alert" />
+                                                                    </p:commandButton>
+                                                              <p:confirmDialog id="confirm" global="true" showEffect="slide" hideEffect="slide">
+                                                                    <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" style="width: 40%" />
+                                                                    <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="width: 40%" />
+                                                              </p:confirmDialog>
+                                                               
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                  </p:panel>   
+																									  
+                                                </p:repeat>
+
+                                       
+                        
+                                       <br/>
+                                        
+                         
+                         </h:form>
+                        
+        
+                   <h:form style="">  
+                        <p:growl id="messages"/>  
+                       
+                         
+                        
+                        <p:menubar style="font-family: fantasy; font-size: 17px; box-shadow: bisque 5px 5px 5px  ; text-shadow:  black 1px 0 1px; position: fixed; top: 0px; left: 0px; width: 99%; height: 40px">
+                           
+                         <p:menuitem>
+                            <h:link>
+                               <h:graphicImage value="/img/lgn2.jpg" height="30"/>
+                            </h:link>
+                         </p:menuitem>       
+
+                            <f:facet name="options">
+                                <h:panelGrid columns="6" cellspacing="0">
+                                    <p:outputLabel value="Trouvez votre voyage :" />
+                                    <p:inputText value = "#{indexControllerAgc.raisonSociale}" style="margin:1px 10px 1px 1px; height: 22px"  placeholder="Recherche" >
+                                        <p:ajax event="keyup" update=":form" />
+                                    </p:inputText>
+                               <p:outputLabel value="Connexion GG" style="margin:1px 10px 1px 1px; width: 150px; color: white; text-shadow:  white 1px 0 1px;" />                                    
+                                </h:panelGrid>  
+                            </f:facet>
+                             
+                            
+                        </p:menubar>
+                
+             </h:form>
+                  
+    </h:body>
+</html>

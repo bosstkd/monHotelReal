@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Calendrier</title>
+        <link href="style/res.css" rel="stylesheet"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+   
+
+
+<h:form style="text-align:center">
+  <p:growl id="messages" showDetail="true" />
+    <h:panelGrid columnClasses="value">
+        <p:schedule value="#{scheduleView.lazyEventModel}" locale="fr">
+            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
+            <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
+        </p:schedule>
+    </h:panelGrid>
+   
+ 
+  
+  
+  <p:dialog widgetVar="eventDialog" header="Details de réservation" showEffect="clip" hideEffect="clip">
+                <p:outputPanel id="rsvDtl" style="text-align:center;">
+                    <p:panel>
+                    
+                    <p:panelGrid id="eventDetails" columns="2" columnClasses="label,value">
+                      
+                        <h:outputText value="Client:" />
+                        <h:outputText value="#{scheduleView.client}" />
+
+                        <h:outputText value="N° Nuitee" />
+                        <h:outputText value="#{scheduleView.nuitee}" />
+
+                        
+                        <h:outputText value="Désignation:" />
+                        <h:outputText value="#{scheduleView.designation}" />
+
+                        <h:outputText value="N°Fct:" />
+                        <h:outputText value="#{scheduleView.numfct}" />
+                        
+                        <h:outputText value="Type Paiement:" />
+                        <h:outputText value="#{scheduleView.typePaiement}" />
+                       
+                        <h:outputText value="Pension:" />
+                        <h:outputText value="#{scheduleView.pension}" />
+                        
+                        <h:outputText value="Versement:" />
+                        <h:outputText value="#{scheduleView.versement}" >
+                                <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                        </h:outputText>
+                    </p:panelGrid>
+                           
+                   </p:panel>
+                </p:outputPanel>
+            </p:dialog>
+  
+  
+  
+</h:form>
+        
+        
+ <script type="text/javascript">
+    PrimeFaces.locales['fr'] = {
+        closeText: 'Fermer',
+        prevText: 'précident',
+        nextText: 'suivant',
+        currentText: "Aujourd'hui",
+        monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Join',
+            'Juillet','Aout','Septembre','Octobre','Nouvembre','Decembre'],
+        monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Join',
+            'Jui','Aout','Sept','Oct','Nov','Dec'],
+        dayNames: ['Samedi','Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi'],
+        dayNamesShort: ['Sam','Dim','Lum','Mar','Mer','Jeu','Ven'],
+        dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+        weekHeader: 'Wk',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        month: 'Mois',
+        week: 'Semaine',
+        day: 'Jour',
+        allDayText : 'tout les jours'
+    };
+</script>
+
+<style type="text/css">
+    .value {
+        width: 100%;
+    }
+</style>
+ </h:body>
+</html>

@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f43d4d41-bf77-4c08-9cdc-8e24c41216de">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="21"/>
+	<parameter name="nom_entreprise" class="java.lang.String"/>
+	<parameter name="logoLink" class="java.lang.String"/>
+	<parameter name="adresse" class="java.lang.String"/>
+	<parameter name="tel" class="java.lang.String"/>
+	<parameter name="mail" class="java.lang.String"/>
+	<parameter name="rc" class="java.lang.String"/>
+	<parameter name="compte" class="java.lang.String"/>
+	<parameter name="ai" class="java.lang.String"/>
+	<parameter name="nif" class="java.lang.String"/>
+	<parameter name="cd_client" class="java.lang.String"/>
+	<parameter name="nm_client" class="java.lang.String"/>
+	<parameter name="nbl" class="java.lang.String"/>
+	<parameter name="dts" class="java.lang.String"/>
+	<parameter name="Tht" class="java.lang.String"/>
+	<parameter name="etoile" class="java.lang.String"/>
+	<parameter name="prixCh" class="java.lang.String"/>
+	<parameter name="prixPension" class="java.lang.String"/>
+	<parameter name="nbNuitee" class="java.lang.String"/>
+	<parameter name="totHt" class="java.lang.String"/>
+	<parameter name="pensionC" class="java.lang.String"/>
+	<parameter name="prcPension" class="java.lang.String"/>
+	<parameter name="totPrixCh" class="java.lang.String"/>
+	<parameter name="totPension" class="java.lang.String"/>
+	<parameter name="versement" class="java.lang.String"/>
+	<parameter name="facturer" class="java.lang.String"/>
+	<parameter name="prcRed" class="java.lang.String"/>
+	<parameter name="agc" class="java.lang.String"/>
+	<parameter name="droitAgc" class="java.lang.String"/>
+	<field name="numCh" class="java.lang.String"/>
+	<field name="nomPrenom" class="java.lang.String"/>
+	<field name="dtA" class="java.util.Date"/>
+	<field name="dtD" class="java.util.Date"/>
+	<field name="pension" class="java.lang.String"/>
+	<field name="pensionC" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="113" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="4" width="132" height="26" forecolor="#3366FF" uuid="d48251b8-e643-46bc-b99d-44daadd46153"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Lato Black" size="12" isBold="true" pdfEncoding="Cp1250" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nom_entreprise}]]></textFieldExpression>
+			</textField>
+			<image onErrorType="Blank">
+				<reportElement x="7" y="31" width="132" height="50" uuid="2c252cec-4b1a-4f71-9615-913415e3b438"/>
+				<imageExpression><![CDATA[$P{logoLink}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="331" y="81" width="66" height="15" uuid="72ab17a7-ecd5-4a93-afe7-ebaae6da577e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Id Fiscal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="58" width="46" height="15" uuid="02dba8cc-000a-4096-885a-6bac7a696220"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[R.C:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="201" y="58" width="130" height="15" uuid="58d85ad9-8a0b-4638-9393-268be65693f8"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="36" width="144" height="15" uuid="699f9112-4b37-4816-b9f9-d7ac7cc13113"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mail}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="331" y="59" width="66" height="15" uuid="99414b70-9aff-4376-938b-186ab53cf066"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Compte banque:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="36" width="40" height="15" uuid="7f9ff23f-220d-43bd-8ff0-cc9a4f9e793d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="59" width="144" height="15" uuid="a9e1bc7b-e4aa-4c92-9bb0-d1d5e32b2594"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="7" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{compte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="81" width="130" height="15" uuid="fe8ceccd-c4c8-489a-acbf-d79342423e6d"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="35" width="130" height="15" uuid="692a28ec-5ec9-4c12-8ead-1db9fa6012d5"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="152" y="35" width="46" height="15" uuid="d6a61915-8b8e-4596-8514-b8706495b038"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Tel / Mob:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="165" y="4" width="381" height="16" uuid="2276f6a8-9fe7-493c-aac5-2084ad67e7e7"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="152" y="81" width="46" height="15" uuid="3fbf35d8-8a14-4949-a5cc-e88010663a27"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[NAI:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="81" width="144" height="15" uuid="d67d3c33-5295-460e-ac58-47fd7ed60306"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="10" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nif}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center">
+				<reportElement x="7" y="82" width="132" height="18" uuid="20d14e20-4266-4789-988e-1e003c19df33"/>
+				<imageExpression><![CDATA[$P{etoile}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="65" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="276" y="21" width="270" height="38" uuid="b8ff8f93-3b06-414f-a513-bb77d79186b4"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="6" y="21" width="264" height="38" uuid="16572c8c-36bc-4885-9524-0995937fd2c4"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="354" y="1" width="124" height="14" forecolor="#00CC99" uuid="15c677b5-5703-4cd0-8325-6fa341a9929e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true" isItalic="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Bon de réservation]]></text>
+			</staticText>
+			<line>
+				<reportElement x="4" y="8" width="350" height="1" forecolor="#3333FF" uuid="7a8987ff-c497-4553-9919-cc0cbc96c0e6"/>
+				<graphicElement>
+					<pen lineWidth="2.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="478" y="8" width="68" height="1" forecolor="#3333FF" uuid="1df1355a-1a8e-4d52-a027-d57a10fa98b3"/>
+				<graphicElement>
+					<pen lineWidth="2.75"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="64" y="25" width="193" height="15" uuid="bce5a94e-2629-41d5-8e37-26d29da4b918"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cd_client}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="64" y="40" width="193" height="15" uuid="c12baf26-5ff1-46d1-a7c8-2ff662ae7589"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nm_client}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="289" y="41" width="69" height="12" uuid="160d8417-aaea-4d41-8d51-5215ef686ecc"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Date Réservation: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="28" width="69" height="12" uuid="4b7d4ffd-706c-4e8e-b4d4-86d938d313c8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Code Réservation: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="25" width="48" height="15" uuid="5bbee517-b6e6-4570-b648-64a8315f4e61"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Code Client:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="40" width="48" height="15" uuid="e7df4f32-b487-460d-b9b9-009881298c0a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Nom  Client:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement x="363" y="28" width="165" height="12" uuid="95be35fd-4477-4087-9521-abd3ef32096e"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nbl}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="363" y="41" width="165" height="12" uuid="76c13c3c-6384-40dc-9d9c-d7125730a35b"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dts}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="416" y="5" width="64" height="20" forecolor="#FFFFFF" backcolor="#003366" uuid="c27626af-2676-4949-bb60-462679f92848"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[Date Arrivée]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="7" y="5" width="407" height="20" forecolor="#FFFFFF" backcolor="#003366" uuid="ff9a5143-bad1-406f-9eff-6ece2ecb17d4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[   Désignation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="482" y="5" width="64" height="20" forecolor="#FFFFFF" backcolor="#003366" uuid="903017e2-3f2a-484b-a3d4-40eacb081dac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12" isBold="true" pdfEncoding="Cp1250"/>
+				</textElement>
+				<text><![CDATA[Date Départ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<line>
+				<reportElement x="6" y="29" width="544" height="1" uuid="19550c62-5739-4824-8aa2-e18fc9519ccb"/>
+			</line>
+			<textField>
+				<reportElement x="11" y="1" width="403" height="28" uuid="eec7b4e4-5955-4b22-8c4b-54caedae7236"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nomPrenom}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="416" y="1" width="64" height="28" uuid="942c30b8-ef47-4a66-b07d-83d228cbb803"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dtA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="482" y="1" width="64" height="28" uuid="2f56afb2-84a4-414d-a848-aa9e8a12d4b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dtD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="253" splitType="Stretch">
+			<staticText>
+				<reportElement x="9" y="120" width="80" height="15" uuid="dcb16747-3a7e-4cae-9190-461a1f8fb39b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Cachet et signature:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="91" y="120" width="100" height="15" uuid="faacc0ce-4f5a-4b37-968b-4f8bc4d958ca"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="348" y="14" width="173" height="71" uuid="374f35ef-a5d8-4e1f-9b2b-b57faf3eb82d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="349" y="58" width="75" height="21" uuid="308d078b-a878-47ae-bb92-16cb6a5d53dd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total Hors Taxes:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="425" y="58" width="93" height="21" uuid="e6cfd947-205a-4890-b6a2-beb45b358cc6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{totHt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="16" width="75" height="22" uuid="27ceb86b-c257-4c56-ad2a-da6a695d2cd7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total Prix Chambre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="37" width="75" height="22" uuid="ed5071e9-16d6-4e3a-9a9d-64c9cd321bea"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total Pension:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="425" y="16" width="93" height="21" uuid="731efd61-c059-4a08-a71a-58193b524026"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{totPrixCh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="37" width="93" height="21" uuid="e63f34dd-f9ca-4d52-bf33-5b4384b1b141"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{totPension}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="4" y="14" width="238" height="71" uuid="8f0f548c-1f59-4f89-9ca9-01cc5f45b3f1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="37" y="15" width="104" height="17" uuid="4fc08918-2e1f-4b12-8a86-d7d1d16270d7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Prix unitaire de la chambre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="60" width="103" height="18" uuid="271fce42-7202-415a-a9c5-88c29f51a551"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ Prix de pension / personne:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="143" y="15" width="90" height="17" uuid="18755ae4-b679-4117-a413-1450e1661af4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{prixCh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="143" y="60" width="90" height="18" uuid="827e21bd-9d42-4611-aceb-01c11456a0a4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{prixPension}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-4" y="32" width="145" height="15" uuid="f0cf5d59-1d0f-4fdf-92d9-49264c0c160c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Prix de pension complète/ personne:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="46" width="105" height="15" uuid="0ac661fd-94e8-46ad-8a8a-a6611b16011f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[% de type de pension:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="143" y="31" width="91" height="15" uuid="c970ace9-9a84-4a05-99ab-2800a7076973"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{pensionC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="143" y="46" width="91" height="15" uuid="8514d384-1eb8-4267-ab19-ada0dfaf4aea"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{prcPension}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="1" width="53" height="15" uuid="037ebd35-f07e-41b9-b9f7-87295c4042d6"/>
+				<text><![CDATA[Détails]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="95" width="82" height="15" uuid="e435f7cf-c3ef-45d9-a0b0-f6a55254d163"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Montant total Versé:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="95" width="73" height="15" uuid="3375e4aa-9473-442c-bdd7-8239d3be6101"/>
+				<textFieldExpression><![CDATA[$P{versement}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="179" y="95" width="339" height="15" uuid="c8dd10d7-b9d9-44f3-b1fa-0974d31b392b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{prcRed}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="201" y="120" width="317" height="15" uuid="8b25fce3-74ca-41d0-b6dc-fcf9b9037987"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{agc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="201" y="138" width="317" height="15" uuid="8dfda0f3-dabd-4187-88e2-8b7c785da7d2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{droitAgc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Statuts</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToAgcCon}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+
+        <p:panel>
+            
+        <h:form id="form" >
+            <p:growl id="msgs" showDetail="true" sticky="true"/>
+            <h:panelGrid columns="3" cellspacing="20">
+                        <h:panelGrid columns="2" cellpadding="5">
+                         <p:selectOneMenu id="Combobox1" value="#{tabRsvAgcController.selectedHtl}" >
+                                                    <p:ajax  update="tabInf tabAnn"/>
+                                                    <f:selectItem itemLabel="Afficher tout" itemValue="" />
+                                                    <f:selectItems value="#{tabRsvAgcController.hotel}" />
+                                                </p:selectOneMenu>  
+
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="4" cellpadding="5">
+                        <p:outputLabel value="Du:" />
+                        <p:calendar id="Date_D" value="#{tabRsvAgcController.dateD}" placeholder="dd/MM/yy" effect="fade" required="true" >
+                        </p:calendar> 
+                        <p:outputLabel value="Au:" />
+                        <p:calendar id="Date_F" value="#{tabRsvAgcController.dateF}" placeholder="dd/MM/yy" effect="fade" required="true" >
+                            <p:ajax  event="dateSelect" update="tabInf tabAnn" />
+                        </p:calendar> 
+
+                    </h:panelGrid>
+                
+                <p:commandButton update="tabInf tabAnn" value="Actualiser" icon="ui-icon-refresh"/>
+            </h:panelGrid>
+            
+            
+            <p:dataTable id="tabInf" var="rsv" value="#{tabRsvAgcController.listRsvForAgc}" resizableColumns="true" selectionMode="single" selection="#{tabRsvAgcController.select00}"  rowKey="#{rsv.codeR}"  rows="10" paginator="true" paginatorPosition="bottom" style="font-size: 12px">
+                         
+                <p:ajax event="rowSelect" listener="#{tabRsvAgcController.OnRowSelectForPdf}" update=":form:JTextField" />
+
+                        <f:facet name="header">
+                            Liste des réservations
+                        </f:facet>
+                
+                          <p:column filterBy="#{rsv.codeH.raisonSocial}" headerText="Hotel" filterMatchMode="contains" style="width:80px;text-align: center">
+                              <h:outputText value="#{rsv.codeH.raisonSocial}" />
+                          </p:column>
+                
+                         
+                          <p:column filterBy="#{rsv.numCh.numchApp}" headerText="N° Chbr" filterMatchMode="contains" style="width:50px;text-align: center">
+                              <h:outputText value="#{rsv.numCh.numchApp}" />
+                          </p:column>
+
+                          <p:column filterBy="#{tabRsvAgcController.listPersonne(rsv.codeR)}" headerText="Nom" filterMatchMode="contains" style="width:130px;text-align: left">
+                              <h:outputText value="#{tabRsvAgcController.listPersonne(rsv.codeR)}" />
+                          </p:column>
+
+                          <p:column headerText="Du" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.dateA}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                          </p:column>
+
+                          <p:column headerText="Au" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.dateD}" >
+                                 <f:convertDateTime pattern="dd/MM/yyyy" /> 
+                              </h:outputText>
+                          </p:column>
+            
+                          <p:column filterBy="#{rsv.codeR}" headerText="Code Réservation" filterMatchMode="contains" style="width:100px;text-align: center">
+                              <h:outputText value="#{rsv.codeR}" />
+                          </p:column>
+            
+                          <p:column headerText="Date_RSV" style="width:120px;text-align: center">
+                              <h:outputText value="#{rsv.dateR}" > 
+                                  <f:convertDateTime  pattern="dd/MM/yyyy HH:mm" />
+                              </h:outputText>
+                          </p:column>
+                
+                          <p:column headerText="Prix Hotel" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.versement}" >
+                               <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                              </h:outputText>
+                          </p:column>
+                
+                          <p:column headerText="Encaissé" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.versementAgc}" >
+                               <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                              </h:outputText>
+                          </p:column>
+                
+                         <p:column headerText="équart" style="width:60px;text-align: center">
+                             <h:outputText value="#{rsv.versementAgc - rsv.versement}" >
+                              <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                             </h:outputText>
+                          </p:column>
+                
+                          <p:column style="width:32px;text-align: center">
+                             <p:commandButton update=":form:rsvDtl :form:tabInf" oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="Afficher">
+                                 <f:setPropertyActionListener value="#{rsv}" target="#{tabRsvAgcController.mdlRsv}" /> 
+                            </p:commandButton>
+                          </p:column>
+                          
+                      </p:dataTable>
+            
+ 
+            
+            <p:dialog header="Info de reservation" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="font-size: 15px;">
+                <p:outputPanel id="rsvDtl" style="text-align:center;">
+                    <p:panel>
+                    
+                    <p:panelGrid  columns="2" rendered="#{not empty tabRsvAgcController.mdlRsv}" columnClasses="label,value">
+                      
+                        <h:outputText value="N° Nuitee" />
+                        <h:outputText value="#{tabRsvAgcController.mdlRsv.nbNuitee}" />
+
+                      
+                        <h:outputText value="Pension:" />
+                        <h:outputText value="#{tabRsvAgcController.mdlRsv.pension}" />
+                        
+                         <h:outputText value="Code Convention:" />
+                         <h:outputText value="#{tabRsvAgcController.mdlRsv.codeConvAgc.codeConvAgc}" />
+                         
+                        
+                         <h:outputText value="Gain d'opération: " />
+                        <h:outputText value="#{tabRsvAgcController.mdlRsv.versementAgc - tabRsvAgcController.mdlRsv.versement}" >
+                                                          <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                        </h:outputText>
+                         
+                        <h:outputText value="Total Versé:" />
+                        <h:outputText value="#{tabRsvAgcController.mdlRsv.versementAgc}" >
+                                                          <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                        </h:outputText>
+                        
+                        
+                    </p:panelGrid>
+                           
+                       
+                   </p:panel>
+
+                </p:outputPanel>
+            </p:dialog>
+            <h:panelGrid columns="3" cellspacing="10" >
+                <h:inputText disabled="true" id="JTextField" value="#{tabRsvAgcController.numRsvSelected}" style="height: 28px;text-align: center; font-size: 18px; font-weight: bold; width: 260px"/>
+                <h:commandButton value="Bon de réservation" actionListener="#{tabRsvAgcController.Chrg}"  onclick="this.form.target='_blank'" class="btn" style="height: 32px;text-align: center; width: 200px"/> 
+                <h:commandButton value="Etat des réservations" actionListener="#{tabRsvAgcController.etatR}"  onclick="this.form.target='_blank'" class="btn" style="height: 32px;text-align: center; width: 200px"/> 
+            </h:panelGrid>
+             
+            <p:separator />
+            <p:dataTable id="tabAnn" var="rsv" value="#{tabRsvAgcController.listRsvAnnuler}" resizableColumns="true" rows="10" paginator="true" paginatorPosition="bottom" style="font-size: 12px">
+             
+                        <f:facet name="header">
+                            Liste des réservations annuler
+                        </f:facet>
+                
+                          <p:column filterBy="#{rsv.codeH.raisonSocial}" headerText="Hotel" filterMatchMode="contains" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.codeH.raisonSocial}" />
+                          </p:column>
+                
+                         
+                <p:column filterBy="#{rsv.designation}" headerText="Désignation" filterMatchMode="contains" style="width:230px;text-align: center">
+                              <h:outputText value="#{rsv.designation}" />
+                          </p:column>
+
+                  
+
+                          <p:column headerText="Du" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.dateA}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                          </p:column>
+
+                          <p:column headerText="Au" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.dateD}" >
+                                 <f:convertDateTime pattern="dd/MM/yyyy" /> 
+                              </h:outputText>
+                          </p:column>
+            
+                          <p:column filterBy="#{rsv.codeR}" headerText="Code Réservation" filterMatchMode="contains" style="width:100px;text-align: center">
+                              <h:outputText value="#{rsv.codeR}" />
+                          </p:column>
+            
+                          <p:column headerText="Date Annulation" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.dates}" > 
+                                  <f:convertDateTime  pattern="dd/MM/yyyy" />
+                              </h:outputText>
+                          </p:column>
+                
+                          <p:column headerText="Prix HT" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.montant}" >
+                               <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                              </h:outputText>
+                          </p:column>
+                
+                          <p:column headerText="Retenu" style="width:60px;text-align: center">
+                              <h:outputText value="#{rsv.retenue}" >
+                               <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                              </h:outputText>
+                          </p:column>
+                
+   
+                      </p:dataTable>
+            <br/>
+            <h:commandButton value="Etat des Annulation" actionListener="#{tabRsvAgcController.etatAnn}"  onclick="this.form.target='_blank'" class="btn" style="height: 32px;text-align: center; width: 200px"/> 
+
+         </h:form>
+        </p:panel>
+    </h:body>
+</html>

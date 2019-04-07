@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+     <h:head>
+            <title>Reservation</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToAgcCon}" />
+            </f:metadata>
+    </h:head>
+    
+    
+    <h:body>
+        
+    
+         
+        <p:panel style="width: 80%; position: absolute; left: 8%; top: 2%" header="Réservation sur #{param['nomH']}">
+            
+    <h:form id="frm">
+         
+    <p:growl id="growl" sticky="true" showDetail="true"/>     
+            
+    <p:wizard flowListener="#{reservationAgcController.onFlowProcess}" >
+        
+            <p:tab title="Choix clients sur chambre">
+                               <p:panel id="pan" header="Liste N°PIDs">
+                                         <p:growl id="msg0" showDetail="true" sticky="true"/>
+
+                                         <h:panelGrid columns="3" cellpadding="2"  style="width: 100%;display:block; text-align:center">
+                                                <p:commandButton value="Ajouter"  actionListener='#{reservationAgcController.ajtListPid}' ajax="true" update="msg0 datalist" icon="ui-icon-check" style="width: 225px">
+                                                     <p:ajax  event="click" update=":frm:panel :frm:Editbox2" />
+                                                </p:commandButton>
+                                                <p:commandButton value="Retirer"  actionListener='#{reservationAgcController.suppListPid}' ajax="true" update="msg0 datalist" icon="ui-icon-closethick" style="width: 205px;">
+                                                     <p:ajax  event="click" update=":frm:panel :frm:Editbox2"  />
+                                                </p:commandButton>
+                                                <p:commandButton value="Vider"  actionListener='#{reservationAgcController.viderListPid}' ajax="true" update="msg0 datalist" icon=" ui-icon-trash" style="width: 195px">
+                                                     <p:ajax  event="click" update=":frm:panel :frm:Editbox2"  />
+                                                </p:commandButton>
+                                         </h:panelGrid>
+                                         
+                                         <h:panelGrid columns="2" cellpadding="2" >
+
+                                             <p:dataList id="datalist" value="#{reservationAgcController.NPID}" var="npid" type="ordered"  style="width:225px; height: 320px;text-align:left; font-size: 16px;">
+                                            <f:facet name="header">
+                                                Liste PIDs
+                                            </f:facet>
+                                            #{npid}
+                                        </p:dataList>
+                                         
+                                             <p:dataTable id="singleDT" var="client" value="#{clientController.listClient}" selectionMode="single" selection="#{clientController.client}" rowKey="#{client.npid}" scrollable="true" scrollHeight="195" resizableColumns="true" rows="8" paginator="true" paginatorPosition="bottom" style=" height: 320px;text-align:center; width: 410px"> 
+                                             <f:facet name="header">
+                                                Liste client
+                                            </f:facet>
+                                             
+                                             <p:ajax event="rowSelect"  listener="#{reservationAgcController.OnRowSelect}"  />
+                                             
+                                                 <p:column filterBy="#{client.nomPrenom}" headerText="Nom et Prénom"  filterMatchMode="contains">
+                                                     <h:outputText value="#{client.nomPrenom}" />
+                                                 </p:column>
+                                             <p:column filterBy="#{client.npid}" headerText="N° Piéce d'identité" filterMatchMode="contains" >
+                                                     <h:outputText value="#{client.npid}" />
+                                                 </p:column>
+                                         </p:dataTable>
+                                        </h:panelGrid>
+                               </p:panel>      
+                        </p:tab>
+        
+        
+            <p:tab title="Réservation de chambre" id="confirmRsv">
+            <p:panel id="panel" header="Réservation">
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+             <h:panelGrid columns="4" cellpadding="5"  style="display:block; text-align:left; font-size: 15px;">
+                 
+                 
+                 
+                   <p:outputLabel for="Date_A" value="Date Arrivée:" /> 
+                   <p:calendar id="Date_A" mindate="#{reservationAgcController.minDate}" maxdate="#{reservationAgcController.maxDate}" value="#{reservationAgcController.dateA}" placeholder="dd/MM/yyyy" effect="fade" required="true" >
+                       <p:ajax  event="dateSelect" update="frm:panel Combobox1 infosCh prxHT prxEnc codeR prxEng" listener="#{reservationAgcController.lstCh}" />
+                        </p:calendar>   
+                     
+                     <p:outputLabel for="Date_D" value="Date Départ:" /> 
+                     <p:calendar id="Date_D" mindate="#{reservationAgcController.dateA}" maxdate="#{reservationAgcController.maxDate}" value="#{reservationAgcController.dateD}" placeholder="dd/MM/yyyy" effect="fade" required="true" >
+                        <p:ajax  event="dateSelect" update="frm:panel Combobox1 infosCh prxHT prxEnc codeR prxEng" listener="#{reservationAgcController.lstCh}" />
+                      </p:calendar>
+                     
+                      <h:outputText value="Chambre:"  />
+                      <p:selectOneMenu id="Combobox1" value="#{reservationAgcController.numCh}" >
+                                             <p:ajax  update="Combobox1"/>
+                                             <p:ajax event="change" update="frm:panel infosCh prxHT prxEnc codeR prxEng" listener="#{reservationAgcController.infoChambre}" />
+                                             <f:selectItems value="#{reservationAgcController.listChambreMap}" />
+                                        </p:selectOneMenu> 
+                 
+                       <h:outputText value="Type / capacité:"  />
+                       <h:outputText id="infosCh" value="Chambre #{reservationAgcController.chambre.typeCh} / #{reservationAgcController.chambre.nbPlace} Place(s)"  />
+                     
+                    <p:outputLabel for="Combobox3" value="Pension:" /> 
+                    <p:selectOneMenu id="Combobox3" value="#{reservationAgcController.pension}" >
+                        <p:ajax  update="Combobox3"/>
+                        <p:ajax event="change" update="frm:panel infosCh prxHT prxEnc codeR prxEng" listener="#{reservationAgcController.infoChambre}" />
+                         <f:selectItem itemLabel="Demi" itemValue="Demi" />
+                         <f:selectItem itemLabel="Complette" itemValue="Complette" />
+                         <f:selectItem itemLabel="Non" itemValue="Non" />
+                     </p:selectOneMenu>
+                     
+                     <p:outputLabel  value=" " /> 
+                     <p:outputLabel  value=" " /> 
+                     
+                    <p:outputLabel value="Prix HT:" /> 
+                    <h:outputText id="prxHT" value="#{reservationAgcController.prixCh}" >
+                           <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                    </h:outputText>
+                    
+                     <p:outputLabel for="Editbox2" value="Nombre de personne:" /> 
+                     <p:inputNumber id="Editbox2"  maxValue="20" minValue="0" value="#{reservationAgcController.nbPersonne}" disabled="true" >
+                         <p:ajax update="frm:panel infosCh prxHT prxEnc codeR prxEng" />
+                     </p:inputNumber>
+                     
+                     <p:outputLabel  value="Prix à encaisser:" style="font-size: 13px" /> 
+                     <h:outputText id="prxEnc" value="#{reservationAgcController.prixEncaissement}" >
+                           <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                     </h:outputText>
+                     
+                       <p:outputLabel for="gain" value="% Gain:" /> 
+                       <p:panelGrid>
+                                    <p:inputNumber id="gain" value="#{reservationAgcController.prcGain}" symbol=" %" symbolPosition="s" maxValue ="80" label="% gain" required="true" style="text-align: center;">
+                                        <p:ajax update = "frm:panel infosCh prxHT prxEnc codeR prxEng" />
+                                    </p:inputNumber>    
+                           <p:slider for="gain"  maxValue="80" style="width: 160px"/>
+                        </p:panelGrid>
+           
+                     <p:outputLabel value="Compte CVN:" style="font-size: 13px" /> 
+                     <h:outputText id="prxEng" value="#{reservationAgcController.prixEngagement}" >
+                           <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                     </h:outputText> 
+                     
+                     <p:outputLabel  value="Code Réservation :" />
+                     <p:outputLabel id="codeR" value="#{reservationAgcController.codeR}" style="font-size: 14px"/>
+                     
+       
+                   
+             </h:panelGrid>
+           
+             <h:panelGrid columns="3" cellpadding="5" >
+                        <p:commandButton  id="btnAct" value="Actualiser"  update = "frm:panel infosCh prxHT prxEnc codeR prxEng" style=" height: 40px; font-size: 17px" />
+
+                       <p:commandButton  id="Button1" actionListener="#{reservationAgcController.reserver}" value="Valider"  update = "msgs" style=" height: 40px; font-size: 17px">
+                            <p:confirm header="Confirmation" message="Veuillez confirmer la réservation svp." icon="ui-icon-alert" />
+                        </p:commandButton>    
+                       <p:confirmDialog id="confirm" global="true" showEffect="slide" hideEffect="slide">
+                          <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                          <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                       </p:confirmDialog>   
+                 
+             </h:panelGrid>
+             
+            
+                  
+            </p:panel>
+        </p:tab> 
+
+    </p:wizard>
+    
+    </h:form>
+          </p:panel>   
+            
+
+            
+  
+    </h:body>
+</html>
+ 

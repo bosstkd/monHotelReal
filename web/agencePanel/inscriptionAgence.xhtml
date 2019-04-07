@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Inscription Agence</title>
+        <link href="styleCss/index.css" rel="stylesheet"/>
+    </h:head>
+    
+     <h:body>
+        <h:form style="display:inline-block;width:50%;top: 10px; left: 25%; position: relative">
+            <p:panel id="panel" header="Inscription Nouvelle Agence"  style="text-align: right">
+              <p:growl id="messages" showDetail="true" sticky="true" /> 
+              
+                <p:messages id="msgs" />
+
+                <h:panelGrid columns="3" cellpadding="5"  style="font-size: 16px">
+                    <p:outputLabel for="Raison_Social" value="Raison Social:" />
+                    
+                    <p:inputText id="Raison_Social" value="#{mhAgenceController.raison_Social}" required="true" label="Raison_Social">
+                         <f:validateLength minimum="2" />
+                         <f:ajax event="blur" render="msgRaison_Social" />
+                    </p:inputText>
+                    <p:message for="Raison_Social" id="msgRaison_Social" display="icon" />
+
+
+                    <p:outputLabel for="adresse" value="Adresse:" />
+                    <p:inputTextarea id="adresse" value="#{mhAgenceController.adresse}" label="adresse" required="true">
+                      <f:validateLength minimum="8" />
+                    </p:inputTextarea>
+                    <p:message for="adresse" id="msgAdresse" display="icon" />
+                    
+                    
+                    <p:outputLabel for="commune" value="Commune:" />
+                    <p:inputText id="commune" value="#{mhAgenceController.commune}" label="commune" required="true">
+                        <f:validateLength minimum="5" />
+                    </p:inputText>
+                    
+                    <p:message for="commune" id="msgCommune" display="icon" />
+                    
+                    
+                    <p:outputLabel for="wilaya" value="Wilaya:" />
+                    
+                        <p:selectOneMenu id="wilaya" value="#{mhAgenceController.wilaya}" >
+                             <f:selectItem itemLabel="Wilaya d'Adrar" itemValue="Adrar" />
+                             <f:selectItem itemLabel="Wilaya de Chlef" itemValue="Chlef" />
+                             <f:selectItem itemLabel="Wilaya de Laghouat" itemValue="Laghouat" />
+                             <f:selectItem itemLabel="Wilaya d'Oum El Bouaghi" itemValue="Oum El Bouaghi" />
+                             <f:selectItem itemLabel="Wilaya de Batna" itemValue="Batna" />
+                             <f:selectItem itemLabel="Wilaya de Béjaia" itemValue="Béjaia" />
+                             <f:selectItem itemLabel="Wilaya de Biskra" itemValue="Biskra" />
+                             <f:selectItem itemLabel="Wilaya de Bechar" itemValue="Bechar" />
+                             <f:selectItem itemLabel="Wilaya de Blida" itemValue="Blida" />
+                             <f:selectItem itemLabel="Wilaya de Bouira" itemValue="Bouira" />
+                             <f:selectItem itemLabel="Wilaya de Tamanrasset" itemValue="Tamanrasset" />
+                             <f:selectItem itemLabel="Wilaya de Tebessa" itemValue="Tebessa" />
+                             <f:selectItem itemLabel="Wilaya de Tlemcen" itemValue="Tlemcen" />
+                             <f:selectItem itemLabel="Wilaya de Tiaret" itemValue="Tiaret" />
+                             <f:selectItem itemLabel="Wilaya de Tizi Ouzou" itemValue="Tizi Ouzou" />
+                             <f:selectItem itemLabel="Wilaya d'Alger" itemValue="Alger" />
+                             <f:selectItem itemLabel="Wilaya de Djelfa" itemValue="Djelfa" />
+                             <f:selectItem itemLabel="Wilaya de Jijel" itemValue="Jijel" />
+                             <f:selectItem itemLabel="Wilaya de Sétif" itemValue="Sétif" />
+                             <f:selectItem itemLabel="Wilaya de Saida" itemValue="Saida" />
+                             <f:selectItem itemLabel="Wilaya de Skikda" itemValue="Skikda" />
+                             <f:selectItem itemLabel="Wilaya de Sidi Bel Abbès" itemValue="Sidi Bel Abbès" />
+                             <f:selectItem itemLabel="Wilaya d'Annaba" itemValue="Annaba" />
+                             <f:selectItem itemLabel="Wilaya de Guelma" itemValue="Guelma" />
+                             <f:selectItem itemLabel="Wilaya de Constantine" itemValue="Constantine" />
+                             <f:selectItem itemLabel="Wilaya de Media" itemValue="Media" />
+                             <f:selectItem itemLabel="Wilaya de Mostaganem" itemValue="Mostaganem" />
+                             <f:selectItem itemLabel="Wilaya de M'Sila" itemValue="M'Sila" />
+                             <f:selectItem itemLabel="Wilaya de Mascara" itemValue="Mascara" />
+                             <f:selectItem itemLabel="Wilaya d'Ouargla" itemValue="Ouargla" />
+                             <f:selectItem itemLabel="Wilaya d'Oran" itemValue="Oran" />
+                             <f:selectItem itemLabel="Wilaya d'El Bayadh" itemValue="El Bayadh" />
+                             <f:selectItem itemLabel="Wilaya d'Illizi" itemValue="Illizi" />
+                             <f:selectItem itemLabel="Wilaya de Bordj Bou Arreridj" itemValue="Bordj Bou Arreridj" />
+                             <f:selectItem itemLabel="Wilaya de Boumerdès" itemValue="Boumerdès" />
+                             <f:selectItem itemLabel="Wilaya d'El Tarf" itemValue="El Tarf" />
+                             <f:selectItem itemLabel="Wilaya de Tindouf" itemValue="Tindouf" />
+                             <f:selectItem itemLabel="Wilaya de Tissemsilt" itemValue="Tissemsilt" />
+                             <f:selectItem itemLabel="Wilaya d'El Oued" itemValue="El Oued" />
+                             <f:selectItem itemLabel="Wilaya de Khenchela" itemValue="Khenchela" />
+                             <f:selectItem itemLabel="Wilaya de Souk Ahras" itemValue="Souk Ahras" />
+                             <f:selectItem itemLabel="Wilaya de Tipaza" itemValue="Tipaza" />
+                             <f:selectItem itemLabel="Wilaya de Mila" itemValue="Mila" />
+                             <f:selectItem itemLabel="Wilaya d'Ain Defla" itemValue="Ain Defla" />
+                             <f:selectItem itemLabel="Wilaya de Naama" itemValue="Naƒma" />
+                             <f:selectItem itemLabel="Wilaya d'Ain Témouchent" itemValue="Ain Témouchent" />
+                             <f:selectItem itemLabel="Wilaya de Ghardaia" itemValue="Ghardaia" />
+                             <f:selectItem itemLabel="Wilaya de Relizane" itemValue="Relizane" />
+                         </p:selectOneMenu>
+                    
+                   
+                    
+                    <p:message for="wilaya" id="msgWilaya" display="icon" />
+                    
+                    
+                     <p:outputLabel for="codePostal" value="Code Postal:" />
+                     <p:inputText id="codePostal" value="#{mhAgenceController.codePostal}" label="codePostal">
+                     </p:inputText>
+                     <p:outputLabel  value="    " />
+
+                      <p:outputLabel  value="    " />
+                    <p:separator />
+                      <p:outputLabel  value="    " />
+               
+                   
+                   <p:outputLabel for="nrc" value="N° Registre de commerce:" />
+                    <p:inputMask id="nrc" value="#{mhAgenceController.nrc}" mask="99/99 9999999*99"  placeholder="N° Registre de commerce" required="true" style="text-align: center">
+                     <f:validateLength minimum="7" />
+                      <p:ajax update="msgNrc" event="keyup" />
+                    </p:inputMask>
+                    <p:message for="nrc" id="msgNrc" display="icon" />
+                    
+                   <p:outputLabel for="nif" value="N° Identification Fiscale:" />                    
+                    <p:inputMask id="nif" value="#{mhAgenceController.nif}" mask="9999 9999 9999 999"  placeholder="N° Identification Fiscale" style="text-align: center">
+                        
+                    </p:inputMask>
+                    
+                    <p:message for="nif" id="msgNif" display="icon" />
+                    
+                   <p:outputLabel for="nai" value="N° Article d'imposition:" />
+                    <p:inputMask id="nai" value="#{mhAgenceController.nai}" mask="999 9999 9999"  placeholder="N° Article d'imposition" style="text-align: center">
+                        
+                    </p:inputMask>
+                    <p:message for="nai" id="msgNai" display="icon" />
+                    
+                    <p:outputLabel for="rib" value="Rib:" />
+                    <p:inputText id="rib" value="#{mhAgenceController.rib}" label="rib" >
+                      
+                    </p:inputText>
+                    <p:message for="rib" id="msgRib" display="icon" />
+                    
+                    
+                      <p:outputLabel  value="    " />
+                    <p:separator/>
+                      <p:outputLabel  value="    " />
+                 
+                    <p:outputLabel for="tel" value="Tel:" />
+                    <p:inputMask id="tel" value="#{mhAgenceController.tel}" mask="(999) 99-99-99" required="true"/>
+   
+                    <p:message for="nrc" id="msgTel" display="icon" />
+                     
+                     
+                     
+                     <p:outputLabel for="mobile" value="Mobile:" />
+                     <p:inputMask id="mobile" value="#{mhAgenceController.fax}" mask="(9999) 999-999" required="true"/>
+                     <p:message for="mobile" id="msgFax" display="icon" />
+                    
+                     
+                     
+                     
+                     <p:outputLabel for="mail" value="Adresse mail:" />
+                     <p:inputText id="mail" value="#{mhAgenceController.mail}" label="mail" required="true">
+                        <f:ajax event="blur" render="msgMail" />
+                        <f:validator binding="#{adresseMailValidatorAgc}" />
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        <f:validateLength minimum="6" />
+                     </p:inputText>
+                    
+                     <p:message for="mail" id="msgMail" display="icon" />
+                      
+                      <p:outputLabel  value="    " />
+                    <p:separator/>
+                      <p:outputLabel  value="    " /> 
+
+                </h:panelGrid>
+
+                 <p:separator/>
+                
+                   
+
+                        <p:commandButton value="Valider" actionListener="#{mhAgenceController.confirme}" update="messages" icon="ui-icon-check">
+                            <!--<p:confirm header="Confirmation" message="êtes-vous sûr?" icon="ui-icon-alert" />-->
+                        </p:commandButton><br/>
+                            
+                      
+
+                       
+                 
+            </p:panel>
+</h:form>
+    </h:body>
+</html>

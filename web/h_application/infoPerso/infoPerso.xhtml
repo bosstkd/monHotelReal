@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Infos Personnel</title>
+        <link href="style/infoPerso.css" rel="stylesheet"/>
+        <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+        </f:metadata>
+    </h:head>
+    
+     <h:body>
+        <h:form id = "formPrincipal">
+            
+           
+             
+              <p:panel id="panel" header="Informations Hôtel" style="font-size: 15px;">
+              <p:growl id="messages" showDetail="true" sticky="true" /> 
+              
+
+               <p:separator/>
+                <h:panelGrid columns="9" cellpadding="5"  >
+
+                   <p:outputLabel for="nrc" value="N° Registre de commerce:" />
+                   
+                    <p:inputMask id="nrc" value="#{infoPersoController.nrc}" mask="99/99 9999999*99"  placeholder="N° Registre de commerce" required="true" style="text-align: center">
+                     <f:validateLength minimum="7" />
+                      <p:ajax update="msgNrc" event="keyup" />
+                    </p:inputMask>
+                   
+                    <p:message for="nrc" id="msgNrc" display="icon" />
+                    
+                    <p:outputLabel for="nif" value="N° Identification Fiscale:" />                    
+                    <p:inputMask id="nif" value="#{infoPersoController.nif}" mask="9999 9999 9999 999"  placeholder="N° Identification Fiscale" style="text-align: center">
+                        <f:validateLength minimum="15" />
+                    </p:inputMask>
+                    
+                    <p:message for="nif" id="msgNif" display="icon" />
+                    
+                    <p:outputLabel for="nai" value="N° Article d'imposition:" />
+                    <p:inputMask id="nai" value="#{infoPersoController.nai}" mask="999 9999 9999"  placeholder="N° Article d'imposition" style="text-align: center">
+                        <f:validateLength minimum="11" />
+                    </p:inputMask>
+                    <p:message for="nai" id="msgNai" display="icon" />
+
+                    <p:outputLabel for="tel" value="Tel:" />
+                    <p:inputMask id="tel" value="#{infoPersoController.tel}" mask="(999) 99-99-99" required="true" style="text-align: center"/>
+   
+                    <p:message for="tel" id="msgTel" display="icon" />
+                     
+                     <p:outputLabel for="mobile" value="Mobile:" />
+                     <p:inputMask id="mobile" value="#{infoPersoController.fax}" mask="(9999) 999-999" required="true" style="text-align: center"/>
+                     <p:message for="mobile" id="msgFax" display="icon" />
+                    
+                     
+                     
+                     
+                     <p:outputLabel for="mail" value="Adresse mail:" />
+                     <p:inputText id="mail" value="#{infoPersoController.mail}" label="mail" required="true" style="text-align: center">
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        <f:validateLength minimum="6" />
+                     </p:inputText>
+                     <p:message for="mail" id="msgMail" display="icon" />
+                      
+                     
+                     
+                      
+                     <p:outputLabel for="etoile" value="Etoile:" />
+                     
+                     <p:selectOneRadio id="etoile" value="#{infoPersoController.etoil}"  required="true" style="width: 145px">
+                                <f:selectItem itemLabel="1" itemValue="1" />
+                                <f:selectItem itemLabel="2" itemValue="2" />
+                                <f:selectItem itemLabel="3" itemValue="3" />
+                                <f:selectItem itemLabel="4" itemValue="4" />
+                                <f:selectItem itemLabel="5" itemValue="5" />
+                            </p:selectOneRadio>
+                     
+                     <br/>
+
+                     
+                     <p:outputLabel for="pension_c" value="Prix de pension:" />
+                     <p:inputNumber id="pension_c" value="#{infoPersoController.pension}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="." label="pension_c" required="true" style="text-align: center">
+                       <f:validateLength minimum="1" />
+                       <p:ajax update="msgPension_c" event="keyup" />
+                     </p:inputNumber>
+                     <p:message for="pension_c" id="msgPension_c" display="icon" />
+                
+                     
+                     <p:outputLabel for="prc_demi_pension" value="% demi pension:" />
+                     <p:outputPanel>
+                         <p:inputNumber id="prc_demi_pension" value="#{infoPersoController.prc_demi_pension}" symbol=" %" symbolPosition="s" maxValue ="100" label="prc_demi_pension" required="true" style="text-align: center">
+                         </p:inputNumber>    
+                     <p:slider for="prc_demi_pension" />
+                     </p:outputPanel>
+                     <p:message for="prc_demi_pension" id="msgPrc_demi_pension" display="icon" />
+                     
+                     <p:outputLabel for="taxe_sj" value="Prix de taxe de séjour/nuitée:" />
+                     <p:inputNumber id="taxe_sj" value="#{infoPersoController.tax_sj}" symbol=" Da" symbolPosition="s" decimalSeparator="," thousandSeparator="." label="taxe_sj" required="true" style="text-align: center">
+                       <f:validateLength minimum="2" />
+                       <p:ajax update="msgTaxe_sj" event="keyup" />
+                     </p:inputNumber>
+                     <p:message for="taxe_sj" id="msgTaxe_sj" display="icon" />
+                     
+                      <p:outputLabel for="tva_s" value="Soumis a la TVA:" />
+                      <p:selectBooleanCheckbox id="tva_s" value="#{infoPersoController.tva_s}" >
+                          <p:ajax event="change" update="prc_tva" />
+                      </p:selectBooleanCheckbox>
+                     <p:outputLabel value=" " />
+                     
+                    <p:outputLabel for="prc_tva" value="% TVA:" />
+                     <p:outputPanel>
+                         <p:inputNumber id="prc_tva" value="#{infoPersoController.prc_tva}" disabled="#{!infoPersoController.tva_s}" symbol=" %" symbolPosition="s" maxValue ="50" label="prc_tva" required="true" style="text-align: center">
+                         </p:inputNumber>    
+                         <p:slider for="prc_tva" maxValue="50" />
+                     </p:outputPanel>
+                     <p:outputLabel value=" " />
+                   
+                     
+                </h:panelGrid>
+             
+                 <p:separator/>
+                 
+                    <h:panelGrid columns="6" cellpadding="5" >
+                         <p:outputLabel for="rib" value="Rib:" />
+                            <p:inputText id="rib" value="#{infoPersoController.rib}" required="true" style="width: 300px;">
+                               <f:validateLength minimum="5" />
+                             </p:inputText>
+                        
+                        <p:outputLabel for="adresse" value="Adresse:" />
+                            <p:inputTextarea id="adresse" value="#{infoPersoController.adresse}" label="adresse" required="true" style="width: 300px;">
+                              <f:validateLength minimum="8" />
+                            </p:inputTextarea>
+                        
+                        <p:outputLabel  value="Services: " />
+                        
+                        <h:panelGrid columns="5" cellpadding="5" >
+                           <p:commandButton id="btnPicine"  action="#{infoPersoController.modServ(0)}" update="btnPicine" icon="fa fa-support" title="equipé de picine"  style="background-color: white; color: #{infoPersoController.color(infoPersoController.picine)}; border-color: white; font-size: 15px"/>
+                           <p:commandButton id="btnRestaurant"  action="#{infoPersoController.modServ(1)}" update="btnRestaurant" icon="fa fa-spoon" title="equipé de restaurant"  style="background-color: white; color: #{infoPersoController.color(infoPersoController.restaurant)}; border-color: white; font-size: 15px"/>
+                           <p:commandButton id="btnCafe"  action="#{infoPersoController.modServ(2)}" update="btnCafe" icon="fa fa-coffee" title="equipé d'une cafétéria"  style="background-color: white; color: #{infoPersoController.color(infoPersoController.cafeteria)}; border-color: white; font-size: 15px"/>
+                           <p:commandButton id="btnBar"  action="#{infoPersoController.modServ(3)}" update="btnBar" icon="fa fa-glass" title="equipé d'un bar"  style="background-color: white; color: #{infoPersoController.color(infoPersoController.bar)}; border-color: white; font-size: 15px"/>
+                           <p:commandButton id="btnWifi"  action="#{infoPersoController.modServ(4)}" update="btnWifi" icon="fa fa-wifi" title="Wifi disponible"  style="background-color: white; color: #{infoPersoController.color(infoPersoController.wifi)}; border-color: white; font-size: 15px"/>
+                        </h:panelGrid>
+                        
+                    </h:panelGrid>
+                    
+                 <p:separator/>
+                 
+                 
+                <h:panelGrid columns="5" cellpadding="5" >
+                    
+                        <p:panel header="Déscription sur 450 caractères" id="pandesc" style="width: 550px; height: 200px">
+                            <p:inputTextarea id="descript" value="#{infoPersoController.description}" label="Description" style="width: 98%">
+                              <f:validateLength minimum="8" maximum="450" />
+                            </p:inputTextarea>
+                        </p:panel>
+                    
+                        <p:panel header="Logo d'Hôtel" id="panLogo" style=" height: 200px">
+                            <p:fileUpload fileUploadListener="#{photoUploadController.SingleFileUpload}" mode="advanced"
+                                             update="msf" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                            <p:growl id="msf" showDetail="true" />
+                        </p:panel>
+                        <p:draggable for="panLogo" />
+                    
+                        <p:panel header="Photos de présentations de l'Hôtel" id="panPhoto" style="height: 200px">
+                                <p:fileUpload fileUploadListener="#{photoUploadController.MutlipleFileUpload}" mode="advanced" dragDropSupport="false"
+                                              multiple="true" update="msf0" sizeLimit="8000000" fileLimit="5" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                <p:growl id="msf0" showDetail="true" />
+                        </p:panel>
+                         <p:draggable for="panPhoto" />
+                </h:panelGrid>
+                 
+                <p:separator/>   
+
+                 <p:commandButton value="Modifier" actionListener="#{infoPersoController.modifier}" update="messages" icon="ui-icon-check">
+                            <!--<p:confirm header="Confirmation" message="êtes-vous sûr?" icon="ui-icon-alert" />-->
+                 </p:commandButton>
+                 <br/>
+
+            </p:panel>
+ 
+            
+</h:form>
+    </h:body>
+</html>

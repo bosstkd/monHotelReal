@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Menu</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+       </h:head>
+    <h:body>
+       <!-- <h:outputStylesheet name="style.css" /> -->
+
+            <h:form>
+                <p:menubar style="text-align: center">
+                    <p:menuitem value="Demande de réservation" action="#{entConventionController.iFrameUrl(1)}" icon="ui-icon-check" update=":panelC"  style="width: 98%; font-size: 16px"/>
+                    <p:menuitem value="Inscription d'employés" action="#{entConventionController.iFrameUrl(2)}" icon="plus" update=":panelC"  style="width: 98%; font-size: 16px"/>
+                    <p:menuitem value="Déconnecter" action="#{connectionEntController.doLogout}" icon="ui-icon-close" style="width: 98%; font-size: 16px"/>    
+                </p:menubar>
+            </h:form>
+    
+    </h:body>
+</html>

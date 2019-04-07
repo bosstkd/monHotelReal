@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+ <h:head>
+  <title>Connexion</title>
+  <link href="style/index.css" rel="stylesheet"/>
+
+ </h:head>
+    
+    
+    <h:body>
+      
+            <h:form id="FormConnexion" >
+                 
+                <p:commandButton id="movieBtn" value="Prix des chambres" type="button" />
+                    <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:600px" modal="true">
+                        <p:dataTable var="chambre" value="#{connexionCltController.listChambre}" >
+                            
+                            <p:column headerText="Type Chambre" >
+                                <h:outputText value="#{chambre.typeCh}" style="text-align: center"/>
+                            </p:column>
+
+                            <p:column headerText="Nombre de place" style="text-align: center">
+                                <h:outputText value="#{chambre.nbPlace}" />
+                            </p:column>
+                            
+                            <p:column headerText="Prix / Nuitée" style="text-align: right">
+                                <h:outputText value="#{chambre.prix}" >
+                                  <f:convertNumber pattern="#,##0.00 ¤" currencySymbol="Da" type="currency"/>
+                                </h:outputText>
+                            </p:column>
+                            
+                        </p:dataTable>
+                    </p:overlayPanel>
+                <br/>
+                <p:panel id="panel" header="Demande réservation" style="display:inline-block;width:80%;top: 50px; left: 10%; position: relative"> 
+                   <p:growl id="messages" showDetail="true" sticky="true" /> 
+
+                       <p:wizard >
+                           
+                            <p:tab id="ids" title="Identificateur">
+                                <p:panel>
+                                    <h:panelGrid columns="2" cellpadding="5" style="width: 100%; text-align: right">
+                                        <p:outputLabel for="nmPid" value="N° Piece identité " /> 
+                                        <p:inputText  id="nmPid" value="#{connexionCltController.npid}" required="true" style="width: 100%">
+                                        </p:inputText>
+
+                                        <p:outputLabel for="psw" value="Mot de passe " /> 
+                                          <p:inputText type="password" id="psw" value="#{connexionCltController.psw}" required="true" style="width: 100%">
+                                        </p:inputText>
+
+                                          <p:outputLabel value="" />
+                                            <p:lightBox iframe="true" id="lighbox3" width="450px" height="300px">
+                                            <h:outputLink value="inscriptionClt/recup.xhtml" title="Récupération psw" style="width:100%" >
+                                                <p:outputLabel value="Mot de passe oublier" style="width: 280px; color: blue"/>
+                                            </h:outputLink>
+                                            </p:lightBox>
+                                   </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                            
+                            <p:tab id="dtls" title="Détails demande">
+                                 <p:panel >            
+                                      <p:growl id="msg0" showDetail="true" sticky="true"/>
+                                            <h:panelGrid columns="4" cellpadding="5" style="text-align: right">
+                                                
+                                                  <p:outputLabel for="Date_A" value="Date Arrivée:" style="font-size: 13px" /> 
+                                                     <p:calendar id="Date_A" value="#{connexionCltController.du}" placeholder="dd/MM/yy" effect="fade" required="true" style="font-size: 13px">
+                                                             <p:ajax  event="dateSelect" listener="#{connexionCltController.du}" />
+                                                      </p:calendar>   
+
+                                                     <p:outputLabel for="Date_D" value="Date Départ:" style="font-size: 13px" /> 
+                                                     <p:calendar id="Date_D" value="#{connexionCltController.au}" placeholder="dd/MM/yy" effect="fade" required="true" style="font-size: 13px">
+                                                             <p:ajax  event="dateSelect" listener="#{connexionCltController.au}" />
+                                                     </p:calendar>  
+
+                                                      <p:outputLabel for="Combobox1" value="Type de chambre" /> 
+
+                                                      <p:selectOneMenu id="Combobox1" value="#{connexionCltController.typeChambre}" >
+                                                          <f:selectItem itemLabel="Senior" itemValue="Senior" />
+                                                          <f:selectItem itemLabel="Junior" itemValue="Junior" />
+                                                          <f:selectItem itemLabel="VIP" itemValue="VIP" />
+                                                          <f:selectItem itemLabel="Suite" itemValue="Suite" />
+                                                          <f:selectItem itemLabel="Suite Familiale" itemValue="Suite Familiale" />
+                                                          <f:selectItem itemLabel="Appartement" itemValue="Appartement" />
+                                                          <f:selectItem itemLabel="Pour couple" itemValue="Pour couple" />
+                                                          <f:selectItem itemLabel="Salle de conférence" itemValue="Salle de conférence" />
+                                                          <f:selectItem itemLabel="Salle des fetes" itemValue="Salle des fetes" />
+                                                      </p:selectOneMenu>
+
+                                                      <p:outputLabel for="Editbox2" value="Nombre de place" /> 
+                                                      <p:spinner id="Editbox2" min="1" max="20" value="#{connexionCltController.nbPlace}" />
+
+
+                                        </h:panelGrid>
+                                                 <br/>
+                                                 <p:outputLabel value="Commentaire: " /> <br/>
+                                                 <p:inputTextarea  id="coment" value="#{connexionCltController.commentaire}"  style="width: 100%; text-align: left">
+
+                                                 </p:inputTextarea>
+                                        </p:panel>
+                                <p:commandButton value="Confirmer" action="#{connexionCltController.confirme}" update="messages" icon="ui-icon-check" style="display:inline-block;width:100%;height:35px;z-index:8; text-align: center; font-size: 20px;">
+                                    <f:setPropertyActionListener target="#{connexionCltController.code_h}" value="#{param['cdH']}" />
+                                </p:commandButton>
+                            </p:tab>
+                       </p:wizard>
+                   <br/>
+               </p:panel>
+            </h:form>
+
+</h:body>
+</html>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+            <title>Utilisateur</title>
+            <link href="style/users.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+
+
+    <h:body>
+        
+     <h:form id="Form1" >
+         <p:growl id="msgs" showDetail="true" sticky="true"/>
+         
+         <h:panelGrid columns="2" cellpadding="1" columnClasses="firstColumn,secondColumn">
+        <p:panel id="panel" >
+        <h:panelGrid columns="3" cellpadding="5"  style="display:block; text-align:left; font-size: 15px;">
+
+           
+           <p:outputLabel for="Combobox1" value="Type utilisateur" /> 
+           <p:selectOneMenu id="Combobox1" value="#{userController.type_user}" >
+                <f:selectItem itemLabel="Administrateur" itemValue="Administrateur" />
+                <f:selectItem itemLabel="Opérateur" itemValue="Opérateur" />
+            </p:selectOneMenu>
+           
+           <!--
+           <p:message for="typeUser" id="msgtypeUser" display="icon" />
+           -->
+           <p:outputLabel for="Nom" value="Nom" /> 
+           <p:inputText id="Nom"  value="#{userController.nom}" placeholder="Nom et prénom" required="true">
+               <f:validateLength minimum="4" />
+           </p:inputText>
+           <p:message for="Nom" id="msgNom" display="icon" />
+           
+           <p:outputLabel for="mail" value="Email" /> 
+           <p:inputText id="mail" value="#{userController.email}" placeholder="Adresse Mail" required="true">
+                                       <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+           </p:inputText>
+           <p:message for="mail" id="msgMail" display="icon" />
+           
+           <p:outputLabel for="tel" value="N° Mob" /> 
+           <p:inputMask id="tel" value="#{userController.tel}" placeholder="téléphone" mask="(9999) 999-999"  required="true">
+               
+           </p:inputMask>
+           <p:message for="tel" id="msgTel" display="icon" />
+           
+           <p:outputLabel for="psw" value="Mot de passe" /> 
+           <p:password  id="psw" match="copsw" label="Mot de passe" placeholder="mot de passe" value="#{userController.psw}" feedback="true" inline="true" required="true">
+               
+           </p:password >
+           <p:message for="psw" id="msgPsw"  display="icon" />
+           
+           <p:outputLabel for="copsw" value="Confirmer le mot de passe" /> 
+           <p:password id="copsw" value="#{userController.psw}" label="Confirmation mot de passe" placeholder="confirmation mot de passe">
+               
+           </p:password>
+           <p:message for="copsw" id="msgCopsw" display="icon" />
+           
+
+        </h:panelGrid>
+            
+        <h:panelGrid columns="3" cellpadding="3" >
+            <p:commandButton  id="Button1" actionListener="#{userController.confirme}" value="Ajouter"  update = "panelTab frm:tabInf msgs" style="width: 150px;font-size: 15px; text-align: center"/>
+            <p:commandButton  id="Button2" actionListener="#{userController.modifier}" value="Modifier"  update = "panelTab frm:tabInf msgs" style="width: 130px;font-size: 15px; text-align: center"/>
+            <p:commandButton  id="Button3" actionListener="#{userController.suppUser}" value="Supprimer"  update = "panelTab frm:tabInf msgs" style="width: 110px;font-size: 15px; text-align: center"/>
+        </h:panelGrid>
+            
+            </p:panel> 
+         
+         <p:panel id="panelTab" >
+             <p:dataTable id="singleDT" var="User" value="#{userController.listUsers}" selectionMode="single" selection="#{userController.utlisateur}" rowKey="#{User.codeU}" scrollable="true" scrollHeight="245" style="font-size: 15px; text-align: center">
+                 <p:ajax event="rowSelect" listener="#{userController.onRowSelect}" update=":Form1:panel :Form1:msgs" />
+                    
+                
+ 
+                 <p:column filterBy="#{User.codeU}" headerText="Code utilisateur"  filterMatchMode="contains">
+                     <h:outputText value="#{User.codeU}" />
+                                        </p:column>
+                                       
+                 <p:column filterBy="#{User.nom}" headerText="Nom et prénom"  filterMatchMode="contains">
+                                            <h:outputText value="#{User.nom}" />
+                                        </p:column>
+                 
+                                        <p:column  headerText="Type utilisateur" >
+                                            <h:outputText value="#{User.typeUser}" />
+                                        </p:column>
+                 
+                                        <p:column  headerText="Adresse mail"  >
+                                            <h:outputText value="#{User.email}" />
+                                        </p:column>
+                 
+                                </p:dataTable>
+         </p:panel>
+             
+         </h:panelGrid>
+    
+     </h:form>
+        
+        <p:fieldset id="pnf" legend="Fixation des droits opérateurs" toggleable="true" toggleSpeed="500" collapsed="true" >   
+            <h:form id="frm">
+                <p:dataTable id="tabInf" var="usr" value="#{droitController.lstDroit}" resizableColumns="true" rows="10" paginator="true" style="font-size: 9px; text-align: center">
+                         
+                    <p:column filterBy="#{usr.codeU}" headerText="Code Opérateur" filterMatchMode="contains" style="width: 140px; text-align: left; font-size: 12px">
+                        <h:outputText value="#{usr.codeU}" />
+                    </p:column>     
+                
+                    <p:column  headerText="Chambre"  >
+                        <p:selectBooleanCheckbox value="#{usr.chambre}" >
+                            <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 1, !usr.chambre)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="compte user"  >
+                        <p:selectBooleanCheckbox value="#{usr.compteUser}" >
+                             <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 2, !usr.compteUser)}"  />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="infos Perso"  >
+                        <p:selectBooleanCheckbox value="#{usr.informationPerso}" >
+                            <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 3, !usr.informationPerso)}"  />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="clients"  >
+                        <p:selectBooleanCheckbox value="#{usr.clients}" >
+                             <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 4, !usr.clients)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="Entreprise et convention"  >
+                        <p:selectBooleanCheckbox value="#{usr.entreprises}" >
+                             <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 5, !usr.entreprises)}"  />
+                        </p:selectBooleanCheckbox>
+                    </p:column> 
+                    
+                    <p:column  headerText="convention Agence"  >
+                        <p:selectBooleanCheckbox value="#{usr.convention}" >
+                            <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 15, !usr.convention)}"  />
+                        </p:selectBooleanCheckbox>
+                    </p:column> 
+                    
+                    <p:column  headerText="Réservation"  >
+                        <p:selectBooleanCheckbox value="#{usr.reservation}" >
+                            <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 6, !usr.reservation)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="Charge supp"  >
+                        <p:selectBooleanCheckbox value="#{usr.chargeSupp}" >
+                         <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 7, !usr.chargeSupp)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="Libération"  >
+                        <p:selectBooleanCheckbox value="#{usr.liberation}" >
+                         <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 8, !usr.liberation)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="Versement"  >
+                        <p:selectBooleanCheckbox value="#{usr.versement}"  >
+                         <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 9, !usr.versement)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="Gestion Caisse"  >
+                        <p:selectBooleanCheckbox value="#{usr.gestionCaisse}" >
+                         <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 10, !usr.gestionCaisse)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="facturation"  >
+                        <p:selectBooleanCheckbox value="#{usr.facturation}" >
+                         <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 11, !usr.facturation)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="calendrier"  >
+                        <p:selectBooleanCheckbox value="#{usr.calendrier}" >
+                         <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 12, !usr.calendrier)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="statistque"  >
+                        <p:selectBooleanCheckbox value="#{usr.statistique}">
+                         <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 13, !usr.statistique)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+                    
+                    <p:column  headerText="Liste Police"  >
+                        <p:selectBooleanCheckbox value="#{usr.listePolice}">
+                         <p:ajax event="change" listener="#{droitController.modif(usr.codeU, 14, !usr.listePolice)}" />
+                        </p:selectBooleanCheckbox>
+                    </p:column>    
+ 
+                </p:dataTable>
+            </h:form>
+        </p:fieldset>  
+
+</h:body>
+    
+</html>

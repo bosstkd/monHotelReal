@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Menu</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+       </h:head>
+    <h:body>
+       <!-- <h:outputStylesheet name="style.css" /> -->
+
+    <h:form id="frm" style="width: 100%;">  
+    <p:growl id="messages"/>
+ 
+    <p:menubar >
+        <p:submenu label="Ouvrir" icon="ui-icon-document" style="font-size: 16px; text-shadow:  black 1px 0 1px;">
+            <p:submenu label="Configuration" icon="ui-icon-gear" >
+                <p:menuitem value="Comptes utilisateurs" action="#{menuAgcController.iFrameUrl('utilisateur')}" update=":panelC" disabled="#{menuAgcController.compteUser}" />
+                <p:menuitem value="Informations personnelles" action="#{menuAgcController.iFrameUrl('infos')}" update=":panelC" disabled="#{menuAgcController.informationPerso}" />
+                <p:menuitem value="Clients" action="#{menuAgcController.iFrameUrl('clientSCh')}" update=":panelC" disabled="#{menuAgcController.clients}" />
+            </p:submenu>
+            <p:separator />
+            <p:menuitem value="Déconnecter" action="#{connexionAgcController.doLogout}" />
+        </p:submenu>
+        
+         <p:submenu label="Opérations" icon="ui-icon-pencil" style="font-size: 16px; text-shadow:  black 1px 0 1px;">
+             <p:menuitem value="Réservation" action="#{menuAgcController.iFrameUrl('rsv')}" update=":panelC" disabled="#{menuAgcController.reservation}" />
+             <p:menuitem value="Demande Convention" action="#{menuAgcController.iFrameUrl('demCvt')}" update=":panelC" disabled="#{menuAgcController.demandeCvt}" />
+             <p:menuitem value="Publication de promotion" action="#{menuAgcController.iFrameUrl('pub')}" update=":panelC" disabled="#{menuAgcController.publication}" />
+         </p:submenu>
+        
+         <p:submenu label="Informations" icon="ui-icon-help" style="font-size: 16px; text-shadow: black 1px 0 1px;">
+             <p:menuitem value="Statuts" action="#{menuAgcController.iFrameUrl('statuts')}" update=":panelC" disabled="#{menuAgcController.statuts}" />
+             <p:menuitem value="Demandes réservation particuliers" action="#{menuAgcController.iFrameUrl('demPart')}" update=":panelC" disabled="#{menuAgcController.demandeRsvPart}" />
+         </p:submenu>
+ 
+ 
+        <p:menuitem value="Déconnecter" action="#{connexionAgcController.doLogout}" icon="ui-icon-close" style="font-size: 16px; text-shadow:  black 1px 0 1px;"/>
+
+         <f:facet name="options">
+            <p:commandButton id="txt_count" value="#{connexionAgcController.number}" action="#{menuAgcController.iFrameUrl('demPart')}" disabled="#{menuAgcController.demandeRsvPart}" update=":panelC" icon="#{connexionAgcController.ico}" title="Demande de réservation particulier" style="background-color: white; color: #{connexionAgcController.color}; border-color: white; font-size: 14px"/>
+            <p:poll interval="3" listener="#{connexionAgcController.increment}" update="txt_count" />
+            <p:outputLabel value="Bonjour #{menuAgcController.agcence}." style="font-family: monospace; font-size: 17px; font-weight: bold; text-shadow: black 1px 0 1px;"/>
+        </f:facet>
+        
+    </p:menubar>
+    </h:form>
+    
+    </h:body>
+</html>

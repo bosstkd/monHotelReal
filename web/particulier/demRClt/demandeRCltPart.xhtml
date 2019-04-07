@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+            <title>Demandes de réservation particuliers</title>
+            <link href="style/res.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToPartCon()}" />
+            </f:metadata>
+    </h:head>
+    <h:body>
+
+        
+        <p:fieldset id="pnf" legend="Mes demandes de réservation hôtel" toggleable="true" toggleSpeed="500" collapsed="true" style="width: 95%;">
+        <p:panel>
+        <h:form id="formTab">
+            
+           <p:growl id="msgs" showDetail="true" sticky="true"/>
+            
+            <p:dataTable id="tabInf" value="#{demandeRCltController.listDemPart}" var="demande" resizableColumns="true" scrollWidth="true"  rows="20"  paginator="true" class="blueTable" style="text-align: center; font-size: 13px;" >
+
+          
+                <p:column filterBy="#{demande.codeH.raisonSocial}" headerText="Hotel" filterMatchMode="contains" style="width:100px;text-align: center">
+                     <h:outputText value="#{demande.codeH.raisonSocial}" />
+                </p:column>
+                
+                <p:column headerText="Chambre" style="width:200px;text-align: center">
+                    <h:outputText value="Type #{demande.typeChambre} avec #{demande.nbPlace} place(s)." />
+                </p:column>
+                
+                <p:column filterBy=" #{demande.dateDm}" headerText="Date demande" filterMatchMode="contains" style="width:100px;text-align: center">
+                            <h:outputText value="#{demande.dateDm}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                </p:column>
+                                
+                <p:column filterBy=" #{demande.du}" headerText=" Date arrivée" filterMatchMode="contains" style="width:100px;text-align: center">
+                              <h:outputText value="#{demande.du}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                </p:column>
+                
+                <p:column filterBy=" #{demande.au}" headerText=" Date départ" filterMatchMode="contains" style="width:100px;text-align: center">
+                            <h:outputText value="#{demande.au}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                </p:column>
+                
+                <p:column filterBy="#{demande.codeH.adresse}" headerText="Adresse" filterMatchMode="contains" style="width:100px;text-align: center">
+                     <h:outputText value="#{demande.codeH.adresse}" />
+                </p:column>
+                
+                <p:column filterBy="#{demande.codeH.wilaya}" headerText="Adresse" filterMatchMode="contains" style="width:100px;text-align: center">
+                     <h:outputText value="#{demande.codeH.wilaya}" />
+                </p:column>
+                
+
+                <p:column headerText="Etat" style="width:200px;text-align: center">
+                    <h:outputText value="#{demande.accepte?'Valider':'En Attente'}" />
+                </p:column>
+                
+                
+         </p:dataTable>
+                         
+        </h:form>
+        
+       </p:panel>
+      </p:fieldset>
+        <br/>
+       <p:fieldset id="pnf2" legend="Mes Inscriptions aux voyages" toggleable="true" toggleSpeed="500" collapsed="true" style="width: 95%;">
+           
+           <h:form id="frmDm"> 
+           <p:growl id="msgs" showDetail="true" sticky="true" /> 
+
+            <p:panel id="panelTab" style="width: 100%; ">
+                <p:dataTable id="demandeDT" var="inscrit" value="#{publicationController.pubInscPart}" scrollable="true" scrollHeight="150" rows="3" paginator="true" paginatorPosition="bottom" style="font-size: 12px; text-align: center; width: 100%">
+           
+                                        <p:column filterBy="#{inscrit.codePub.titre}" headerText="Titre Publication"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.codePub.titre}" />
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{inscrit.dateInsc}" headerText="Date inscription"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.dateInsc}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                                            </h:outputText>
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{inscrit.codeA.raisonSocial}" headerText="Agence"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.codeA.raisonSocial}" />
+                                        </p:column>
+                 
+                                        <p:column filterBy="#{inscrit.codeA.tel}" headerText="Tel"  filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.codeA.tel}" />
+                                        </p:column>
+                    
+                                        <p:column filterBy="#{inscrit.codeA.adresse}" headerText="Adresse" filterMatchMode="contains">
+                                            <h:outputText value="#{inscrit.codeA.adresse}" />
+                                        </p:column>
+                                        
+
+            </p:dataTable>
+         </p:panel>
+        </h:form>
+           
+      </p:fieldset> 
+        
+        
+        
+        
+    </h:body>
+</html>

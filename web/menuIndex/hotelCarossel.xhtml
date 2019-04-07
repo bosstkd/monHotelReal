@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+   <h:body>
+        <p:carousel value="#{indexController.listHotel}" headerText="Nos Hôtels" var="htl" itemStyle="height: 425px ; text-align:left" style="width: 100%; height: 100%; font-family: serif; font-weight: inherit; font-style: italic" responsive="true">
+                                                    <h:panelGrid columns="2" id="basic"  style="text-align: left; margin-bottom:5px; font-size: 14px; height:250px; box-shadow: #ADADAD 2px 2px 2px;">                                                        
+                                                        <f:facet name="header">
+                                                                  <p:graphicImage id="logo" name="uploadTest/#{htl.codeH}/logo/logo_RS.jpg" style="cursor:pointer; height: 25%; width: 10%" title="logo" />
+                                                                  <p:outputLabel value="#{htl.raisonSocial.length() gt 25? htl.raisonSocial.subSequence(0, 25):htl.raisonSocial}#{htl.raisonSocial.length() gt 25? '...':''}" style="font-weight: bold; font-size: 15px; font-style: italic; color: black; text-shadow:  black 1px 0 1px;" />
+                                                                  <p:outputLabel value="_" style="color: white"/>
+                                                                  <p:graphicImage id="etoile" name="uploadTest/facture/etoiles/#{htl.etoile}.jpg" title="nbr etoiles" style="height: 10%; width: 10%" />                                                            
+                                                        </f:facet>
+                                                        
+                                                        <h:panelGrid style="text-align: left; width: 100%">
+                                                             <p:lightBox iframe="true" id="lighbox9" width="940px" height="660px">
+                                                                        <p:link outcome="images" style="color: blue">
+                                                                            <p:graphicImage id="img2" name="uploadTest/#{htl.codeH}/photos/#{indexController.img(htl.codeH)}" style="cursor:pointer; height: 47%; width: 100%"  title="Image de présentation" />
+                                                                            <f:param id="paramMPH" name="cdH" value="#{htl.codeH}" />
+                                                                        </p:link>
+                                                                </p:lightBox> 
+                                                             
+                                                             
+                                                             <h:panelGrid columns="2" >
+                                                                 <p:outputLabel value="#{htl.description.subSequence(0, 40)}..."  /> 
+                                                                 <p:commandLink id="imageBtn" value="lire la suite" type="button" style="color: blue" />
+                                                                 <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" my="#{indexController.posit(htl)}" style=" width: 500px;">
+                                                                        <h:panelGrid columns="2" style="width: 100%; text-align: right">
+										<h:panelGrid style="width: 100%; text-align: left">
+										   <p:outputLabel value="#{htl.raisonSocial}: " style="font-weight: bold; font-size: 15px; font-style: italic; color: black; text-shadow:  black 1px 0 1px;" />
+                                                                                </h:panelGrid>
+										<p:graphicImage id="logos" name="uploadTest/#{htl.codeH}/logo/logo_RS.jpg" style="cursor:pointer; " title="logo" />
+                                                                        </h:panelGrid>
+										<br/>
+										<p:outputLabel value="#{htl.description}" style="font-size: 18px; font-family: serif; font-style: italic;" /> 
+                                                                 </p:overlayPanel>
+                                                             </h:panelGrid>
+                                                             
+                                                            <p:lightBox iframe="true" id="lighbox3" width="920px" height="580px">
+                                                                             <p:link outcome="c_interface/connexionClt" value="Demande de réservation" style="font-size: 11px; color: blue">
+                                                                                 <f:param id="paramMP1" name="cdH" value="#{htl.codeH}" />
+                                                                             </p:link>
+                                                            </p:lightBox>
+                                                        </h:panelGrid>
+                                                        
+                                                        <f:facet name="footer">
+                                                            
+                                                            <h:panelGrid columns="2" style="text-align: left; width: 100%">
+                                                               <p:outputLabel value="Tel: #{htl.tel}/#{htl.fax}.   Adresse:#{htl.adresse},   Wilaya: #{htl.wilaya},   commune: #{htl.commune}." style="font-size: 11px" />
+                                                               <p:lightBox iframe="true" id="lighbox4" width="940px" height="660px">
+                                                                        <p:link outcome="images" style="color: blue">
+                                                                             <p:commandButton icon="fa fa-search" />
+                                                                            <f:param id="paramMP0" name="cdH" value="#{htl.codeH}" />
+                                                                        </p:link>
+                                                                </p:lightBox> 
+                                                            </h:panelGrid>
+                                                       
+                                                              <h:panelGrid columns="5" style="text-align: left; width: 100%">
+                                                                <p:commandButton id="btnPicine" icon="fa fa-support" title="equipé de picine" disabled="#{!htl.picine}" style="background-color: white; color: #{indexController.color(htl.picine)}; border-color: white; font-size: 15px"/>
+                                                                <p:commandButton id="btnRestaurant" icon="fa fa-spoon" title="equipé de restaurant" disabled="#{!htl.restaurant}" style="background-color: white; color: #{indexController.color(htl.restaurant)}; border-color: white; font-size: 15px"/>
+                                                                <p:commandButton id="btnCafe" icon="fa fa-coffee" title="equipé d'une cafétéria" disabled="#{!htl.cafeteria}" style="background-color: white; color: #{indexController.color(htl.cafeteria)}; border-color: white; font-size: 15px"/>
+                                                                <p:commandButton id="btnBar" icon="fa fa-glass" title="equipé d'un bar" disabled="#{!htl.bar}" style="background-color: white; color: #{indexController.color(htl.bar)}; border-color: white; font-size: 15px"/>
+                                                                <p:commandButton id="btnWifi" icon="fa fa-wifi" title="Wifi disponible" disabled="#{!htl.wifi}" style="background-color: white; color: #{indexController.color(htl.wifi)}; border-color: white; font-size: 15px"/>
+                                                            </h:panelGrid>
+                                                        </f:facet>
+                                 
+                                                  </h:panelGrid>
+                                                </p:carousel>
+    </h:body>
+</html>

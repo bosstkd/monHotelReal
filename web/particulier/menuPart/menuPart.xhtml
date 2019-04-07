@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Menu</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="style/index.css" rel="stylesheet"/>
+       </h:head>
+    
+    <h:body>
+       <!-- <h:outputStylesheet name="style.css" /> -->
+
+            <h:form>
+                <p:menubar style="text-align: center">
+                    <p:menuitem value="Accueil" icon="fa fa-home" action="#{partMenuController.iFrameUrl('home')}" update=":panelC"  style="font-size: 14px; "/>
+                    <p:menuitem value="Journaux" icon="fa fa-newspaper-o" action="#{partMenuController.iFrameUrl('jrnl')}" update=":panelC"  style="font-size: 14px; "/>
+                    <p:menuitem value="Météo" icon="fa fa-sun-o" action="#{partMenuController.iFrameUrl('meteo')}"  update=":panelC"  style="font-size: 14px; "/>
+           
+                    <p:submenu label="Opérations" icon="ui-icon-pencil" style="font-size: 14px; ">
+                        <p:menuitem value="Demande réservation" action="#{partMenuController.iFrameUrl('rsv')}" update=":panelC" style="font-size: 14px;"/>
+                        <p:menuitem value="Inscription voyage" action="#{partMenuController.iFrameUrl('voyage')}" update=":panelC" style="font-size: 14px; "/>
+                        <p:menuitem value="Inscription RnB" action="#{partMenuController.iFrameUrl('rnbInsc')}" update=":panelC" style="font-size: 14px; "/>
+                        <p:menuitem value="Creation Publications RnB" action="#{partMenuController.iFrameUrl('publication')}" update=":panelC" style="font-size: 14px; "/>
+                    </p:submenu>
+                    
+                    <p:submenu label="Informations" icon="ui-icon-help" style="font-size: 14px;">
+                        <p:menuitem value="Mes Mouvements" action="#{partMenuController.iFrameUrl('mouv')}" update=":panelC" style="font-size: 14px; "/>
+                        <p:menuitem value="Liste des inscrits" action="#{partMenuController.iFrameUrl('liste')}" update=":panelC"  style="font-size: 14px; "/>
+                    </p:submenu>
+                    
+                    <p:menuitem value="Premium" icon="fa fa-trophy" action="#{partMenuController.iFrameUrl('Premium')}"  update=":panelC"  style="font-size: 14px;" />
+
+                <f:facet name="options" >
+                   <p:graphicImage id="img2" name="uploadTest/particulier/#{partMenuController.npid}/logo/logo_RS.jpg" style="cursor:pointer; height: 25px; width: 25px"  />
+                    <p:outputLabel value="__" style="color: white" />
+                    <p:outputLabel value="#{partMenuController.nomPrenom}"/>
+                     <p:outputLabel value="____" style="color: white" />
+                     
+                     <p:commandButton id="chat" icon="fa fa-users" title="Live Chat" style="height: 30px; color: black;  background: white;  border-color: white; "/>
+                     <p:overlayPanel for="chat" hideEffect="fade" style="width: 300px; height: 420px">
+                         <iframe id="chatFrame" name="imagepgframe" frameborder="0"  height="95%" width="100%" scrolling="auto" src="particulier/menuPart/chat.xhtml" />
+                     </p:overlayPanel>
+                     
+                     <p:commandButton id="config" actionListener ="#{partMenuController.iFrameUrl('config')}" update=":panelC" icon="fa fa-gear" title="Configuration" style="height: 30px;  color: black;  background: white;  border-color: white; "/>
+                    <p:commandButton value="déconneter" icon="fa fa-close" action="#{connexionCltPart.doLogout}" style="height: 30px;  color: black;  background: white;  border-color: white; font-size: 13px"/>    
+                </f:facet>
+                
+                </p:menubar>
+            </h:form>
+    
+    </h:body>
+    
+</html>

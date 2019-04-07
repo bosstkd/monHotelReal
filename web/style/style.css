@@ -1,0 +1,12 @@
+body {
+  background-image:url(../img/BGD.jpg);
+   background-position: center;
+    background-size: cover; 
+     background-repeat: repeat;
+}
+
+.ui-panel-titlebar
+{
+background-color: red;
+}
+

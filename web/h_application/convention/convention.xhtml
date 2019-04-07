@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+     <h:head>
+            <title>Convention</title>
+            <link href="styleCSS/client.css" rel="stylesheet"/>
+            <f:metadata>
+                <f:viewAction action="#{sessionInfo.returnToHtlCon}" />
+            </f:metadata>
+    </h:head>
+    
+     <h:body>
+         <h:form id="Form2" >
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+
+             <p:panelGrid columns="2">
+                 <p:panel id="pnlform" header="Configurer" >
+                           <p:panelGrid columns="2" style="display:block; text-align:right">
+                               <p:outputLabel for="CE" value="Code Entreprise:" /> 
+                               <p:inputText id="CE"  value="#{conventionController.codeC}" placeholder="Code entreprise" required="true" disabled="true"/>
+
+                                <p:outputLabel for="DU" value="Date début convention:" /> 
+                                <p:calendar id="DU" value="#{conventionController.dtDu}" effect="fold" required="true"/>
+                                <p:outputLabel for="AU" value="Date fin convention:" /> 
+                                <p:calendar id="AU" value="#{conventionController.dtAu}" effect="fold" required="true"/>
+
+                                <p:outputLabel for="reduction" value="% Réduction:" /> 
+                                <p:spinner  id="reduction" min="0" max="50" value="#{conventionController.prcReduction}" />
+                           
+                                 <p:commandButton  id="Button1"  value="Confirmer" actionListener="#{conventionController.confirme}" update = ":Form1:conventionDT :Form1:msgs" />
+                                 <p:commandButton  id="Button2"  value="Modifier" actionListener="#{conventionController.modifier}" update = ":Form1:conventionDT :Form1:msgs" />
+                           </p:panelGrid>
+            </p:panel>
+             
+            <p:panel id="panelTab" header="Table Entreprises" style="text-align: center;">
+                <p:dataTable id="singleDT" var="entreprise" value="#{entrepriseController.listEtp}" selectionMode="single" selection="#{entrepriseController.entreprise}" rowKey="#{entreprise.codeC}" scrollable="true" resizableColumns="true" rows="4" paginator="true" paginatorPosition="bottom" style="text-align: center; font-size: 16px" >
+                    <p:ajax event="rowSelect"  listener="#{conventionController.selectedConvention}"  update=":Form2:pnlform"/>                    
+                
+ 
+                 <p:column filterBy="#{entreprise.raisonSociale}" headerText="Raison Sociale"  filterMatchMode="contains">
+                     <h:outputText value="#{entreprise.raisonSociale}" />
+                 </p:column>
+                    
+                    <p:column filterBy="#{entreprise.codeC}" headerText="Code client"  filterMatchMode="contains">
+                     <h:outputText value="#{entreprise.codeC}" />
+                 </p:column>
+                                       
+                    <p:column filterBy="#{entreprise.nrc}" headerText="N° Registre de Commerce"  filterMatchMode="contains">
+                     <h:outputText value="#{entreprise.nrc}" />
+                 </p:column>
+                    
+                 <p:column filterBy="#{entreprise.tel}" headerText="Téléphone" filterMatchMode="contains">
+                     <h:outputText value="#{entreprise.tel}" />
+                 </p:column>
+                 
+              </p:dataTable>                
+         </p:panel>
+        </p:panelGrid>
+          </h:form> 
+             
+             
+             <br/>
+             <h:form id="Form1" >
+             <p:growl id="msgs" showDetail="true" sticky="true"/>
+             <p:fieldset id="pnf" legend="Table des entreprises conventionées" toggleable="true" toggleSpeed="500" collapsed="true" >
+                 <p:panel id="tabConvention">
+                     <p:dataTable id="conventionDT" var="entreprise" value="#{conventionController.listEnt}" scrollable="true" resizableColumns="true" rows="10" paginator="true" style="text-align: center">
+
+                         <p:column filterBy="#{entreprise.codeConvention}" headerText="Code Convention"  filterMatchMode="contains" style="width: 220px">
+                                <h:outputText value="#{entreprise.codeConvention}" />
+                            </p:column>   
+                           
+                           <p:column filterBy="#{entreprise.cle}" headerText="Clé"  filterMatchMode="contains">
+                                <h:outputText value="#{entreprise.cle}" />
+                            </p:column>   
+
+                         <p:column filterBy="#{conventionController.getRaison(entreprise.codeC)}" headerText="Raison Sociale"  filterMatchMode="contains">
+                            <h:outputText value="#{conventionController.getRaison(entreprise.codeC)}" />
+                        </p:column>
+
+                               <p:column filterBy="#{entreprise.codeC.codeC}" headerText="Code client"  filterMatchMode="contains">
+                                <h:outputText value="#{entreprise.codeC.codeC}" />
+                            </p:column>
+                 
+                            <p:column  headerText="Du"  >
+                              <h:outputText value="#{entreprise.du}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                            </p:column>
+                               
+                            <p:column  headerText="Au"  >
+                              <h:outputText value="#{entreprise.au}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                              </h:outputText>
+                            </p:column>
+                               
+                            <p:column filterBy="#{entreprise.prcReduction}" headerText="% Réduction" filterMatchMode="contains">
+                                <h:outputText value="#{entreprise.prcReduction} %" />
+                            </p:column>
+                               
+                           <p:column style="width:32px;text-align: center">
+                              <p:commandButton update=":Form1:conventionDT :Form1:msgs" actionListener="#{conventionController.supprimer(entreprise.codeConvention)}" icon="ui-icon-closethick" title="Supprimer"/>
+                           </p:column>
+                         </p:dataTable>                
+                    </p:panel> 
+             </p:fieldset>
+
+         </h:form>
+    </h:body>
+</html>
