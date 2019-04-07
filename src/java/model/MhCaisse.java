@@ -9,9 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "mh_caisse", catalog = "monHotel", schema = "")
+@Table(name = "mh_caisse", catalog = "jlvljuzg_monhotel", schema = "")
+@XmlRootElement
 public class MhCaisse implements Serializable{
     
     @Id

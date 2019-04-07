@@ -25,7 +25,7 @@ import model.MhChambre;
  * @author Amine
  */
 @Entity
-@Table(name = "mh_convention_agc_chambre", catalog = "monHotel", schema = "")
+@Table(name = "mh_convention_agc_chambre", catalog = "jlvljuzg_monhotel", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MhConventionAgcChambre.findAll", query = "SELECT m FROM MhConventionAgcChambre m")

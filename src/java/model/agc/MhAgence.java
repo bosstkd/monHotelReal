@@ -32,7 +32,7 @@ import model.MhReservation;
  * @author Amine
  */
 @Entity
-@Table(name = "mh_agence", catalog = "monHotel", schema = "", uniqueConstraints = {
+@Table(name = "mh_agence", catalog = "jlvljuzg_monhotel", schema = "", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"code_a"})
     , @UniqueConstraint(columnNames = {"num_contrat"})
     , @UniqueConstraint(columnNames = {"nrc"})})
@@ -59,6 +59,9 @@ import model.MhReservation;
     , @NamedQuery(name = "MhAgence.findByIndiceP", query = "SELECT m FROM MhAgence m WHERE m.indiceP = :indiceP")
     , @NamedQuery(name = "MhAgence.findByParametreGps", query = "SELECT m FROM MhAgence m WHERE m.parametreGps = :parametreGps")})
 public class MhAgence implements Serializable {
+
+    @OneToMany(mappedBy = "codeA")
+    private Collection<MhCompteUserA> mhCompteUserACollection;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codeA")
     private Collection<MhAgcRsvAnnuler> mhAgcRsvAnnulerCollection;
@@ -384,6 +387,15 @@ public class MhAgence implements Serializable {
 
     public void setMhAgcRsvAnnulerCollection(Collection<MhAgcRsvAnnuler> mhAgcRsvAnnulerCollection) {
         this.mhAgcRsvAnnulerCollection = mhAgcRsvAnnulerCollection;
+    }
+
+    @XmlTransient
+    public Collection<MhCompteUserA> getMhCompteUserACollection() {
+        return mhCompteUserACollection;
+    }
+
+    public void setMhCompteUserACollection(Collection<MhCompteUserA> mhCompteUserACollection) {
+        this.mhCompteUserACollection = mhCompteUserACollection;
     }
     
 }

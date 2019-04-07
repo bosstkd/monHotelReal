@@ -34,7 +34,7 @@ import model.agc.MhDemandeConvAgc;
  * @author Amine
  */
 @Entity
-@Table(name = "mh_hotel", catalog = "monHotel", schema = "", uniqueConstraints = {
+@Table(name = "mh_hotel", catalog = "jlvljuzg_monhotel", schema = "", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"num_contrat"})
     , @UniqueConstraint(columnNames = {"code_h"})
     , @UniqueConstraint(columnNames = {"nrc"})})
@@ -66,6 +66,10 @@ import model.agc.MhDemandeConvAgc;
     , @NamedQuery(name = "MhHotel.findByEtoile", query = "SELECT m FROM MhHotel m WHERE m.etoile = :etoile")
     , @NamedQuery(name = "MhHotel.findByParametreGps", query = "SELECT m FROM MhHotel m WHERE m.parametreGps = :parametreGps")})
 public class MhHotel implements Serializable {
+
+    @Size(max = 100)
+    @Column(name = "pay", length = 100)
+    private String pay;
 
     @Column(name = "bar")
     private Boolean bar;
@@ -555,6 +559,14 @@ public class MhHotel implements Serializable {
 
     public void setBar(Boolean bar) {
         this.bar = bar;
+    }
+
+    public String getPay() {
+        return pay;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
     }
 
  

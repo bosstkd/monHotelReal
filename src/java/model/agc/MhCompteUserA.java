@@ -15,10 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name = "mh_compte_user_a", catalog = "monHotel")
+@Table(name = "mh_compte_user_a", catalog = "jlvljuzg_monhotel")
+@XmlRootElement
 public class MhCompteUserA implements Serializable {
 
 

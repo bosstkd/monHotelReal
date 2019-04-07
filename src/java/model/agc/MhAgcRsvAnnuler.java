@@ -29,7 +29,7 @@ import model.MhHotel;
  * @author Amine
  */
 @Entity
-@Table(name = "mh_agc_rsv_annuler", catalog = "monHotel", schema = "")
+@Table(name = "mh_agc_rsv_annuler", catalog = "jlvljuzg_monhotel", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MhAgcRsvAnnuler.findAll", query = "SELECT m FROM MhAgcRsvAnnuler m")

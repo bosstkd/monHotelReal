@@ -32,7 +32,7 @@ import model.MhCltSCh;
  * @author Amine
  */
 @Entity
-@Table(name = "mh_pub_particulier", catalog = "monHotel", schema = "")
+@Table(name = "mh_pub_particulier", catalog = "jlvljuzg_monhotel", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MhPubParticulier.findAll", query = "SELECT m FROM MhPubParticulier m")

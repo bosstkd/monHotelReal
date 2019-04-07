@@ -14,9 +14,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "mh_charge_supp", catalog = "monHotel", schema = "")
+@Table(name = "mh_charge_supp", catalog = "jlvljuzg_monhotel", schema = "")
+@XmlRootElement
 public class MhChargeSupp implements Serializable{
     @Id
     @Size(min = 1, max = 300)

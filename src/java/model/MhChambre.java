@@ -30,7 +30,7 @@ import model.agc.MhConventionAgcChambre;
  * @author Amine
  */
 @Entity
-@Table(name = "mh_chambre", catalog = "monHotel", schema = "", uniqueConstraints = {
+@Table(name = "mh_chambre", catalog = "jlvljuzg_monhotel", schema = "", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"num_ch"})})
 @XmlRootElement
 @NamedQueries({

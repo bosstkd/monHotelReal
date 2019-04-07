@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import model.agc.MhAgcPublicationInscrit;
 import model.particulier.MhPartPubInscrit;
@@ -23,10 +25,16 @@ import model.particulier.MhPubParticulier;
 
 
 @Entity
-@Table(name = "mh_clt_s_ch", catalog = "monHotel", schema = "", uniqueConstraints = {
+@Table(name = "mh_clt_s_ch", catalog = "jlvljuzg_monhotel", schema = "", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"n_p_id"})})
 
+@XmlRootElement
 public class MhCltSCh implements Serializable{
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "premium", nullable = false)
+    private boolean premium;
 
     @OneToMany(mappedBy = "npidins")
     private Collection<MhPartPubInscrit> mhPartPubInscritCollection;
@@ -298,6 +306,14 @@ public class MhCltSCh implements Serializable{
 
     public void setMhPartPubInscritCollection1(Collection<MhPartPubInscrit> mhPartPubInscritCollection1) {
         this.mhPartPubInscritCollection1 = mhPartPubInscritCollection1;
+    }
+
+    public boolean getPremium() {
+        return premium;
+    }
+
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
     
    

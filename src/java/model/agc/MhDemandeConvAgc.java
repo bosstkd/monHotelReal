@@ -32,7 +32,7 @@ import model.MhHotel;
  * @author Amine
  */
 @Entity
-@Table(name = "mh_demande_conv_agc", catalog = "monHotel", schema = "")
+@Table(name = "mh_demande_conv_agc", catalog = "jlvljuzg_monhotel", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MhDemandeConvAgc.findAll", query = "SELECT m FROM MhDemandeConvAgc m")

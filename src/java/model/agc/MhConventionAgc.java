@@ -33,7 +33,7 @@ import model.MhReservation;
  * @author Amine
  */
 @Entity
-@Table(name = "mh_convention_agc", catalog = "monHotel", schema = "")
+@Table(name = "mh_convention_agc", catalog = "jlvljuzg_monhotel", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MhConventionAgc.findAll", query = "SELECT m FROM MhConventionAgc m")
@@ -45,6 +45,10 @@ import model.MhReservation;
     , @NamedQuery(name = "MhConventionAgc.findByPrixEngagement", query = "SELECT m FROM MhConventionAgc m WHERE m.prixEngagement = :prixEngagement")
     , @NamedQuery(name = "MhConventionAgc.findByReservationACouvert", query = "SELECT m FROM MhConventionAgc m WHERE m.reservationACouvert = :reservationACouvert")})
 public class MhConventionAgc implements Serializable {
+
+ 
+    
+
 
     @Column(name = "dette")
     private Boolean dette;
@@ -269,5 +273,5 @@ public class MhConventionAgc implements Serializable {
     public void setDette(Boolean dette) {
         this.dette = dette;
     }
-    
+  
 }

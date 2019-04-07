@@ -10,11 +10,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
 @Immutable
-@Table(name = "mhrsvvue_woutfct", catalog = "monHotel", schema = "")
+@Table(name = "mhrsvvue_woutfct", catalog = "jlvljuzg_monhotel", schema = "")
+@XmlRootElement
 public class MhTabRsvWOFct implements Serializable{
     @Id
     @Size(max = 450)

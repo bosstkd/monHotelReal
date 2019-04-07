@@ -32,7 +32,7 @@ public class MhRsvVueGlobalBean {
       public Object singleSelectGlobal(String conditionAttr, String Attr, String toFind){
         HttpSession hs = Util.getSession();
         String code_h = (String) hs.getAttribute("code_h");
-        String req = "select "+toFind+" from mh_RsvVueGlobal where "+conditionAttr+" like "+Attr+" and code_h like '"+code_h+"' LIMITE 1";
+        String req = "select "+toFind+" from mh_rsvvueglobal where "+conditionAttr+" like "+Attr+" and code_h like '"+code_h+"' LIMITE 1";
         try {
              return  em.createNativeQuery(req).getSingleResult().toString();
          } catch (Exception e) {
@@ -43,7 +43,7 @@ public class MhRsvVueGlobalBean {
       public List<MhRsvvueglobal> SelectGlobal(String conditionAttr, String Attr, String toFind){
         HttpSession hs = Util.getSession();
         String code_h = (String) hs.getAttribute("code_h");
-        String req = "select "+toFind+" from mh_RsvVueGlobal where "+conditionAttr+" like "+Attr+" and code_h like '"+code_h+"' order by dates desc";
+        String req = "select "+toFind+" from mh_rsvvueglobal where "+conditionAttr+" like "+Attr+" and code_h like '"+code_h+"' order by dates desc";
         try {
              return  em.createNativeQuery(req).getResultList();
          } catch (Exception e) {
@@ -54,7 +54,7 @@ public class MhRsvVueGlobalBean {
       public List<MhRsvvueglobal> SelectGlobalA(){
         HttpSession hs = Util.getSession();
         String code_h = (String) hs.getAttribute("code_h");
-        String req = "select u.* from mh_RsvVueGlobal u where  u.code_h like '"+code_h+"' order by u.dates desc";
+        String req = "select u.* from mh_rsvvueglobal u where  u.code_h like '"+code_h+"' order by u.dates desc";
        
         return  em.createNativeQuery(req).getResultList();
     } 
@@ -74,7 +74,7 @@ public class MhRsvVueGlobalBean {
       public List<MhRsvvueglobal> SelectGlobalA( String nativeCondition, String toFind){
         HttpSession hs = Util.getSession();
         String code_h = (String) hs.getAttribute("code_h");
-        String req = "select "+toFind+" from mh_RsvVueGlobal where code_h like '"+code_h+"' "+nativeCondition+" ";
+        String req = "select "+toFind+" from mh_rsvvueglobal where code_h like '"+code_h+"' "+nativeCondition+" ";
         try {
              return  em.createNativeQuery(req).getResultList();
          } catch (Exception e) {

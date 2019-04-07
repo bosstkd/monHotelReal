@@ -21,14 +21,14 @@ public class MhTabReservationBean {
      public List<MhRsvvueglobal> listMhTabRsv(){
        HttpSession hs = Util.getSession();
        String code_h = (String) hs.getAttribute("code_h");
-       Query q = em.createNativeQuery("SELECT b.* FROM mh_RsvVueGlobal b where b.code_h like '"+code_h+"' ORDER BY dates desc", MhRsvvueglobal.class);
+       Query q = em.createNativeQuery("SELECT b.* FROM mh_rsvvueglobal b where b.code_h like '"+code_h+"' ORDER BY dates desc", MhRsvvueglobal.class);
        return q.getResultList();
     }
     
      public List<MhRsvvueglobal> selectFct(String numFct){
        HttpSession hs = Util.getSession();
        String code_h = (String) hs.getAttribute("code_h");
-       Query q = em.createNativeQuery("SELECT b.* FROM mh_RsvVueGlobal b where b.code_h like '"+code_h+"' and numFct like '"+numFct+"' ORDER BY dates ", MhRsvvueglobal.class);
+       Query q = em.createNativeQuery("SELECT b.* FROM mh_rsvvueglobal b where b.code_h like '"+code_h+"' and numFct like '"+numFct+"' ORDER BY dates ", MhRsvvueglobal.class);
        return q.getResultList();
     }
     
@@ -45,7 +45,7 @@ public class MhTabReservationBean {
                search = search+find1+", ";
            }
            search = search.substring(0, search.length()-2);
-        String req = "select "+search+" from mh_RsvVueGlobal where code_h like '"+code_h+"' and code_r like '"+codeR+"' LIMIT 1 ";
+        String req = "select "+search+" from mh_rsvvueglobal where code_h like '"+code_h+"' and code_r like '"+codeR+"' LIMIT 1 ";
         try {
              return  (Object[]) em.createNativeQuery(req).getSingleResult();
          } catch (Exception e) {

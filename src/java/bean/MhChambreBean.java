@@ -38,7 +38,7 @@ public class MhChambreBean {
         HttpSession hs = Util.getSession();
         String code_h = (String) hs.getAttribute("code_h");
         
-        Query q = em.createNativeQuery("SELECT u.* FROM mh_Chambre u JOIN mh_hotel uco ON "
+        Query q = em.createNativeQuery("SELECT u.* FROM mh_chambre u JOIN mh_hotel uco ON "
                 + "u.code_h = uco.code_h "
                 + "WHERE uco.code_h = ?1 ",MhChambre.class);
         q.setParameter(1, code_h);

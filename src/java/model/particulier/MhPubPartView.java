@@ -13,10 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name = "mh_pub_part_view", catalog = "monHotel")
+@Table(name = "mh_pub_part_view", catalog = "jlvljuzg_monhotel")
+@XmlRootElement
 public class MhPubPartView  implements Serializable {
 
   @Id

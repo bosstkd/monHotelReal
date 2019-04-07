@@ -40,14 +40,14 @@ public class MhReservationBean {
     public List<MhRsvvueglobal> findAllNative() {
         HttpSession hs = Util.getSession();
         String code_h = (String) hs.getAttribute("code_h");
-        Query q = em.createNativeQuery("SELECT m.* FROM Mh_Rsvvueglobal m  WHERE m.code_h like '"+code_h+"' order by m.dates DESC", MhRsvvueglobal.class);
+        Query q = em.createNativeQuery("SELECT m.* FROM mh_rsvvueglobal m  WHERE m.code_h like '"+code_h+"' order by m.dates DESC", MhRsvvueglobal.class);
         return q.getResultList();
     }
     
     public List<MhRsvvueglobal> findByNumFct(String numFct) {
             HttpSession hs = Util.getSession();
             String code_h = (String) hs.getAttribute("code_h");
-            String req = "SELECT m.* FROM Mh_Rsvvueglobal m WHERE m.numFct like '"+numFct+"' and m.code_h like '"+code_h+"' order by m.date_r desc";
+            String req = "SELECT m.* FROM mh_rsvvueglobal m WHERE m.numFct like '"+numFct+"' and m.code_h like '"+code_h+"' order by m.date_r desc";
 
             return em.createNativeQuery(req, MhRsvvueglobal.class)
             .getResultList();
