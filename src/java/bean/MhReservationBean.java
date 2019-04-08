@@ -57,7 +57,7 @@ public class MhReservationBean {
       public List<MhReservation> listNonFct(){
        HttpSession hs = Util.getSession();
        String code_h = (String) hs.getAttribute("code_h");
-       return em.createNativeQuery("SELECT b.* FROM mh_reservation b where b.code_h like '"+code_h+"' and b.code_r not in (select code_r from mh_RsvVueGlobal where code_h like '"+code_h+"') order by date_r desc", MhReservation.class).getResultList();
+       return em.createNativeQuery("SELECT b.* FROM mh_reservation b where b.code_h like '"+code_h+"' and b.code_r not in (select code_r from mh_rsvvueglobal where code_h like '"+code_h+"') order by date_r desc", MhReservation.class).getResultList();
     }
     
      public List<MhReservation> listMhReservation(){
