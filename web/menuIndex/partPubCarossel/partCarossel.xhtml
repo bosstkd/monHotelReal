@@ -79,8 +79,8 @@
                                                                 <div class="box">
 
                                                                 <h:panelGrid columns="2" >
-                                                                    <p:outputLabel value="#{pub.description.subSequence(0, 40)}..."  style="font-size: 12px"/> 
-                                                                    <p:commandLink id="imageBtn" value="lire la suite" type="button" style="color: blue; font-size: 12px" />
+                                                                    <p:outputLabel value="#{indexController.strTailleOk(pub.description)? pub.description.subSequence(0, 40)+'...' : pub.description}"  style="font-size: 12px"/> 
+                                                                    <p:commandLink id="imageBtn" value="lire la suite" type="button" style="color: blue; font-size: 12px" disabled="#{!indexController.strTailleOk(pub.description)}" />
                                                                     <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" my="#{indexController.positPart(pub)}" style=" width: 500px;">
                                                                         <p:outputLabel value="#{pub.description}" style="font-size: 18px; font-family: serif; font-style: italic;" /> 
                                                                     </p:overlayPanel>

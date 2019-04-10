@@ -419,7 +419,7 @@ public void prixTotal(){
             int nb_nuitee = (int) sdt.nuitee(dt_A, dt_D);
             HttpSession hs = Util.getSession();
             String code_h = (String) hs.getAttribute("code_h");
-            MhHotel htl =  beanH.findByCodeH(code_h);    
+            MhHotel htl =  beanH.findByCodeH(code_h); 
             double taxe_s = htl.getTaxeSejour();
             double pension_c = htl.getPensionC();
             

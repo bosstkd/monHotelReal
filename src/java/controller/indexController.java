@@ -225,7 +225,9 @@ List<MhPubParticulier> listPartPubAll;
        return "bottom";
    }
       
-      
+   public boolean strTailleOk(String str){
+       return str.length() >= 40;
+   }   
       
 //--------------------------------------------    
     
