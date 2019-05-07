@@ -354,7 +354,7 @@ MhEntrepriseBean beanEntreprise;
                                 numFct = beanRsvFct.numFct(code_h);
                                 repeatIt = true;
                         }
-                           System.out.println(raisonSociale);
+                           //System.out.println(raisonSociale);
                             Design = designation(cdR);
                             bean.AjouterFct(cdR, numFct, Design, typeP, numCheque, remarque);
                             MhCltFct cdC = beanClt.singleSelectEntJPQL(raisonSociale);
