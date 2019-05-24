@@ -196,7 +196,7 @@ public class uploadedFiles {
             }
         return lstImageName;
   }  
-    
+  /*  
   public  void fileName(String relativeWebPath){
             File folder = new File(relativeWebPath);
             File[] listOfFiles = folder.listFiles();
@@ -236,7 +236,7 @@ public class uploadedFiles {
             
   }  
     
-  
+  */
    BufferedImage buf; 
 	public  void logo(Dimension dms, String compressionType, String format, File[] fs) {
 		for( int i = 0; i<fs.length; ++i){	
