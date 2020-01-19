@@ -40,6 +40,7 @@ public class uploadedFiles {
             new File(f.getPath()).mkdirs();
             new File(f.getPath()+"\\"+code_h).mkdirs();
             new File(f.getPath()+"\\"+code_h+"\\logo").mkdirs();
+           
             OtPtStream = new FileOutputStream(new File(f.getPath()+"\\"+code_h+"\\logo\\logo.jpg"));
 
             int read = 0;
